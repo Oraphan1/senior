@@ -20,7 +20,7 @@
     .img-profile {
         border-radius: 50%;
         width: 35px;
-        margin-top: 4rem;
+        margin-top: 2rem;
     }
     a {
         text-decoration: none;
@@ -33,6 +33,7 @@
                 <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
                 <p class="text-center" style="color: #A60303">MFU</p>
                 <hr>
+                <li style="color: #A60303;">Student</li>
             <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
             <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
             <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
@@ -89,7 +90,8 @@
                     postsContainer.innerHTML += `
                         <div class="container-fluid card mt-4" id="post-${post.postid}">
                             <a href="/comment/${post.postid}">
-                                <p class="mt-4" style="color: #A60303; font-size: 25px;">${post.postdetail}</p>
+                                 <p class="mt-4 text-muted" style=" font-size: 15px;"> ${post.first_name} ${post.last_name}</p>
+                                <p class="mt-2" style="color: #A60303; font-size: 25px;">${post.postdetail}</p>
                             </a>
                             <p class="text-muted" style="font-size: 12px;">Posted on: ${postTime}</p>
                             <div class="detail text-end">

@@ -60,7 +60,7 @@
         .img-profile {
             border-radius: 50%;
             width: 35px;
-            margin-top: 4rem;
+            margin-top: 2rem;
         }
 
         @media (max-width: 768px) {
@@ -108,6 +108,7 @@
                 <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
                 <p class="text-center" style="color: #A60303">MFU</p>
                 <hr>
+                <li style="color: #A60303;">Student</li>
                 <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
                 <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
                 <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
@@ -153,6 +154,7 @@
                         </div>
                     </div>
                 </div>
+                
 
                 <div class="row my-2">
                     <div class="col-12 d-flex justify-content-center align-content-center">
@@ -214,7 +216,9 @@
     // Check if the user email contains '31501' for Major Elective Reviews
     const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
     if (userinfo && userinfo.email && userinfo.email.includes('31501')) {
-        totalReviewsTitle.text('Total of all major elective reviews (People)'); // Change the title
+        totalReviewsTitle.text('Total of all major elective reviews (People)');
+        
+         // Change the title
     } else {
         totalReviewsTitle.text('Total of all reviews (People)');
     }

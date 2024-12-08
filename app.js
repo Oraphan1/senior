@@ -591,26 +591,33 @@ app.get('/review/:course_id', isAuthenticated, (req, res) => {
   });
 });
 
-
+function authenticateUser(req, res, next) {
+  if (req.session && req.session.user) {
+      // ถ้ามี session และข้อมูลผู้ใช้ ให้ไปที่ขั้นตอนถัดไป
+      next();
+  } else {
+      // ถ้าไม่มี session หรือหมดอายุ ให้ส่งสถานะ 401 (Unauthorized)
+      return res.status(401).json({ error: 'Unauthorized. Please log in first.' });
+  }
+}
+// Middleware สำหรับตรวจสอบ session
+function authenticateUser(req, res, next) {
+if (req.session && req.session.user) {
+    next(); // ถ้า session ถูกต้อง ให้ไปที่ขั้นตอนถัดไป
+} else {
+    res.status(401).json({ error: 'Unauthorized. Please log in first.' }); // ถ้าไม่มี session ให้ส่ง error
+}
+}
 // Define the sendDeletionNotification function
 // Function to send a deletion notification
 
   // In-memory storage for notifications
 
 // Simulate notification insertion
-let notifications = [];  // In-memory storage for notifications
+// In-memory notifications storage
+let notifications = [];
 
-// Simulate notification insertion
-// function sendDeletionNotification(studentId, courseName) {
-//     const notificationMessage = `Your review for the course '${courseName}' has been deleted.`;
-//     const notification = {
-//         studentId: studentId,  // Use the dynamic studentId passed to the function
-//         message: notificationMessage,
-//         createdAt: new Date().toLocaleString(),
-//     };
-//     notifications.push(notification);  // Store notification in memory
-//     console.log('Notification sent successfully:', notification);
-// }
+// Function to send deletion notification
 function sendDeletionNotification(studentId, message) {
   const notification = {
       studentId,
@@ -620,17 +627,60 @@ function sendDeletionNotification(studentId, message) {
   notifications.push(notification); // Store notification in memory
   console.log('Notification sent successfully:', notification);
 }
-// Endpoint to fetch notifications
-app.get('/api/notifications', (req, res) => {
-  const studentId = req.session.user.studentid; // Get the studentId from the session user
-  if (!studentId) {
+
+// Endpoint to fetch notifications (in-memory and database)
+app.get('/api/notifications', authenticateUser, async (req, res) => {
+  try {
+    const studentId = req.session.user.studentid;
+    const userEmail = req.session.user.email;
+
+    if (!studentId || !userEmail) {
       return res.status(401).json({ error: 'User not authenticated' });
+    }
+
+    // SQL query to fetch notifications from the database
+    const [dbNotifications] = await con.promise().query(
+      `SELECT c.commentdetail AS message, 
+              c.commenttime AS createdAt, 
+              p.postid, 
+              p.postdetail AS posttitle, 
+              CONCAT(s.first_name, ' ', s.last_name) AS commenter  
+       FROM comment c
+       JOIN postt p ON c.postid = p.postid
+       JOIN student s ON c.email = s.email
+       WHERE p.email = ?
+       ORDER BY c.commenttime DESC`,
+      [userEmail]
+    );
+
+    // Combine in-memory and database notifications
+    const combinedNotifications = [...notifications.filter(n => n.studentId == studentId), ...dbNotifications];
+
+    res.status(200).json({ notifications: combinedNotifications });
+  } catch (err) {
+    console.error('Error fetching notifications:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to fetch comments for a specific post
+app.get('/api/comments', (req, res) => {
+  const postId = req.query.postId;
+
+  if (!postId) {
+    return res.status(400).json({ error: 'Post ID is required' });
   }
 
-  // Filter notifications by studentId
-  const userNotifications = notifications.filter(notif => notif.studentId == studentId);
-  res.json({ notifications: userNotifications });
+  const query = 'SELECT commentdetail, email FROM comment WHERE postid = ?';
+  con.query(query, [postId], (err, results) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ error: 'Database query error' });
+    }
+    res.status(200).json({ comments: results });
+  });
 });
+
 
 
 
@@ -681,7 +731,8 @@ app.delete('/review/delete/:reviewId', (req, res) => {
       }
 
       // Send notification to the student about the deleted review
-      sendDeletionNotification(studentId, courseName,);
+      const notificationMessage = `Your review with the details: "${courseName}" has been deleted by an admin.`;
+      sendDeletionNotification(studentId, notificationMessage,);
 
       return res.json({ success: true, message: 'Review deleted successfully.' });
     });
@@ -1573,12 +1624,15 @@ app.get('/community/getPosts', (req, res) => {
           postt.postid, 
           postt.postdetail, 
           postt.posttime, 
-          COUNT(comment.commentid) AS commentCount
+          COUNT(comment.commentid) AS commentCount,
+          student.first_name,
+          student.last_name
       FROM postt
       LEFT JOIN comment ON postt.postid = comment.postid
+      LEFT JOIN student ON postt.email = student.email
       GROUP BY postt.postid;
   `;
-  
+
   con.query(sqlQuery, (err, result) => {
       if (err) {
           console.error('Error fetching posts from MySQL:', err);
@@ -1587,6 +1641,7 @@ app.get('/community/getPosts', (req, res) => {
       res.json(result);  // Send the posts as JSON
   });
 });
+
 // POST Route for creating a new post
 app.post('/post', (req, res) => {
   const { postContent, email } = req.body;
@@ -1719,32 +1774,80 @@ app.get('/delete-comment/:commentid', (req, res) => {
       return res.status(403).send({ message: 'You are not authorized to delete this comment.' });
   }
 
-  // Render a confirmation page or send a confirmation message
-  res.render('confirm-deletion', {
-      commentId: commentId, // Pass the comment ID to the confirmation page
-      message: 'Are you sure you want to delete this comment?',
+  // Fetch comment details to get the studentId and comment text
+  const getCommentQuery = `
+      SELECT c.commentdetail, s.studentid
+      FROM comment c
+      JOIN student s ON c.email = s.email
+      WHERE c.commentid = ?
+  `;
+
+  con.query(getCommentQuery, [commentId], (err, result) => {
+      if (err) {
+          console.error('Error fetching comment details:', err);
+          return res.status(500).send({ message: 'Error fetching comment details.' });
+      }
+
+      if (result.length === 0) {
+          return res.status(404).send({ message: 'Comment not found.' });
+      }
+
+      const commentDetail = result[0].commentdetail;
+      const studentId = result[0].studentid;
+
+      // Now delete the comment
+      const deleteCommentQuery = 'DELETE FROM comment WHERE commentid = ?';
+
+      con.query(deleteCommentQuery, [commentId], (err, deleteResult) => {
+          if (err) {
+              console.error('Error deleting comment:', err);
+              return res.status(500).send({ message: 'Error deleting comment.' });
+          }
+
+          if (deleteResult.affectedRows === 0) {
+              return res.status(404).send({ message: 'Comment not found for deletion.' });
+          }
+
+          // Send notification to the student
+          const notificationMessage = `Your comment: "${commentDetail}" has been deleted by an admin.`;
+          sendDeletionNotification(studentId, notificationMessage);
+
+          // Render a confirmation page or send a success message
+          res.render('confirmation', {
+              message: `Your comment: "${commentDetail}" has been deleted by an admin.`
+          });
+      });
   });
 });
 
 
 
+
+
 app.post('/delete-comment/:commentid', (req, res) => {
   const commentId = req.params.commentid;
-  const userEmail = req.session.user.email // Check the user email
+  const userEmail = req.session.user.email; // Check the logged-in user email from session
 
   console.log("Received commentId:", commentId); // Debugging step
-  console.log("User email:", userEmail); // Check the user email in the session
+  console.log("User email:", userEmail); // Debugging step
 
   // Ensure only admin can delete comments
   if (userEmail !== '6431501124@lamduan.mfu.ac.th') {
       return res.status(403).send({ message: 'You are not authorized to delete this comment.' });
   }
 
-  // Check if the commentId exists before attempting deletion
-  con.query('SELECT * FROM comment WHERE commentid = ?', [commentId], (err, result) => {
+  // Fetch comment details to get the studentId and comment text
+  const getCommentQuery = `
+      SELECT c.commentdetail, s.studentid
+      FROM comment c
+      JOIN student s ON c.email = s.email
+      WHERE c.commentid = ?
+  `;
+
+  con.query(getCommentQuery, [commentId], (err, result) => {
       if (err) {
-          console.error('Database error:', err);
-          return res.status(500).send({ message: 'Error finding comment.' });
+          console.error('Error fetching comment details:', err);
+          return res.status(500).send({ message: 'Error fetching comment details.' });
       }
 
       if (result.length === 0) {
@@ -1752,25 +1855,36 @@ app.post('/delete-comment/:commentid', (req, res) => {
           return res.status(404).send({ message: 'Comment not found.' });
       }
 
-      console.log('Comment found:', result); // Debugging step
-      
-      // Proceed with deletion if comment exists
-      con.query('DELETE FROM comment WHERE commentid = ?', [commentId], (err, result) => {
+      const commentDetail = result[0].commentdetail;
+      const studentId = result[0].studentid;
+
+      // Now delete the comment
+      const deleteCommentQuery = 'DELETE FROM comment WHERE commentid = ?';
+
+      con.query(deleteCommentQuery, [commentId], (err, deleteResult) => {
           if (err) {
-              console.error('Database error during delete:', err); // Log the error
+              console.error('Error deleting comment:', err);
               return res.status(500).send({ message: 'Error deleting comment.' });
           }
 
-          if (result.affectedRows === 0) {
+          if (deleteResult.affectedRows === 0) {
               console.log('No comment deleted, affectedRows is 0'); // Debugging step
-              return res.status(404).send({ message: 'Comment not found.' });
+              return res.status(404).send({ message: 'Comment not found for deletion.' });
           }
 
-          console.log('Comment successfully deleted:', result); // Debugging step
-          res.send({ message: 'Comment successfully deleted.' });
+          console.log('Comment successfully deleted:', deleteResult); // Debugging step
+
+          // Send notification to the student
+          const notificationMessage = `Your comment: "${commentDetail}" has been deleted by an admin.`;
+          sendDeletionNotification(studentId, notificationMessage);
+
+          // Send success response with confirmation
+          res.send({ message: `Comment deleted successfully.` });
       });
   });
 });
+
+
 
 // Handle GET request for comment deletion confirmation
 
