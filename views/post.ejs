@@ -1,4 +1,3 @@
-<!-- post -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,13 +32,13 @@
                 <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
                 <p class="text-center" style="color: #A60303">MFU</p>
                 <hr>
-            <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
-            <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
-            <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
-            <li class="mt-4"><a href="/community"><i class="bi bi-chat"></i></a></li>
-            <li class="mt-4"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
-            <li class="mt-4"><a href="/notification"><i class="bi bi-bell"></i></a></li>
-            <li class="mt-4"><a href="/history"><i class="bi bi-pencil-square"></i></li>
+                <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
+                <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
+                <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
+                <li class="mt-4"><a href="/community"><i class="bi bi-chat"></i></a></li>
+                <li class="mt-4"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
+                <li class="mt-4"><a href="/notification"><i class="bi bi-bell"></i></a></li>
+                <li class="mt-4"><a href="/history"><i class="bi bi-pencil-square"></i></a></li>
                 <a class="btn" onclick="profile()">
                     <div id="user-profile"></div>
                 </a>
@@ -50,22 +49,6 @@
             <h1 class="mt-5" style="color: #A60303;">Community</h1>
             <div class="container-fluid">
                 <h4>Post</h4>
-                <!-- <form id="postForm" action="/submit-post" method="POST">
-                    <input type="hidden" id="studentId" name="studentId" value="{{studentId}}">
-                    <textarea id="postContentInput" class="form-control" name="postContent"
-                        placeholder="Something you have a question..." required></textarea>
-                    <div class="d-flex justify-content-end mt-3">
-                        <span><i class="bi bi-exclamation-triangle-fill"></i> Please be careful about using coarse
-                            words.</span>
-                    </div>
-                    <div class="d-flex justify-content-end mt-3">
-                        <button type="submit" class="btn btn-danger"
-                            style="background-color: #A60303; color: white; width: 100px;">
-                            Post
-                        </button>
-                    </div>
-
-                </form> -->
                 <form id="postForm" action="/submit-post" method="POST">
                     <textarea id="postContentInput" class="form-control" name="postContent"
                         placeholder="Something you have a question..." required></textarea>
@@ -80,91 +63,79 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
 
+    <script src="../assets/css/load-html.js"></script>
+    <script>
+        $(document).ready(() => {
+            const userinfo = JSON.parse(sessionStorage.getItem('userinfo')); // Retrieve user info from sessionStorage
 
+            if (userinfo) {
+                $('#postForm').on('submit', function (event) {
+                    event.preventDefault(); // Prevent the default form submission
 
+                    const postContent = $('#postContentInput').val(); // Get the content from the form
 
+                    if (!postContent) {
+                        alert('Please fill in the post content.');
+                        return;
+                    }
 
-                <script src="../assets/css/load-html.js"></script>
-                <script>
+                    // Forbidden words array
+                    const forbiddenWords = ["แย่", "บ้า","ห่วย"];
 
+                    // Check if the post contains any forbidden words
+                    const containsForbiddenWords = forbiddenWords.some(word => postContent.includes(word));
 
-                    $(document).ready(() => {
-                        const userinfo = JSON.parse(sessionStorage.getItem('userinfo')); // ดึงข้อมูลผู้ใช้จาก sessionStorage
+                    if (containsForbiddenWords) {
+                        alert('Your post contains inappropriate words. Please edit your post.');
+                        return; // Stop form submission
+                    }
 
-                        if (userinfo) {
-                            $('#postForm').on('submit', function (event) {
-                                event.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
+                    console.log('Post content:', postContent);
+                    console.log('User email:', userinfo.email);
 
-                                const postContent = $('#postContentInput').val(); // รับข้อมูลจากฟอร์ม
-
-                                if (!postContent) {
-                                    alert('Please fill in the post content.');
-                                    return;
-                                }
-
-                                console.log('Post content:', postContent);
-                                console.log('User email:', userinfo.email);
-
-                                // ส่งข้อมูลไปยังเซิร์ฟเวอร์
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/post',
-                                    contentType: 'application/json',
-                                    data: JSON.stringify({
-                                        postContent: postContent,
-                                        email: userinfo.email
-                                    }),
-                                    success: function (response) {
-                                        console.log('Post saved successfully:', response);
-                                        alert('Post submitted successfully!');
-                                        window.location.href = '/community';
-                                    },
-                                    error: function (error) {
-                                        console.error('Error:', error);
-                                        alert('Failed to submit post. Please try again.');
-                                    }
-                                });
-
-                            });
-                        } else {
-                            console.log('No userinfo found in sessionStorage');
-                        }
-
-                        console.log(userinfo)
-                        if (userinfo && userinfo.image) {
-                            $('#user-profile').html(`
-                        <img class="img-profile" crossorigin="anonymous" src="${userinfo.image}" alt="User Profile" referrerpolicy="no-referrer" />
-                    `);
-                        } else {
-                            console.log("No user image available");
-                            $('#user-profile').html(`<p>No profile image available.</p>`);
+                    // Send data to the server
+                    $.ajax({
+                        type: 'POST',
+                        url: '/post',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            postContent: postContent,
+                            email: userinfo.email
+                        }),
+                        success: function (response) {
+                            console.log('Post saved successfully:', response);
+                            alert('Post submitted successfully!');
+                            window.location.href = '/community';
+                        },
+                        error: function (error) {
+                            console.error('Error:', error);
+                            alert('Failed to submit post. Please try again.');
                         }
                     });
 
+                });
+            } else {
+                console.log('No userinfo found in sessionStorage');
+            }
 
+            if (userinfo && userinfo.image) {
+                $('#user-profile').html(`
+                    <img class="img-profile" crossorigin="anonymous" src="${userinfo.image}" alt="User Profile" referrerpolicy="no-referrer" />
+                `);
+            } else {
+                console.log("No user image available");
+                $('#user-profile').html(`<p>No profile image available.</p>`);
+            }
+        });
 
-                    function logout() {
-                        fetch('/logout', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        })
-                            .then(response => response.json()) // แปลง response เป็น JSON
-                            .then(data => {
-                                if (data.redirect) {
-                                    window.location.href = data.redirect; // ใช้ URL ที่ได้รับจาก server
-                                } else {
-                                    console.error('Logout failed');
-                                }
-                            })
-                            .catch(error => console.error('Error:', error));
-                    }
-                    function profile(){
-    window.location.href='/profile';
-}
-                </script>
+        function profile(){
+            window.location.href='/profile';
+        }
+    </script>
 </body>
 
 </html>

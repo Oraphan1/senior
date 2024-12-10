@@ -21,33 +21,28 @@
 </style>
 
 <body>
-    <!---------------------------------- navi --------------------------------------------->
-        <div class="nav">
-            <div class="sidebar">
-                <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
-                <p class="text-center" style="color: #A60303">MFU</p>
-                <hr>
-                <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
-                <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
-                <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
-                <li class="mt-4"><a href="/community"><i class="bi bi-chat"></i></a></li>
-                <li class="mt-4"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
-                <li class="mt-4"><a href="/notification"><i class="bi bi-bell"></i></a></li>
-                <li class="mt-4"><a href="/history"><i class="bi bi-pencil-square"></i></li>
-                    <a class="btn" onclick="profile()">
-                        <div id="user-profile"></div>
-                    </a>
-
-
-            </div>
+    <!---------------------------------- navi ---------------------------------------------> 
+    <div class="nav">
+        <div class="sidebar">
+            <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
+            <p class="text-center" style="color: #A60303">MFU</p>
+            <hr>
+            <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
+            <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
+            <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
+            <li class="mt-4"><a href="/community"><i class="bi bi-chat"></i></a></li>
+            <li class="mt-4"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
+            <li class="mt-4"><a href="/notification"><i class="bi bi-bell"></i></a></li>
+            <li class="mt-4"><a href="/history"><i class="bi bi-pencil-square"></i></li>
+            <a class="btn" onclick="profile()">
+                <div id="user-profile"></div>
+            </a>
         </div>
+    </div>
 
     <!--------------------------------- head ---------------------------------------->
     <div class="col">
-        <!-- แทนที่ "List of Courses" ด้วยชื่อรายวิชา -->
-        <h1 class="head text-left" style="color: #A60303;">Course: <%= course.name %>
-        </h1>
-
+        <h1 class="head text-left" style="color: #A60303;">Course: <%= course.name %></h1>
         <hr class="list">
     </div>
 
@@ -57,12 +52,9 @@
     </div>
     <div class="container">
         <div class="review py-3 px-5" style="background-color: white; width: 1000px; height: 1000px;">
-            <form action="/submit-review" method="POST">
-                <!-- Hidden input to send course_id -->
+            <form action="/submit-review" method="POST" id="review-form">
                 <input type="hidden" name="course_id" value="<%= course.id %>">
-                <!-- Hidden input to send student_id -->
-                 <!-- Ensure studentId is set -->
-    
+
                 <!-- Rating: Easy to learn -->
                 <div class="rate">
                     <p class="a">Easy to learn</p>
@@ -77,7 +69,7 @@
                     <input type="radio" id="star1_1" name="rate_easy" value="1" />
                     <label for="star1_1">1 star</label>
                 </div>
-    
+
                 <!-- Rating: Collect points easily -->
                 <br><br>
                 <div class="rate">
@@ -93,7 +85,7 @@
                     <input type="radio" id="star1_2" name="rate_collect" value="1" />
                     <label for="star1_2">1 star</label>
                 </div>
-    
+
                 <!-- Rating: Number of open registration -->
                 <br><br>
                 <div class="rate">
@@ -109,7 +101,7 @@
                     <input type="radio" id="star1_3" name="rate_registration" value="1" />
                     <label for="star1_3">1 star</label>
                 </div>
-    
+
                 <!-- Rating: Appropriate content -->
                 <br><br>
                 <div class="rate">
@@ -125,7 +117,7 @@
                     <input type="radio" id="star1_4" name="rate_content" value="1" />
                     <label for="star1_4">1 star</label>
                 </div>
-    
+
                 <!-- Rating: Course overview -->
                 <br><br>
                 <div class="rate">
@@ -141,12 +133,12 @@
                     <input type="radio" id="star1_5" name="rate_overview" value="1" />
                     <label for="star1_5">1 star</label>
                 </div>
-    
+
                 <!-- Comment Section -->
                 <div class="row">
                     <div class="col-10">
                         <div class="comment my-5">
-                            <textarea class="form-control" name="review_detail" rows="4" placeholder="Write your review..."></textarea>
+                            <textarea class="form-control" id="review_detail" name="review_detail" rows="4" placeholder="Write your review..."></textarea>
                         </div>
                     </div>
                     <div class="col-2 ps-5 d-flex align-items-center">
@@ -162,12 +154,9 @@
             </form>
         </div>
     </div>
-    
-
-    <!-- JavaScript to handle radio button change events -->
     <script src="../assets/css/load-html.js"></script>
     <script>
-        $(document).ready(() => {
+              $(document).ready(() => {
         const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
         console.log(userinfo)
         if (userinfo && userinfo.image) {
@@ -183,18 +172,27 @@
         get_review_chart();
         
     });
-        const ratingInputs = document.querySelectorAll('input[name^="rate"]');
-        ratingInputs.forEach(input => {
-            input.addEventListener('change', () => {
-                const ratingValue = input.value;
-                console.log("Rating:", ratingValue);
-            });
+
+        const forbiddenWords = ["แย่", "บ้า","ห่วย","bad",];
+
+        $('#review-form').on('submit', function(e) {
+            const reviewDetail = $('#review_detail').val();
+            const containsForbiddenWords = forbiddenWords.some(word => reviewDetail.includes(word));
+
+            if (containsForbiddenWords) {
+                e.preventDefault(); 
+                Swal.fire({
+                    icon: 'error',
+                    title: 'You have inappropriate words.',
+                    text: 'Your review contains inappropriate words. Please edit your review.',
+                });
+            }
         });
-        function profile(){
-    window.location.href='/profile';
-}
+
+        function profile() {
+            window.location.href = '/profile';
+        }
     </script>
 
 </body>
-
 </html>

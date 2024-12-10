@@ -19,10 +19,15 @@
 
 
     <style>
+  .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
 
         .card {
-            width: 30rem;
-            height: 17rem;
+            width: 100%;
+            height: auto;
+            min-height: 17rem;
         }
 
         .card>.card-body>.card-title {
@@ -40,6 +45,47 @@
             justify-content: center;
             align-items: center;
             color: #64acc0 !important;
+        }
+
+        .img-profile {
+            border-radius: 50%;
+            width: 35px;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .card>.card-body>span {
+                font-size: 50px;
+            }
+
+            #top-reviews-chart {
+                height: 20rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .card>.card-body>span {
+                font-size: 40px;
+            }
+
+            #top-reviews-chart {
+                height: 15rem;
+            }
+        }
+
+        img.profile {
+            margin-top: 150%;
         }
     </style>
 
@@ -67,7 +113,8 @@
                 <h1 style="color: #A60303;">Dashboard</h1>
 
                 <div class="row my-2">
-                    <div class="col-sm-12 my-2 col-md-5 col-lg-4">
+                    <!-- Card 1 -->
+                    <div class="col-sm-12 my-2 col-md-6 col-lg-3">
                         <div class="card" id="total-people-reviews">
                             <div class="card-body">
                                 <h5 class="card-title">Total of all reviews (People)</h5>
@@ -75,7 +122,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 my-2 col-md-5 col-lg-4">
+                    <!-- Card 2 -->
+                    <div class="col-sm-12 my-2 col-md-6 col-lg-3">
                         <div class="card" id="total-major-reviews">
                             <div class="card-body">
                                 <h5 class="card-title">Total of all course open (course)</h5>
@@ -83,7 +131,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 my-2 col-md-5 col-lg-4">
+                    <!-- Card 3 -->
+                    <div class="col-sm-12 my-2 col-md-6 col-lg-3">
                         <div class="card" id="total-free-reviews">
                             <div class="card-body">
                                 <h5 class="card-title">Total of all free elective reviews (People)</h5>
@@ -91,7 +140,18 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Card 4 -->
+                    <div class="col-sm-12 my-2 col-md-6 col-lg-3" id="major-elective-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total of all major elective reviews (People)</h5>
+                                <span id="total-major-reviews-number"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
+                
 
                 <div class="row my-2">
                     <div class="col-12 d-flex justify-content-center align-content-center">
@@ -144,32 +204,45 @@
     let totalReviewsSpan = $('#total-reviews-number');
     let totalCoursesOpenSpan = $('#total-courses-open-number');
     let totalFreeReviewsSpan = $('#total-free-reviews-number');
+    let totalMajorReviewsSpan = $('#total-major-reviews-number');
+    let majorElectiveCard = $('#major-elective-card');
 
     totalReviewsSpan.empty();
     totalCoursesOpenSpan.empty();
     totalFreeReviewsSpan.empty();
+    totalMajorReviewsSpan.empty();
+    majorElectiveCard.hide(); // Hide the card initially
 
-    fetch('/reviewsqty', { 
+    const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
+    const is31501 = userinfo && userinfo.email && userinfo.email.includes('31501');
+
+    fetch('/reviewsqty', {
         method: 'GET',
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.res) {
-            const totalReviews = data.totalReviews || 0;
-            const totalCoursesOpen = data.totalCoursesOpen || 0;
-            const totalFreeReviews = data.totalFreeReviews || 0;
+        .then(response => response.json())
+        .then(data => {
+            if (data.res) {
+                const totalReviews = data.totalReviews || 0;
+                const totalCoursesOpen = data.totalCoursesOpen || 0;
+                const totalFreeReviews = data.totalFreeReviews || 0;
+                const totalMajorReviews = data.totalMajorReviews || 0;
 
-            $('#total-reviews-number').text(totalReviews);
-            $('#total-courses-open-number').text(totalCoursesOpen); // Update the span for courses open
-            $('#total-free-reviews-number').text(totalFreeReviews);
-        } else {
-            console.log(data.errMsg);
-            totalReviewsSpan.text(data.errMsg);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+                totalReviewsSpan.text(totalReviews);
+                totalCoursesOpenSpan.text(totalCoursesOpen);
+                totalFreeReviewsSpan.text(totalFreeReviews);
+
+                if (is31501) {
+                    totalMajorReviewsSpan.text(totalMajorReviews);
+                    majorElectiveCard.show(); // Show the card for 31501 users
+                }
+            } else {
+                console.log(data.errMsg);
+                totalReviewsSpan.text(data.errMsg);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
 
 

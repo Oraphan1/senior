@@ -77,10 +77,10 @@
         <div class="container">
             <h1 class="mt-5" style="color: #A60303;">Notification</h1>
             <div class="container-fluid">
-                <div class="justi">
-                    <div class="mt-5" id="shape1">
-                        <a class="bubu" href="/noticommu">Community</a>
-                    </div>
+                <!-- <div class="justi"> -->
+                    <!-- <div class="mt-5" id="shape1"> -->
+                        <!-- <a class="bubu" href="/noticommu">Community</a> -->
+                    <!-- </div> -->
 
                 </div>
 
@@ -142,9 +142,9 @@
 
 
         // Display notifications on the page
-        function displayNotifications(notifications) {
+       function displayNotifications(notifications) {
             const container = $('#notifications-container');
-            container.empty();  // Clear any existing content
+            container.empty(); // Clear any existing content
 
             if (notifications.length === 0) {
                 container.append('<p>No notifications yet.</p>');
@@ -153,15 +153,32 @@
                     // แปลงเวลาที่ดึงมาจากฐานข้อมูลให้เป็นรูปแบบที่เข้าใจง่าย
                     const formattedTime = new Date(notification.createdAt).toLocaleString();
 
+                    // ตรวจสอบว่าค่าเป็น undefined หรือไม่
+                    const postTitle = notification.posttitle ? notification.posttitle : 'Comment ถูกลบ';
+                    const commenter = notification.commenter ? `<p><strong>Commenter: </strong>${notification.commenter}</p>` : '';
+                    const commentMessage = notification.message ? `<p><strong>Comment: </strong>${notification.message}</p>` : '<p>Comment ถูกลบ</p>';
+
+                    // หาก postid ไม่มีค่า หรือ postTitle เท่ากับ "Comment ถูกลบ" ให้ไม่สร้างลิงก์
+                    const isDeletable = postTitle === 'Comment ถูกลบ' || !notification.postid;
+
                     const notificationCard = `
-                <a class="ne" href="/comment/${notification.postid}">
-                    <div class="card mt-5">
-                        <h4 class="co">${notification.posttitle}</h4>  <!-- หัวข้อโพสต์ -->
-                        <p><strong>Commenter: </strong>${notification.commenter}</p>  <!-- ชื่อผู้คอมเมนต์ -->
-                        <p><strong>Comment: </strong>${notification.message}</p>  <!-- ข้อความคอมเมนต์ -->
-                        <p class="notification-time"><strong>Time:</strong> ${formattedTime}</p>  <!-- แสดงเวลา -->
-                    </div>
-                </a>
+                ${isDeletable
+                            ? `<div class="card mt-5">
+                          
+                          
+                           <h5 style="color: #A60303;">${notification.message}</h5>
+
+                           <p class="notification-time"><strong>Time:</strong> ${formattedTime}</p> <!-- แสดงเวลา -->
+                       </div>`
+                            : `<a class="ne" href="/comment/${notification.postid}">
+                           <div class="card mt-5">
+                               <h4 class="co">${postTitle}</h4> <!-- หัวข้อโพสต์ -->
+                               ${commenter} <!-- ชื่อผู้คอมเมนต์ -->
+                               ${commentMessage} <!-- ข้อความคอมเมนต์ -->
+                               <p class="notification-time"><strong>Time:</strong> ${formattedTime}</p> <!-- แสดงเวลา -->
+                           </div>
+                       </a>`
+                        }
             `;
                     container.append(notificationCard);
                 });

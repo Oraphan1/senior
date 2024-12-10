@@ -151,35 +151,49 @@
 
             // Handle comment submission
             $('#commentForm').on('submit', function(event) {
-                event.preventDefault(); // Prevent the form from refreshing the page
+    event.preventDefault(); // Prevent the form from refreshing the page
 
-                const commentText = $('textarea[name="commentText"]').val();
-                const postId = "<%= post ? post.postid : '' %>"; // Use EJS to insert post id
+    const commentText = $('textarea[name="commentText"]').val();
+    const postId = "<%= post ? post.postid : '' %>"; // Use EJS to insert post id
 
-                $.ajax({
-                    type: 'POST',
-                    url: `/submit-comment/${postId}`,
-                    contentType: 'application/json',
-                    data: JSON.stringify({ commentText: commentText }),
-                    success: function(response) {
-                        if (response.comment) {
-                            const newComment = response.comment;
+    // List of forbidden words (You can add more words as needed)
+    const forbiddenWords = ["แย่", "ห่วย", "bad"]; // Replace with actual forbidden words
 
-                            const newCommentHtml = `
-                                <div>
-                                    <p class="comt">
-                                        <strong>${newComment.name}:</strong> ${newComment.detail}
-                                    </p>
-                                </div>
-                            `;
+    // Check if comment contains any forbidden words
+    const containsForbiddenWord = forbiddenWords.some(word => commentText.toLowerCase().includes(word.toLowerCase()));
 
-                            $('.comment-container').append(newCommentHtml);
-                            $('textarea[name="commentText"]').val('');
-                            alert('Comment successfully submitted!');
-                        }
-                    },
-                    error: function(error) {
-                        console.error('Error:', error);
+    if (containsForbiddenWord) {
+        // Show an alert if a forbidden word is found
+        alert('Your comment contains inappropriate language. Please edit comment.');
+        return; // Prevent form submission
+    }
+
+    // Send the comment to the server if no forbidden words are found
+    $.ajax({
+        type: 'POST',
+        url: `/submit-comment/${postId}`,
+        contentType: 'application/json',
+        data: JSON.stringify({ commentText: commentText }),
+        success: function(response) {
+            if (response.comment) {
+                const newComment = response.comment;
+
+                const newCommentHtml = `
+                    <div>
+                        <p class="comt">
+                            <strong>${newComment.name}:</strong> ${newComment.detail}
+                        </p>
+                    </div>
+                `;
+
+                // Append the new comment to the comment container
+                $('.comment-container').append(newCommentHtml);
+                $('textarea[name="commentText"]').val(''); // Clear the comment box
+                alert('Comment successfully submitted!');
+            }
+        },
+        error: function(error) {
+            console.error('Error:', error);
                     }
                 });
             });

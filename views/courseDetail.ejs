@@ -113,9 +113,7 @@
                             <% reviews.forEach(review => { %>
                                 <div class="review-box">
                                     <p class="text-end"><%= review.total_normalized_score %> / 5.00</p>
-                                    <h5>User: <%= review.student_email %></h5>
-
-                                    <p>Easy to learn:
+                                    <h5>Username: <%= review.studentName || review.student_email %></h5> <!-- Show full name if available, fallback to email -->                                    <p>Easy to learn:
                                         <% for (let i = 0; i < review.rate_easy; i++) { %>
                                             <i class="bi bi-star-fill" style="color: gold;"></i>
                                         <% } %>
@@ -168,7 +166,8 @@
                                     <p><span style="color: red;">Comment:</span> <%= review.review_detail %></p>
                                     <p>Posted on: <%= review.created_at %></p>
                                     <% if (user && user.email === '6431501124@lamduan.mfu.ac.th') { %>
-                                       <button  onclick="deleteReview(<%= review.id %>)">Delete</button> 
+                                        <div class="btn btn-danger" onclick="deleteReview(<%= review.id %>)">
+                                       Delete </div>
                                     <% } %>
                                 </div>
                             <% }); %>

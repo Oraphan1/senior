@@ -61,7 +61,6 @@
     <!-- ------------------------------------text --------------------------------------------------->
 
     <div class="col1">
-        <p class="mt mt-5">Free Elective Courses</p>
         <table class="table  table-hover" id="mytable">
             <thead>
                 <tr class="table-secondary">
@@ -71,10 +70,10 @@
 
                 </tr>
             </thead>
-            <tbody>
-                <% if (bookmarks.length> 0) { %>
-                    <% bookmarks.forEach(bookmark=> { %>
-                        <tr>
+            <<tbody>
+                <% if (bookmarks.length > 0) { %>
+                    <% bookmarks.forEach(bookmark => { %>
+                        <tr onclick="window.location.href='/course/<%= bookmark.id %>'" style="cursor: pointer;">
                             <td>
                                 <%= bookmark.name %>
                             </td>
@@ -82,16 +81,18 @@
                                 <%= bookmark.code %>
                             </td>
                             <td>
-                                <%= bookmark.rating %>
+                                <%= bookmark.rating || 'No rating' %>
                             </td>
                         </tr>
-                        <% }) %>
-                            <% } else { %>
-                                <tr>
-                                    <td colspan="3">No bookmarks available.</td>
-                                </tr>
-                                <% } %>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="3">No bookmarks available.</td>
+                    </tr>
+                <% } %>
             </tbody>
+            
+            
 
 
         </table>

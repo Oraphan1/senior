@@ -129,7 +129,7 @@
                 <h1 style="color: #A60303;">Dashboard</h1>
 
                 <div class="row my-2">
-                    <div class="col-sm-12 my-2 col-md-5 col-lg-4">
+                    <div class="dynamic-card">
                         <div class="card" id="total-people-reviews">
                             <div class="card-body">
                                 <h5 class="card-title">Total of all reviews (People)</h5>
@@ -137,7 +137,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 my-2 col-md-5 col-lg-4">
+                    <div class="dynamic-card">
                         <div class="card" id="total-major-reviews">
                             <div class="card-body">
                                 <h5 class="card-title">Total of all course open (course)</h5>
@@ -145,7 +145,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 my-2 col-md-5 col-lg-4">
+                    <div class="dynamic-card">
                         <div class="card" id="total-free-reviews">
                             <div class="card-body">
                                 <h5 class="card-title">Total of all free elective reviews (People)</h5>
@@ -153,7 +153,17 @@
                             </div>
                         </div>
                     </div>
+                    <div class="dynamic-card" id="major-elective-card" style="display: none;">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total of all major elective reviews (People)</h5>
+                                <span id="total-major-reviews-number"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
+                
                 
 
                 <div class="row my-2">
@@ -169,17 +179,35 @@
     <!-- JavaScript -->
     <script src="../assets/css/load-html.js"></script>
     <script>
-        $(document).ready(() => {
-            const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
-            console.log(userinfo)
-            if (userinfo && userinfo.image) {
-                $('#user-profile').html(`
-                    <img class="img-profile" crossorigin="anonymous" src="${userinfo.image}" alt="User Profile" referrerpolicy="no-referrer" />
-                `);
-            } else {
-                console.log("No user image available");
-                $('#user-profile').html(`<p>No profile image available.</p>`);
-            }
+$(document).ready(() => {
+    const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
+    console.log(userinfo);
+
+    // Check for user profile image
+    if (userinfo && userinfo.image) {
+        $('#user-profile').html(`
+            <img class="img-profile" crossorigin="anonymous" src="${userinfo.image}" alt="User Profile" referrerpolicy="no-referrer" />
+        `);
+    } else {
+        console.log("No user image available");
+        $('#user-profile').html(`<p>No profile image available.</p>`);
+    }
+
+    // Check if user is 31501 and adjust layout accordingly
+    const is31501 = userinfo && userinfo.email && userinfo.email.includes('31501');
+    const dynamicCards = $('.dynamic-card');
+
+    if (is31501) {
+        console.log("User is 31501");
+        // Apply `col-lg-3` for 31501 users
+        dynamicCards.addClass('col-sm-12 my-2 col-md-6 col-lg-3').removeClass('col-lg-4');
+        $('#major-elective-card').show(); // Show the fourth card
+    } else {
+        console.log("User is not 31501");
+        // Apply `col-lg-4` for other users
+        dynamicCards.addClass('col-sm-12 my-2 col-md-6 col-lg-4').removeClass('col-lg-3');
+        $('#major-elective-card').hide(); // Hide the fourth card
+    }
 
             get_review_qty();
             get_review_chart();
@@ -207,51 +235,47 @@
     let totalReviewsSpan = $('#total-reviews-number');
     let totalCoursesOpenSpan = $('#total-courses-open-number');
     let totalFreeReviewsSpan = $('#total-free-reviews-number');
-    let totalReviewsTitle = $('#total-people-reviews .card-title');
+    let totalMajorReviewsSpan = $('#total-major-reviews-number');
+    let majorElectiveCard = $('#major-elective-card');
 
     totalReviewsSpan.empty();
     totalCoursesOpenSpan.empty();
     totalFreeReviewsSpan.empty();
+    totalMajorReviewsSpan.empty();
+    majorElectiveCard.hide(); // Hide the card initially
 
-    // Check if the user email contains '31501' for Major Elective Reviews
     const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
-    if (userinfo && userinfo.email && userinfo.email.includes('31501')) {
-        totalReviewsTitle.text('Total of all major elective reviews (People)');
-        
-         // Change the title
-    } else {
-        totalReviewsTitle.text('Total of all reviews (People)');
-    }
+    const is31501 = userinfo && userinfo.email && userinfo.email.includes('31501');
 
-    fetch('/reviewsqty', { 
+    fetch('/reviewsqty', {
         method: 'GET',
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.res) {
-            const totalReviews = data.totalReviews || 0;
-            const totalCoursesOpen = data.totalCoursesOpen || 0;
-            const totalFreeReviews = data.totalFreeReviews || 0;
-            const totalMajorReviews = data.totalMajorReviews || 0; // Get major elective reviews
+        .then(response => response.json())
+        .then(data => {
+            if (data.res) {
+                const totalReviews = data.totalReviews || 0;
+                const totalCoursesOpen = data.totalCoursesOpen || 0;
+                const totalFreeReviews = data.totalFreeReviews || 0;
+                const totalMajorReviews = data.totalMajorReviews || 0;
 
-            if (userinfo && userinfo.email && userinfo.email.includes('31501')) {
-                // If the email contains '31501', show the Major Elective Reviews
-                $('#total-reviews-number').text(totalMajorReviews);
+                totalReviewsSpan.text(totalReviews);
+                totalCoursesOpenSpan.text(totalCoursesOpen);
+                totalFreeReviewsSpan.text(totalFreeReviews);
+
+                if (is31501) {
+                    totalMajorReviewsSpan.text(totalMajorReviews);
+                    majorElectiveCard.show(); // Show the card for 31501 users
+                }
             } else {
-                $('#total-reviews-number').text(totalReviews);
+                console.log(data.errMsg);
+                totalReviewsSpan.text(data.errMsg);
             }
-
-            $('#total-courses-open-number').text(totalCoursesOpen); // Update the span for courses open
-            $('#total-free-reviews-number').text(totalFreeReviews);
-        } else {
-            console.log(data.errMsg);
-            totalReviewsSpan.text(data.errMsg);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
+
 
 
 
