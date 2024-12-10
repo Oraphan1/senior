@@ -1,118 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <script src="../assets/css/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="../assets/css/listcourses.css">
+        <link rel="stylesheet" href="../assets/css/navbar.css">
 
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script src="../assets/css/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/listcourses.css">
-    <link rel="stylesheet" href="../assets/css/navbar.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="../assets/lib/fusioncharts/js/fusioncharts.js"></script>
+        <script src="../assets/lib/fusioncharts/js/themes/fusioncharts.theme.fusion.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../assets/lib/fusioncharts/js/fusioncharts.js"></script>
-    <script src="../assets/lib/fusioncharts/js/themes/fusioncharts.theme.fusion.js"></script>
-    <title>Courses</title>
-
+        <style>
+            /* Add custom styles for better table appearance */
+            table {
+                width: 100%;
+                margin-top: 20px;
+                border-collapse: collapse;
+            }
+            table th, table td {
+                padding: 12px;
+                text-align: center;
+                vertical-align: middle;
+            }
+            table th {
+                background-color: #A60303;
+                color: white;
+                font-weight: bold;
+            }
+            table td {
+                background-color: #f8f9fa;
+            }
+            table tr:hover {
+                background-color: #f1f1f1;
+            }
+            .container {
+                max-width: 1000px;
+            }
+        </style>
+    <title>List of Courses</title>
 </head>
-
 <body>
-
-    <!-- Free Elective Courses Table -->
-    <div class="col1">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-        <div class="dropdown-header" onclick="toggleTable('mytable1', 'dropdownIcon1')">
-            <p class="mt mt-5">Free Elective Courses</p>
-            <i class="bi bi-chevron-down" id="dropdownIcon1" style="color: black;"></i>
+            <!-- Wrap the image with an anchor tag to redirect to the homepage -->
+            <a href="/" class="navbar-brand">
+                <img src="../assets/images/mfu.png" alt="mfu" style="width:40px;" class="rounded-pill me-auto">
+            </a>
         </div>
-        <table class="table table-hover" id="mytable1">
-            <thead>
-                <tr class="table-secondary">
-                    <th>Courses</th>
-                    <th>Courses Code</th>
-                    <th>Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% courses.filter(course => course.type === 'Free Elective').forEach(course => { %>
-                    <tr onclick="window.location.href='/course/<%= course.id %>'" style="cursor: pointer;">
-                        <td><%= course.name %></td>
-                        <td><%= course.code %></td>
-                        <td><%= course.rating %></td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-    </div>
-</div>
+    </nav>
+    
 
-    <!-- Major Elective Courses Table (only visible if showMajorElective is true) -->
-    <% if (showMajorElective) { %>
-    <div class="col1">
-        <div class="dropdown-header" onclick="toggleTable('mytable2', 'dropdownIcon2')">
-            <p class="mt mt-5">Major Elective Courses</p>
-            <i class="bi bi-chevron-down" id="dropdownIcon2" style="color: black;"></i>
-        </div>
-        <div class="container-fluid">
-        <table class="table table-hover" id="mytable2">
-            <thead>
-                <tr class="table-secondary">
-                    <th>Courses</th>
-                    <th>Courses Code</th>
-                    <th>Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% courses.filter(course => course.type === 'Major Elective').forEach(course => { %>
-                    <tr onclick="window.location.href='/course/<%= course.id %>'" style="cursor: pointer;">
-                        <td><%= course.name %></td>
-                        <td><%= course.code %></td>
-                        <td><%= course.rating %></td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-        </div>
-    </div>
-    <% } %> <!-- End if condition for Major Elective -->
+    <div class="container mt-5 pt-5">
+        <h1 class="mt-4" style="color: #A60303;">Course List</h1>
 
+        <div id="courses-list">
+            <!-- Courses will be injected here by JavaScript -->
+        </div>
     </div>
 
     <script>
-        function toggleTable(tableId, iconId) {
-            const table = document.getElementById(tableId);
-            const icon = document.getElementById(iconId);
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fetch the courses data from the /listcourse route
+            fetch('/listcoursesee', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const courses = data.courses;
+                let coursesHTML = '';
 
-            if (table.style.display === "none" || table.style.display === "") {
-                table.style.display = "table";
-                icon.classList.replace("bi-chevron-down", "bi-chevron-up");
-            } else {
-                table.style.display = "none";
-                icon.classList.replace("bi-chevron-up", "bi-chevron-down");
-            }
-        }
-    </script>
-    <script src="../assets/css/load-html.js"></script>
-    <script>
-        $(document).ready(() => {
-            const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
-            console.log(userinfo)
-            if (userinfo && userinfo.image) {
-                $('#user-profile').html(`
-                    <img class="img-profile" crossorigin="anonymous" src="${userinfo.image}" alt="User Profile" referrerpolicy="no-referrer" />
-                `);
-            } else {
-                console.log("No user image available");
-                $('#user-profile').html(`<p>No profile image available.</p>`);
-            }
+                if (courses.length > 0) {
+                    coursesHTML = `
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Coure Code</th>
+                                    <th>Name</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+                    courses.forEach(course => {
+                        coursesHTML += `
+                            <tr>
+                                <td>${course.code}</td>
+                                <td>${course.name}</td>
+                            </tr>
+                        `;
+                    });
+                    coursesHTML += '</tbody></table>';
+                } else {
+                    coursesHTML = '<p>No courses available.</p>';
+                }
 
-            get_review_qty();
-            get_review_chart();
-            
+                // Inject the course data into the DOM
+                document.getElementById("courses-list").innerHTML = coursesHTML;
+            })
+            .catch(error => {
+                console.error('Error fetching course data:', error);
+            });
         });
-        function profile(){
-    window.location.href='/profile';
-}
-</script>
+    </script>
 </body>
-
 </html>

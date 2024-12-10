@@ -122,33 +122,36 @@
       </form>
     </div>
       
-      <% if (courses && courses.length > 0) { %> <!-- Only display after form submission -->
-        <div class="container">
-        <table class="table table-striped mt-4">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>School</th>
-              <th>Type</th>
-              <th>Academic Year</th>
-              <th>Semester</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% courses.forEach(course => { %>
-              <tr>
-                <td><%= course.name %></td>
-                <td><%= course.school %></td>
-                <td><%= course.type %></td>
-                <td><%= course.academic_year %></td>
-                <td><%= course.semester %></td>
-              </tr>
-            <% }) %>
-          </tbody>
-        </table>
-      <% } else { %> <!-- If no courses are found -->
+    <% if (courses && courses.length > 0 && (searchParams.name || searchParams.field_of_study || searchParams.type || searchParams.academic_year || searchParams.semester)) { %>
+      
+      <div class="container">
+          <table class="table table-striped mt-4">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>School</th>
+                      <th>Type</th>
+                      <th>Academic Year</th>
+                      <th>Semester</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <% courses.forEach(course => { %>
+                      <tr>
+                          <td><%= course.name %></td>
+                          <td><%= course.school %></td>
+                          <td><%= course.type %></td>
+                          <td><%= course.academic_year %></td>
+                          <td><%= course.semester %></td>
+                      </tr>
+                  <% }) %>
+              </tbody>
+          </table>
+      </div>
+      <% } else if (searchParams.name || searchParams.field_of_study || searchParams.type || searchParams.academic_year || searchParams.semester) { %>
         <p>No courses found.</p>
-      <% } %>
+  <% } %>
+  
     </div>
     <script src="../assets/css/load-html.js"></script>
     <script> 

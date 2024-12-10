@@ -34,7 +34,7 @@
     </div>
 
     <div class="container">
-        <h1 class="mt-5" style="color: #A60303;">Community Admin</h1>
+        <h1 class="mt-5" style="color: #A60303;">Community</h1>
 
         <div class="container-fluid" id="post-container">
             <!-- Posts will be dynamically loaded here -->
@@ -44,35 +44,42 @@
     <script>
         // Fetch the posts from the database and render them
         function loadPosts() {
-            fetch('/commuadmin/getPosts')
-                .then(response => response.json())
-                .then(posts => {
-                    const postsContainer = document.getElementById('post-container');
-                    postsContainer.innerHTML = ''; // Clear the container before adding posts
+        fetch('/commuadmin/getPosts')
+            .then(response => response.json())
+            .then(posts => {
+                const postsContainer = document.getElementById('post-container');
+                postsContainer.innerHTML = ''; // Clear the container before adding posts
 
-                    posts.forEach(post => {
-                        postsContainer.innerHTML += `
-                            <div class="container-fluid card mt-5" id="post-${post.postid}">
-                                <div class="detail text-end">
-                                    <i class="bi bi-trash-fill" style="cursor: pointer;" onclick="deletePost('${post.postid}')"></i>
-                                </div>
-                                <a href="/comment/${post.postid}">
-                                    <p class="mt-4" style="color: #A60303; font-size: 25px;">${post.postdetail}</p>
-                                </a>
-                                
-                                <div class="detail text-end">
-                                    <span>${post.commentCount}</span>
-                                    <i class="bi bi-chat comment"></i>
-                                </div>
+                posts.forEach(post => {
+                    // Format the post time to a more readable format
+                    const postTime = new Date(post.posttime).toLocaleString(); // Convert to readable format
+
+                    postsContainer.innerHTML += `
+                        <div class="container-fluid card mt-5" id="post-${post.postid}">
+                            <div class="detail text-end">
+                                <i class="bi bi-trash-fill" style="cursor: pointer;" onclick="deletePost('${post.postid}')"></i>
                             </div>
-                        `;
-                    });
-                })
-                .catch(err => {
-                    console.error('Error loading posts:', err);
-                    alert('An error occurred while loading posts.');
+                             <a href="/comment/${post.postid}">
+                                 <p class="mt-4 text-muted" style=" font-size: 15px;"> ${post.first_name} ${post.last_name}</p>
+                                <p class="mt-2" style="color: #A60303; font-size: 25px;">${post.postdetail}</p>
+                            </a>
+                            <p class="text-muted" style="font-size: 12px;">Posted on: ${postTime}</p>
+                            <div class="detail text-end">
+                                <span>${post.commentCount}</span>
+                                <i class="bi bi-chat comment"></i>
+                            </div>
+                        </div>
+                    `;
                 });
-        }
+            })
+            .catch(err => {
+                console.error('Error loading posts:', err);
+                alert('An error occurred while loading posts.');
+            });
+    }
+
+    // Call loadPosts when the page loads
+    document.addEventListener('DOMContentLoaded', loadPosts);
 
         // Function to handle post deletion
         function deletePost(postId) {

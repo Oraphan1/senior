@@ -22,7 +22,7 @@
     <div class="flex-row">
         <div class="nav">
             <div class="sidebar">
-                <img src="/assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
+                <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
                 <p class="text-center" style="color: #A60303;">MFU</p>
                 <hr>
                 <li style="color: #A60303;">Admin</li>
@@ -37,17 +37,14 @@
     <div class="col">
         <h1 class="head text-left" style="color: #A60303;">List of courses</h1>
         <hr class="list">
-        <form>
-            <div class="import"><b> <label for="" class="form-label">Import</label></b></div>
-            <div class="import1">
-                <input type="file" id="excel_file" />
-            </div>
+        <form class="b">
+            <label for="fileUpload" class="form-label"><strong>Select an Excel File:</strong></label>
+            <input type="file" id="fileUpload" class="form-control" accept=".xls, .xlsx" />
+        </form>
+        <button class="btn btn-primary" id="uploadButton">Upload</button>
+        <div id="uploadStatus" class="mt-4"></div>
     </div>
     <div id="excel_data" class="container-fluid mt-5"> </div>
-    </form>
-    </div>
-    </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetchCourses();
@@ -55,100 +52,58 @@
 
         // Fetch courses and display in table
         function fetchCourses() {
-        fetch('http://localhost:3000/getCourses')
-            .then(response => {
-                if (!response.ok) throw new Error('Failed to fetch courses.');
-                return response.json();
-            })
-            .then(data => displayTable(data))
-            .catch(error => {
-                console.error('Error fetching courses:', error);
-                document.getElementById('excel_data').innerHTML =
-                    '<div class="alert alert-danger">Failed to load courses. Please try again later.</div>';
-            });
-    }
-
-    function displayTable(data) {
-    if (!data || data.length === 0) {
-        document.getElementById('excel_data').innerHTML = '<div class="alert alert-warning">No courses available.</div>';
-        return;
-    }
-
-    let table = `
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    ${Object.keys(data[0]).map(key => `<th>${key}</th>`).join('')}
-                    <th>View</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${data.map(row => `
-                    <tr>
-                        ${Object.values(row).map(cell => `<td>${cell}</td>`).join('')}
-                        <td>
-                            <a href="/course/${row.id}" class="btn btn-primary" style="padding: 10px 20px; font-size: 16px;">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a href="#" class="btn btn-danger" style="padding: 10px 20px; font-size: 16px;" onclick="deleteCourse(${row.id}); return false;">
-                                Delete
-                            </a>
-                        </td>
-                    </tr>`).join('')}
-            </tbody>
-        </table>`;
-    document.getElementById('excel_data').innerHTML = table;
-}
-
-
-    function viewReviews(courseId) {
-        // Fetch reviews for the selected course
-        fetch(`http://localhost:3000/review/${courseId}`)
-            .then(response => {
-                if (!response.ok) throw new Error('Failed to fetch reviews.');
-                return response.json();
-            })
-            .then(reviews => {
-                if (reviews.length === 0) {
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'No Reviews',
-                        text: 'No reviews available for this course.',
-                    });
-                    return;
-                }
-
-                let reviewContent = reviews.map(review => `
-                    <div class="review">
-                        <p><strong>User:</strong> ${review.user}</p>
-                        <p><strong>Rating:</strong> ${review.rating}</p>
-                        <p><strong>Comment:</strong> ${review.comment}</p>
-                        <hr>
-                    </div>
-                `).join('');
-
-                Swal.fire({
-                    title: `Reviews for Course ID: ${courseId}`,
-                    html: `<div style="max-height: 300px; overflow-y: auto;">${reviewContent}</div>`,
-                    width: '600px',
+            fetch('http://localhost:3000/getCourses')
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to fetch courses.');
+                    return response.json();
+                })
+                .then(data => displayTable(data))
+                .catch(error => {
+                    console.error('Error fetching courses:', error);
+                    document.getElementById('excel_data').innerHTML =
+                        '<div class="alert alert-danger">Failed to load courses. Please try again later.</div>';
                 });
-            })
-            .catch(error => {
-                console.error('Error fetching reviews:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to fetch reviews.',
-                });
-            });
-    }
+        }
+
+        function displayTable(data) {
+            if (!data || data.length === 0) {
+                document.getElementById('excel_data').innerHTML = '<div class="alert alert-warning">No courses available.</div>';
+                return;
+            }
+
+            let table = `
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            ${Object.keys(data[0]).map(key => `<th>${key}</th>`).join('')}
+                            <th>View</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(row => `
+                            <tr>
+                                ${Object.values(row).map(cell => `<td>${cell}</td>`).join('')}
+                                <td>
+                                    <a href="/course/${row.id}" class="btn btn-primary" style="padding: 10px 20px; font-size: 16px;">
+                                        View
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-danger" style="padding: 10px 20px; font-size: 16px;" onclick="deleteCourse(${row.id}); return false;">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>`).join('')}
+                    </tbody>
+                </table>`;
+            document.getElementById('excel_data').innerHTML = table;
+        }
 
         // Handle file upload and send to server
-        document.getElementById('excel_file').addEventListener('change', (event) => {
-            const file = event.target.files[0];
+        document.getElementById('uploadButton').addEventListener('click', () => {
+            const fileInput = document.getElementById('fileUpload');
+            const file = fileInput.files[0];
 
             if (!file || !['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'].includes(file.type)) {
                 Swal.fire({
@@ -156,7 +111,7 @@
                     title: 'Invalid File Type',
                     text: 'Only .xlsx or .xls files are allowed.'
                 });
-                event.target.value = '';
+                fileInput.value = '';
                 return;
             }
 
@@ -264,7 +219,7 @@
                             timer: 1500,
                             showConfirmButton: false
                         });
-                        fetchCourses(); // ดึงข้อมูลใหม่หลังลบสำเร็จ
+                        fetchCourses(); // Refresh courses after deletion
                     })
                     .catch(error => {
                         console.error('Error:', error);

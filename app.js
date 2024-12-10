@@ -400,7 +400,7 @@ app.post('/submit-review', (req, res) => {
           }
 
           console.log(`Course ${course_id} updated with new rating: ${newAverageRating}`);
-          res.redirect('/listcourse'); // Redirect to the course list or another page
+          res.redirect(`/course/${course_id}`);// Redirect to the course list or another page
         });
       });
     }
@@ -411,11 +411,189 @@ app.post('/submit-review', (req, res) => {
 
 
 
+// Serve the search page when accessing /seesearch
+app.get('/seesearch', (req, res) => {
+  // Retrieve query parameters from the request
+  const { name, field_of_study, type, academic_year, semester } = req.query;
+
+  // Start building the SQL query
+  let sql = 'SELECT * FROM coursee WHERE 1=1';  // Start with a simple query
+  const params = [];  // Parameters array to hold query conditions
+
+  // Add conditions based on the provided parameters
+  if (name) {
+    sql += ' AND name LIKE ?';  // Use LIKE for partial matches
+    params.push(`%${name}%`);  // % for wildcard search
+  }
+  if (field_of_study) {
+    sql += ' AND field_of_study = ?';  // Exact match
+    params.push(field_of_study);
+  }
+  if (type) {
+    sql += ' AND type = ?';  // Exact match
+    params.push(type);
+  }
+  if (academic_year) {
+    sql += ' AND academic_year = ?';  // Exact match
+    params.push(academic_year);
+  }
+  if (semester) {
+    sql += ' AND semester = ?';  // Exact match
+    params.push(semester);
+  }
+
+  // Execute the course query to fetch courses based on filters
+  con.query(sql, params, (err, results) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).send('Error fetching data from the database.');
+    }
+
+    // Fetch distinct values for dropdowns
+    const dropdownQueries = [
+      { query: 'SELECT DISTINCT field_of_study FROM coursee', key: 'field_of_studys' },
+      { query: 'SELECT DISTINCT type FROM coursee', key: 'types' },
+      { query: 'SELECT DISTINCT academic_year FROM coursee', key: 'academicYears' },
+      { query: 'SELECT DISTINCT semester FROM coursee', key: 'semesters' },
+    ];
+
+    // Run all dropdown queries in parallel
+    const promises = dropdownQueries.map(queryObj => {
+      return new Promise((resolve, reject) => {
+        con.query(queryObj.query, (err, dropdownResults) => {
+          if (err) reject(err);
+          resolve({ key: queryObj.key, data: dropdownResults });
+        });
+      });
+    });
+
+    // Once all dropdown data is fetched, render the results
+    Promise.all(promises)
+      .then(resultsDropdown => {
+        // Combine course results and dropdown data
+        const dropdownData = resultsDropdown.reduce((acc, item) => {
+          acc[item.key] = item.data;
+          return acc;
+        }, {});
+
+        // Render the search page with dynamic dropdowns and course data
+        res.render('seesearch', {
+          courses: results,  // Pass the course results
+          searchParams: req.query,  // Optionally pass search params to highlight selected filters
+          dropdownData  // Pass the dropdown data for dynamic population
+        });
+      })
+      .catch(err => {
+        console.error("Error fetching dropdown data:", err);
+        res.status(500).send('Error fetching dropdown data.');
+      });
+  });
+});
 
 
 
 
 
+
+
+app.get("/searchcourse", function (req, res) {
+  const searchParams = req.query;  // Get query parameters from the URL
+  const { name, field_of_study, type, academic_year, semester } = searchParams;
+
+  // Fetch dropdown data (field_of_study, types, semesters, etc.)
+  const dropdownData = {
+      field_of_studys: [/* array of school options */],
+      types: [/* array of course types */],
+      academicYears: [/* array of academic years */],
+      semesters: [/* array of semesters */]
+  };
+
+  // Fetch courses from the database based on the search parameters
+  const sql = `
+      SELECT * FROM courses
+      WHERE 
+          (name LIKE ? OR ? IS NULL)
+          AND (field_of_study LIKE ? OR ? IS NULL)
+          AND (type LIKE ? OR ? IS NULL)
+          AND (academic_year LIKE ? OR ? IS NULL)
+          AND (semester LIKE ? OR ? IS NULL)
+  `;
+
+  const values = [
+      `%${name}%`, name,
+      `%${field_of_study}%`, field_of_study,
+      `%${type}%`, type,
+      `%${academic_year}%`, academic_year,
+      `%${semester}%`, semester
+  ];
+
+  con.query(sql, values, (err, results) => {
+      if (err) {
+          console.error('Error fetching courses:', err);
+          return res.status(500).send('Error fetching courses');
+      }
+
+      // Render the search page with the courses and dropdown data
+      res.render('searchcourses', { 
+          courses: results,
+          searchParams: searchParams, // Pass search parameters back to retain values
+          dropdownData
+      });
+  });
+});
+
+
+
+app.get("/listcoursesee", function (req, res) {
+  const sql = 'SELECT id, code, name, rating, type FROM coursee'; // Query to fetch all courses
+
+  con.query(sql, (err, results) => {
+    if (err) {
+      console.error("Error in fetching data from the database:", err);
+      return res.status(500).send("Error in fetching data from the database.");
+    }
+
+    // Send the courses as a JSON response (no login check)
+    res.json({
+      courses: results
+    });
+  });
+});
+
+app.get("/seelist", function (req, res) {
+  // Fetch search parameters from the query string, if any
+  const { name, type, rating } = req.query;
+
+  let sql = 'SELECT id, code, name, rating, type FROM coursee';
+  let filters = [];
+
+  // Add filters based on query parameters
+  if (name) {
+    filters.push(`name LIKE '%${name}%'`); // Searching by course name
+  }
+  if (type) {
+    filters.push(`type LIKE '%${type}%'`); // Searching by course type
+  }
+  if (rating) {
+    filters.push(`rating >= ${rating}`); // Searching by rating
+  }
+
+  // Apply filters to SQL query if there are any
+  if (filters.length > 0) {
+    sql += ' WHERE ' + filters.join(' AND ');
+  }
+
+  // Execute the query
+  con.query(sql, (err, results) => {
+    if (err) {
+      console.error("Error in fetching data from the database:", err);
+      return res.status(500).send("Error in fetching data from the database.");
+    }
+
+    // Send the filtered courses
+    res.render('seelist', { courses: results });
+  });
+});
 
 
 
@@ -483,6 +661,7 @@ app.get('/course/:id', (req, res) => {
   FROM course_reviews cr
   JOIN student s ON cr.student_id = s.studentid
   WHERE cr.course_id = ?
+  ORDER BY cr.created_at DESC
 `;
 
   // Fetch course details and reviews concurrently
@@ -891,7 +1070,12 @@ app.post('/api/import', upload.single('file'), (req, res) => {
             s.studentid, c.id
         FROM student s
         INNER JOIN coursee c ON c.code = ?
-        WHERE s.email = ?;
+        WHERE s.email = ?
+        AND NOT EXISTS (
+          SELECT 1 
+          FROM student_course_history sch
+          WHERE sch.studentid = s.studentid AND sch.course_id = c.id
+        );
       `;
 
       console.log(`Inserting data: email=${email}, courseCode=${courseCode}`); // Log query details
@@ -902,10 +1086,10 @@ app.post('/api/import', upload.single('file'), (req, res) => {
             if (err) {
               console.error('Error inserting data:', err);  // Log SQL errors
               reject(err);
-            } else {
-              insertedData.push({ email, courseCode });
-              resolve(result);
+            } else if (result.affectedRows > 0) {
+              insertedData.push({ email, courseCode }); // Track successfully inserted rows
             }
+            resolve(result);
           });
         })
       );
@@ -930,6 +1114,7 @@ app.post('/api/import', upload.single('file'), (req, res) => {
     });
   }
 });
+
 app.get('/api/getUploadedData', (req, res) => {
   const query = `
     SELECT s.email, c.code AS courseCode
@@ -1535,7 +1720,7 @@ app.get('/comment/:postid', (req, res) => {
   const postId = req.params.postid;
   const user = req.session.user || {}; 
 
- 
+  // Query to get the post and the post creator's name
   con.query('SELECT * FROM postt WHERE postid = ?', [postId], (err, postResults) => {
       if (err) {
           console.error(err);
@@ -1548,31 +1733,54 @@ app.get('/comment/:postid', (req, res) => {
 
       const post = postResults[0];
 
-      
+      // Query to get the post creator's name (first name and last name)
       con.query(
-          `SELECT comment.commentid, comment.commentdetail, student.first_name, student.last_name 
-           FROM comment 
-           JOIN student ON comment.email = student.email 
-           WHERE comment.postid = ?`,
-          [postId],
-          (err, commentsResults) => {
+          `SELECT first_name, last_name 
+           FROM student 
+           WHERE email = ?`,
+          [post.email], // Assuming 'email' in the post refers to the post creator's email
+          (err, userResult) => {
               if (err) {
                   console.error(err);
-                  return res.status(500).send('Error fetching comments');
+                  return res.status(500).send('Error fetching post creator details');
               }
 
-              const comments = commentsResults.map(comment => ({
-                  commentid: comment.commentid,
-                  detail: comment.commentdetail,
-                  name: `${comment.first_name} ${comment.last_name}`
-              }));
+              const postCreator = userResult[0] || {};
 
-              
-              res.render('comment', { post, postId, comments, user });
+              // Query to get comments
+              con.query(
+                  `SELECT comment.commentid, comment.commentdetail, student.first_name, student.last_name 
+                   FROM comment 
+                   JOIN student ON comment.email = student.email 
+                   WHERE comment.postid = ?`,
+                  [postId],
+                  (err, commentsResults) => {
+                      if (err) {
+                          console.error(err);
+                          return res.status(500).send('Error fetching comments');
+                      }
+
+                      const comments = commentsResults.map(comment => ({
+                          commentid: comment.commentid,
+                          detail: comment.commentdetail,
+                          name: `${comment.first_name} ${comment.last_name}`
+                      }));
+
+                      // Pass post, comments, and post creator info to the view
+                      res.render('comment', { 
+                          post, 
+                          postId, 
+                          comments, 
+                          user, 
+                          postCreator: `${postCreator.first_name} ${postCreator.last_name}` 
+                      });
+                  }
+              );
           }
       );
   });
 });
+
 
 
 
