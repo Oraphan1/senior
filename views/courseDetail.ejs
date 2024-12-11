@@ -113,7 +113,7 @@
                             <% reviews.forEach(review => { %>
                                 <div class="review-box">
                                     <p class="text-end"><%= review.total_normalized_score %> / 5.00</p>
-                                    <h5>Username: <%= review.studentName || review.student_email %></h5> <!-- Show full name if available, fallback to email -->                                    <p>Easy to learn:
+                                    <h5>User: <%= review.studentId %></h5> <!-- Show full name if available, fallback to email -->                                    <p>Easy to learn:
                                         <% for (let i = 0; i < review.rate_easy; i++) { %>
                                             <i class="bi bi-star-fill" style="color: gold;"></i>
                                         <% } %>
@@ -234,7 +234,7 @@ $(document).ready(() => {
             const reviewBox = `
                 <div class="review-box">
                     <p class="text-end">${review.total_normalized_score} / 5.00</p>
-                    <h5>User: ${review.student_email}</h5>
+                    <h5>User: ${review.studentid}</h5>
                     <p>Easy to learn:
                         ${getStars(review.rate_easy)}
                         <span>(${review.rate_easy}/5)</span>

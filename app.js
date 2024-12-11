@@ -653,8 +653,9 @@ app.get('/course/:id', (req, res) => {
   // Queries to fetch course details and reviews
   const queryCourse = 'SELECT * FROM coursee WHERE id = ?';
   const queryReviews = `
-  SELECT 
+   SELECT 
     cr.*, 
+    s.studentid AS student_id,
     s.email AS student_email,
     s.first_name AS student_first_name,
     s.last_name AS student_last_name
@@ -695,9 +696,10 @@ app.get('/course/:id', (req, res) => {
         return {
           ...review,
           total_normalized_score: totalNormalizedScore.toFixed(1),
-    studentName: `${review.student_first_name} ${review.student_last_name}`, // Full name
-  };
-});
+          studentName: `${review.student_first_name} ${review.student_last_name}`, // Full name
+          studentId: review.student_id, // Include student ID
+        };
+      });
 
       // Render the course detail page with required data
       res.render('coursedetail', {
