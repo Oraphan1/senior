@@ -46,6 +46,7 @@
 
                 <!-- Regular Sidebar for other users -->
                 <div id="regular-sidebar">
+                    <li style="color: #A60303;">Student</li>
                     <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
                     <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
                     <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
@@ -104,9 +105,9 @@
 
                 <hr>
                 <div class="Write" style="background-color: #f1f1f1; padding: 20px; display: flex; align-items: center; display: none;">
-                    <form id="commentForm" action="/submit-comment/<%= post ? post.postid : '' %>" method="POST" style="width: 100%; display: flex; gap: 10px;">
+                    <form id="commentForm" action="/submit-comment/<%= post ? post.postid : '' %>" method="POST" style="width: 1100px; display: flex; gap: 10px;">
                         <textarea class="form-control" name="commentText" placeholder="Write a comment..." required style="flex-grow: 1; border-radius: 8px;"></textarea>
-                        <button type="submit" class="btn btn-primary" style="border-radius: 8px;">Sent</button>
+                        <button type="submit" class="btn btn-primary" style="border-radius: 8px; margin-left: 1150px; margin-top: 15px;">Sent</button>
                     </form>
                 </div>
 
