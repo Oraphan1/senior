@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <!---------------------------------- navi --------------------------------------------->
+
     <div class="nav">
         <div class="sidebar">
 
@@ -26,26 +26,31 @@
             <li class="mt-5"><a href="/community"><i class="bi bi-chat"></i></a></li>
             <li class="mt-5"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
             <li class="mt-5"><a href="/notification"><i class="bi bi-bell"></i></a></li>
-            <img class="profile" src="/assets/images/Screenshot 2024-04-09 034908.png" width="51,48" alt="" >
+            <img class="profile" src="/assets/images/Screenshot 2024-04-09 034908.png" width="51,48" alt="">
         </div>
 
     </div>
 
-    <!--------------------------------- head ---------------------------------------->
+
     <div class="col">
         <div class="header-row">
             <div class="head">
-                <h1 style="font-weight: bold;"><%= course.name %></h1>
-                <h1 style="font-weight: bold;"><%= course.code %></h1>
+                <h1 style="font-weight: bold;">
+                    <%= course.name %>
+                </h1>
+                <h1 style="font-weight: bold;">
+                    <%= course.code %>
+                </h1>
                 <div class="col">
                     <p
                         style="background-color: rgb(206, 206, 206); border-radius: 50px; width: 100px; text-align: center;">
-                        Rating : <%= course.rating %></p>
+                        Rating : <%= course.rating %>
+                    </p>
                 </div>
 
             </div>
-            
-            <span class="star" id="star" >&#9733;</span>
+
+            <span class="star" id="star">&#9733;</span>
 
         </div>
 
@@ -53,8 +58,8 @@
 
 
 
-    <!-- ------------------------------------text --------------------------------------------------->
-     <!-- detail of courses -->
+
+
     <br>
     <div class="container ">
         <div class="detail" style="background-color:white;">
@@ -99,16 +104,16 @@
                             <td>2566</td>
                             <td>2</td>
                         </tr>
-    
+
                     </tbody>
                 </table>
-    
+
             </div>
         </div>
     </div>
     <br>
 
-    <!------------------------- course review------------------ -->
+
     <div class="container">
         <div class="col">
             <div class="text mx-5">
@@ -290,16 +295,17 @@
         </div>
     </div>
 
-    <button class="btn btn-primary add-review-btn" onclick="redirectToAnotherPage()"><i class="bi bi-plus" style="color: white;" ></i>Add Review</button>
+    <button class="btn btn-primary add-review-btn" onclick="redirectToAnotherPage()"><i class="bi bi-plus"
+            style="color: white;"></i>Add Review</button>
 
 
 
     <script>
-    // -------------------------click review course----------------------------------
-    function redirectToAnotherPage() {
-        window.location.href = '/review';
-    }
-       
+        // -------------------------click review course----------------------------------
+        function redirectToAnotherPage() {
+            window.location.href = '/review';
+        }
+
         document.getElementById('star').addEventListener('click', function () {
             this.classList.toggle('filled');
         });

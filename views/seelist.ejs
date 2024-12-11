@@ -1,80 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-        <script src="../assets/css/bootstrap.bundle.min.js"></script>
-        <link rel="stylesheet" href="../assets/css/listcourses.css">
-        <link rel="stylesheet" href="../assets/css/navbar.css">
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="../assets/lib/fusioncharts/js/fusioncharts.js"></script>
-        <script src="../assets/lib/fusioncharts/js/themes/fusioncharts.theme.fusion.js"></script>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <script src="../assets/css/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/listcourses.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
 
-        <style>
-            /* Add custom styles for better table appearance */
-            table {
-                width: 100%;
-                margin-top: 20px;
-                border-collapse: collapse;
-            }
-            table th, table td {
-                padding: 12px;
-                text-align: center;
-                vertical-align: middle;
-            }
-            table th {
-                background-color: #A60303;
-                color: white;
-                font-weight: bold;
-            }
-            table td {
-                background-color: #f8f9fa;
-            }
-            table tr:hover {
-                background-color: #f1f1f1;
-            }
-            .container {
-                max-width: 1000px;
-            }
-        </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../assets/lib/fusioncharts/js/fusioncharts.js"></script>
+    <script src="../assets/lib/fusioncharts/js/themes/fusioncharts.theme.fusion.js"></script>
+
+    <style>
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        table th {
+            background-color: #A60303;
+            color: white;
+            font-weight: bold;
+        }
+
+        table td {
+            background-color: #f8f9fa;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            max-width: 1000px;
+        }
+    </style>
     <title>List of Courses</title>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <!-- Wrap the image with an anchor tag to redirect to the homepage -->
             <a href="/" class="navbar-brand">
                 <img src="../assets/images/mfu.png" alt="mfu" style="width:40px;" class="rounded-pill me-auto">
             </a>
         </div>
     </nav>
-    
+
 
     <div class="container mt-5 pt-5">
         <h1 class="mt-4" style="color: #A60303;">Course List</h1>
-
         <div id="courses-list">
-            <!-- Courses will be injected here by JavaScript -->
         </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Fetch the courses data from the /listcourse route
+        document.addEventListener("DOMContentLoaded", function () {
             fetch('/listcoursesee', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                const courses = data.courses;
-                let coursesHTML = '';
+                .then(response => response.json())
+                .then(data => {
+                    const courses = data.courses;
+                    let coursesHTML = '';
 
-                if (courses.length > 0) {
-                    coursesHTML = `
+                    if (courses.length > 0) {
+                        coursesHTML = `
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
@@ -85,26 +88,25 @@
                             </thead>
                             <tbody>
                     `;
-                    courses.forEach(course => {
-                        coursesHTML += `
+                        courses.forEach(course => {
+                            coursesHTML += `
                             <tr>
                                 <td>${course.code}</td>
                                 <td>${course.name}</td>
                             </tr>
                         `;
-                    });
-                    coursesHTML += '</tbody></table>';
-                } else {
-                    coursesHTML = '<p>No courses available.</p>';
-                }
-
-                // Inject the course data into the DOM
-                document.getElementById("courses-list").innerHTML = coursesHTML;
-            })
-            .catch(error => {
-                console.error('Error fetching course data:', error);
-            });
+                        });
+                        coursesHTML += '</tbody></table>';
+                    } else {
+                        coursesHTML = '<p>No courses available.</p>';
+                    }
+                    document.getElementById("courses-list").innerHTML = coursesHTML;
+                })
+                .catch(error => {
+                    console.error('Error fetching course data:', error);
+                });
         });
     </script>
 </body>
+
 </html>

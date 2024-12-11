@@ -23,87 +23,95 @@
 
 <body>
     <div class="flex-row">
-    <div class="nav">
-        <div class="sidebar">
-            <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
-            <p class="text-center" style="color: #A60303">MFU</p>
-            <hr>
-            <li style="color: #A60303;">Student</li>
-            <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
-            <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
-            <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
-            <li class="mt-4"><a href="/community"><i class="bi bi-chat"></i></a></li>
-            <li class="mt-4"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
-            <li class="mt-4"><a href="/notification"><i class="bi bi-bell"></i></a></li>
-            <li class="mt-4"><a href="/history"><i class="bi bi-pencil-square"></i></li>
+        <div class="nav">
+            <div class="sidebar">
+                <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
+                <p class="text-center" style="color: #A60303">MFU</p>
+                <hr>
+                <li style="color: #A60303;">Student</li>
+                <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
+                <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
+                <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
+                <li class="mt-4"><a href="/community"><i class="bi bi-chat"></i></a></li>
+                <li class="mt-4"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
+                <li class="mt-4"><a href="/notification"><i class="bi bi-bell"></i></a></li>
+                <li class="mt-4"><a href="/history"><i class="bi bi-pencil-square"></i></li>
                 <a class="btn" onclick="profile()">
                     <div id="user-profile"></div>
                 </a>
+            </div>
         </div>
-    </div>
 
-    <div class="col">
-        <h1 class="head text-left" style="color: #A60303;">List of Courses</h1>
-        <hr class="list">
-    </div>
-
-    <!-- Free Elective Courses Table -->
-    <div class="col1">
-        <div class="container-fluid">
-        <div class="dropdown-header" onclick="toggleTable('mytable1', 'dropdownIcon1')">
-            <p class="mt mt-5">Free Elective Courses</p>
-            <i class="bi bi-chevron-down" id="dropdownIcon1" style="color: black;"></i>
+        <div class="col">
+            <h1 class="head text-left" style="color: #A60303;">List of Courses</h1>
+            <hr class="list">
         </div>
-        <table class="table table-hover" id="mytable1">
-            <thead>
-                <tr class="table-secondary">
-                    <th>Courses</th>
-                    <th>Courses Code</th>
-                    <th>Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% courses.filter(course => course.type === 'Free Elective').forEach(course => { %>
-                    <tr onclick="window.location.href='/course/<%= course.id %>'" style="cursor: pointer;">
-                        <td><%= course.name %></td>
-                        <td><%= course.code %></td>
-                        <td><%= course.rating %></td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-    <!-- Major Elective Courses Table (only visible if showMajorElective is true) -->
-    <% if (showMajorElective) { %>
-    <div class="col1">
-        <div class="dropdown-header" onclick="toggleTable('mytable2', 'dropdownIcon2')">
-            <p class="mt mt-5">Major Elective Courses</p>
-            <i class="bi bi-chevron-down" id="dropdownIcon2" style="color: black;"></i>
+        <div class="col1">
+            <div class="container-fluid">
+                <div class="dropdown-header" onclick="toggleTable('mytable1', 'dropdownIcon1')">
+                    <p class="mt mt-5">Free Elective Courses</p>
+                    <i class="bi bi-chevron-down" id="dropdownIcon1" style="color: black;"></i>
+                </div>
+                <table class="table table-hover" id="mytable1">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th>Courses</th>
+                            <th>Courses Code</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% courses.filter(course=> course.type === 'Free Elective').forEach(course => { %>
+                            <tr onclick="window.location.href='/course/<%= course.id %>'" style="cursor: pointer;">
+                                <td>
+                                    <%= course.name %>
+                                </td>
+                                <td>
+                                    <%= course.code %>
+                                </td>
+                                <td>
+                                    <%= course.rating %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="container-fluid">
-        <table class="table table-hover" id="mytable2">
-            <thead>
-                <tr class="table-secondary">
-                    <th>Courses</th>
-                    <th>Courses Code</th>
-                    <th>Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% courses.filter(course => course.type === 'Major Elective').forEach(course => { %>
-                    <tr onclick="window.location.href='/course/<%= course.id %>'" style="cursor: pointer;">
-                        <td><%= course.name %></td>
-                        <td><%= course.code %></td>
-                        <td><%= course.rating %></td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-        </div>
-    </div>
-    <% } %> <!-- End if condition for Major Elective -->
+        <% if (showMajorElective) { %>
+            <div class="col1">
+                <div class="dropdown-header" onclick="toggleTable('mytable2', 'dropdownIcon2')">
+                    <p class="mt mt-5">Major Elective Courses</p>
+                    <i class="bi bi-chevron-down" id="dropdownIcon2" style="color: black;"></i>
+                </div>
+                <div class="container-fluid">
+                    <table class="table table-hover" id="mytable2">
+                        <thead>
+                            <tr class="table-secondary">
+                                <th>Courses</th>
+                                <th>Courses Code</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% courses.filter(course=> course.type === 'Major Elective').forEach(course => { %>
+                                <tr onclick="window.location.href='/course/<%= course.id %>'" style="cursor: pointer;">
+                                    <td>
+                                        <%= course.name %>
+                                    </td>
+                                    <td>
+                                        <%= course.code %>
+                                    </td>
+                                    <td>
+                                        <%= course.rating %>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <% } %>
 
     </div>
 
@@ -137,12 +145,12 @@
 
             get_review_qty();
             get_review_chart();
-            
+
         });
-        function profile(){
-    window.location.href='/profile';
-}
-</script>
+        function profile() {
+            window.location.href = '/profile';
+        }
+    </script>
 </body>
 
 </html>

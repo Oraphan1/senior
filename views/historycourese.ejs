@@ -18,6 +18,7 @@
         margin-top: 2rem;
     }
 </style>
+
 <body>
     <div class="nav">
         <div class="sidebar">
@@ -32,16 +33,16 @@
             <li class="mt-4"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
             <li class="mt-4"><a href="/notification"><i class="bi bi-bell"></i></a></li>
             <li class="mt-4"><a href="/history"><i class="bi bi-pencil-square"></i></li>
-                <a class="btn" onclick="profile()">
-                    <div id="user-profile"></div>
-                </a>
-
+            <a class="btn" onclick="profile()">
+                <div id="user-profile"></div>
+            </a>
 
         </div>
     </div>
 
     <div class="col">
-        <h1 class="head text-left" style="color: #A60303;">Review Courses</h1>
+        <h1 class="head text-left" style="color: #A60303;">Review
+            Courses</h1>
         <hr class="list">
     </div>
 
@@ -60,7 +61,7 @@
                 </tr>
             </thead>
             <tbody>
-                <% courses.forEach(course => { %>
+                <% courses.forEach(course=> { %>
                     <tr onclick="window.location.href='/review/<%= course.course_id %>'" style="cursor: pointer;">
                         <td>
                             <%= course.course_name %>
@@ -72,53 +73,53 @@
                             <%= course.course_rating %>
                         </td>
                     </tr>
-                <% }) %>
+                    <% }) %>
             </tbody>
-            
+
         </table>
         <script src="../assets/css/load-html.js"></script>
         <script>
-              $(document).ready(() => {
-        const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
-        console.log(userinfo)
-        if (userinfo && userinfo.image) {
-            $('#user-profile').html(`
+            $(document).ready(() => {
+                const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
+                console.log(userinfo)
+                if (userinfo && userinfo.image) {
+                    $('#user-profile').html(`
                 <img class="img-profile" crossorigin="anonymous" src="${userinfo.image}" alt="User Profile" referrerpolicy="no-referrer" />
             `);
-        } else {
-            console.log("No user image available");
-            $('#user-profile').html(`<p>No profile image available.</p>`);
-        }
+                } else {
+                    console.log("No user image available");
+                    $('#user-profile').html(`<p>No profile image available.</p>`);
+                }
 
-        get_review_qty();
-        get_review_chart();
-        
-    });
+                get_review_qty();
+                get_review_chart();
+
+            });
 
 
-    function logout() {
-        fetch('/logout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+            function logout() {
+                fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        } else {
+                            console.error('Logout failed');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
             }
-        })
-        .then(response => response.json()) // แปลง response เป็น JSON
-        .then(data => {
-            if (data.redirect) {
-                window.location.href = data.redirect; // ใช้ URL ที่ได้รับจาก server
-            } else {
-                console.error('Logout failed');
+            function profile() {
+                window.location.href = '/profile';
             }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-    function profile(){
-    window.location.href='/profile';
-}
         </script>
     </div>
-     
+
 </body>
 
 </html>

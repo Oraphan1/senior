@@ -4,20 +4,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Community</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-            rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
         <link rel="stylesheet" href="../assets/css/navbar.css">
         <link rel="stylesheet" href="../assets/css/page-layout.css">
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link
-            href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital@1&display=swap"
-            rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital@1&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
         <script src="../assets/css/bootstrap.bundle.min.js"></script>
     </head>
-
     <body>
         <div class="flex-row">
             <div class="nav">
@@ -25,104 +19,165 @@
                     <img src="/assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
                     <p class="text-center" style="color: #A60303;">MFU</p>
                     <hr>
-                    <li class="mt-5"> <a href="/dashboardadmin"><i class="bi bi-bar-chart"></i></a> </li>
-                    <li class="mt-5"><a href="/listadmin"><i class="bi bi-map"></i></a></li>
-                    <li class="mt-5"><a href="/importstudent"><i class="bi bi-person-plus-fill"></i></a></li>
-                    <li class="mt-5"><a href="/commuadmin"><i class="bi bi-chat"></i></a></li>
-                    <li class="mt-5"><a href="/history"><i class="bi bi-arrow-clockwise"></i></a></li>
-                    <li class="logout"><a href="/home"><i class="bi bi-box-arrow-right"></i></a></li>
+                    <li class="mt-5">
+                        <a href="/dashboardadmin">
+                            <i class="bi bi-bar-chart"></i>
+                        </a>
+                    </li>
+                    <li class="mt-5">
+                        <a href="/listadmin">
+                            <i class="bi bi-map"></i>
+                        </a>
+                    </li>
+                    <li class="mt-5">
+                        <a href="/importstudent">
+                            <i class="bi bi-person-plus-fill"></i>
+                        </a>
+                    </li>
+                    <li class="mt-5">
+                        <a href="/commuadmin">
+                            <i class="bi bi-chat"></i>
+                        </a>
+                    </li>
+                    <li class="mt-5">
+                        <a href="/history">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </a>
+                    </li>
+                    <li class="logout">
+                        <a href="/home">
+                            <i class="bi bi-box-arrow-right"></i>
+                        </a>
+                    </li>
                 </div>
-            <div class="container">
-                <h1 class="mt-5" style="color: #A60303;">Community</h1>
-                <div class="container-fluid card mt-5" onclick="topicone()">
-                    <div class="detail text-end">
-                        <i class="bi bi-trash-fill"></i>
+                <div class="container">
+                    <h1 class="mt-5" style="color: #A60303;">Community</h1>
+                    <div class="container-fluid card mt-5" onclick="topicone()">
+                        <div class="detail text-end">
+                            <i class="bi bi-trash-fill"></i>
+                        </div>
+                        <h4 class="mt-4">
+                            <a class="topic" href="/deletecommu">Topic 1</a>
+                        </h4>
+                        <div class="detail text-end">
+                            <span>12</span>
+                            <i class="bi bi-chat comment"></i>
+                        </div>
                     </div>
-                    <h4 class="mt-4"><a class="topic" href="/deletecommu">Topic 1</a></h4>
-                    <div class="detail text-end">
-                        <span>12</span>
-                        <i class="bi bi-chat comment"></i>
+                    <div class="container-fluid card mt-5">
+                        <div class="detail text-end">
+                            <i class="bi bi-trash-fill"></i>
+                        </div>
+                        <h4 class="mt-4">
+                            <a class="topic" href="#">
+                                Topic
+                                2
+                            </a>
+                        </h4>
+                        <div class="detail text-end">
+                            <span>12</span>
+                            <i class="bi bi-chat comment"></i>
+                        </div>
                     </div>
-                </div>
-                <div class="container-fluid card mt-5">
-                    <div class="detail text-end">
-                        <i class="bi bi-trash-fill"></i>
+                    <div class="container-fluid card mt-5">
+                        <div class="detail text-end">
+                            <i class="bi bi-trash-fill"></i>
+                        </div>
+                        <h4 class="mt-4">
+                            <a class="topic" href="#">
+                                Topic
+                                3
+                            </a>
+                        </h4>
+                        <div class="detail text-end">
+                            <span>12</span>
+                            <i class="bi bi-chat comment"></i>
+                        </div>
                     </div>
-                    <h4 class="mt-4"><a class="topic" href="#">Topic 2</a></h4>
-                    <div class="detail text-end">
-                        <span>12</span>
-                        <i class="bi bi-chat comment"></i>
+                    <div class="container-fluid card mt-5">
+                        <div class="detail text-end">
+                            <i class="bi bi-trash-fill"></i>
+                        </div>
+                        <h4 class="mt-4">
+                            <a class="topic" href="#">
+                                Topic
+                                4
+                            </a>
+                        </h4>
+                        <div class="detail text-end">
+                            <span>12</span>
+                            <i class="bi bi-chat comment"></i>
+                        </div>
                     </div>
-                </div>
-                <div class="container-fluid card mt-5">
-                    <div class="detail text-end">
-                        <i class="bi bi-trash-fill"></i>
+                    <div class="container-fluid card mt-5">
+                        <div class="detail text-end">
+                            <i class="bi bi-trash-fill"></i>
+                        </div>
+                        <h4 class="mt-4">
+                            <a class="topic" href="#">
+                                Topic
+                                5
+                            </a>
+                        </h4>
+                        <div class="detail text-end">
+                            <span>12</span>
+                            <i class="bi bi-chat comment"></i>
+                        </div>
                     </div>
-                    <h4 class="mt-4"><a class="topic" href="#">Topic 3</a></h4>
-                    <div class="detail text-end">
-                        <span>12</span>
-                        <i class="bi bi-chat comment"></i>
+                    <div class="container-fluid card mt-5">
+                        <div class="detail text-end">
+                            <i class="bi bi-trash-fill"></i>
+                        </div>
+                        <h4 class="mt-4">
+                            <a class="topic" href="#">
+                                Topic
+                                5
+                            </a>
+                        </h4>
+                        <div class="detail text-end">
+                            <span>12</span>
+                            <i class="bi bi-chat comment"></i>
+                        </div>
                     </div>
-                </div>
-                <div class="container-fluid card mt-5">
-                    <div class="detail text-end">
-                        <i class="bi bi-trash-fill"></i>
+                    <div class="container-fluid card mt-5">
+                        <div class="detail text-end">
+                            <i class="bi bi-trash-fill"></i>
+                        </div>
+                        <h4 class="mt-4">
+                            <a class="topic" href="#">
+                                Topic
+                                5
+                            </a>
+                        </h4>
+                        <div class="detail text-end">
+                            <span>12</span>
+                            <i class="bi bi-chat comment"></i>
+                        </div>
                     </div>
-                    <h4 class="mt-4"><a class="topic" href="#">Topic 4</a></h4>
-                    <div class="detail text-end">
-                        <span>12</span>
-                        <i class="bi bi-chat comment"></i>
-                    </div>
-                </div>
-                <div class="container-fluid card mt-5">
-                    <div class="detail text-end">
-                        <i class="bi bi-trash-fill"></i>
-                    </div>
-                    <h4 class="mt-4"><a class="topic" href="#">Topic 5</a></h4>
-                    <div class="detail text-end">
-                        <span>12</span>
-                        <i class="bi bi-chat comment"></i>
-                    </div>
-                </div>
-                <div class="container-fluid card mt-5">
-                    <div class="detail text-end">
-                        <i class="bi bi-trash-fill"></i>
-                    </div>
-                    <h4 class="mt-4"><a class="topic" href="#">Topic 5</a></h4>
-                    <div class="detail text-end">
-                        <span>12</span>
-                        <i class="bi bi-chat comment"></i>
-                    </div>
-                </div>
-                <div class="container-fluid card mt-5">
-                    <div class="detail text-end">
-                        <i class="bi bi-trash-fill"></i>
-                    </div>
-                    <h4 class="mt-4"><a class="topic" href="#">Topic 5</a></h4>
-                    <div class="detail text-end">
-                        <span>12</span>
-                        <i class="bi bi-chat comment"></i>
-                    </div>
-                </div>
-                <div class="container-fluid card mt-5">
-                    <div class="detail text-end">
-                        <i class="bi bi-trash-fill"></i>
-                    </div>
-                    <h4 class="mt-4"><a class="topic" href="#">Topic 5</a></h4>
-                    <div class="detail text-end">
-                        <span>12</span>
-                        <i class="bi bi-chat comment"></i>
+                    <div class="container-fluid card mt-5">
+                        <div class="detail text-end">
+                            <i class="bi bi-trash-fill"></i>
+                        </div>
+                        <h4 class="mt-4">
+                            <a class="topic" href="#">
+                                Topic
+                                5
+                            </a>
+                        </h4>
+                        <div class="detail text-end">
+                            <span>12</span>
+                            <i class="bi bi-chat comment"></i>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script>
+            <script>
             function displayAdminPosts() {
  fetch('/posts')
  .then(response => response.json())
  .then(posts => {
      const postList = document.getElementById('postList');
-     postList.innerHTML = ''; // Clear existing posts
+     postList.innerHTML = ''; 
      posts.forEach((post, index) => {
          const postCard = document.createElement('div');
          postCard.className = 'container-fluid card mt-3';
@@ -139,7 +194,7 @@
  });
 }
 
-// Function to delete a post
+
 function deletePost(postId) {
  if (confirm('Are you sure you want to delete this post?')) {
      fetch(`/post/${postId}`, {
@@ -148,7 +203,7 @@ function deletePost(postId) {
      .then(response => response.json())
      .then(data => {
          alert('Post deleted successfully');
-         displayAdminPosts(); // Refresh posts after deletion
+         displayAdminPosts(); 
      })
      .catch(error => {
          console.error('Error:', error);
@@ -156,6 +211,6 @@ function deletePost(postId) {
      });
  }
 }
-        </script>
-</body>
-</html>
+            </script>
+        </body>
+    </html>

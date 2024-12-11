@@ -21,7 +21,6 @@
 </style>
 
 <body>
-    <!---------------------------------- navi ---------------------------------------------> 
     <div class="nav">
         <div class="sidebar">
             <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
@@ -39,10 +38,9 @@
             </a>
         </div>
     </div>
-
-    <!--------------------------------- head ---------------------------------------->
     <div class="col">
-        <h1 class="head text-left" style="color: #A60303;">Course: <%= course.name %></h1>
+        <h1 class="head text-left" style="color: #A60303;">Course: <%= course.name %>
+        </h1>
         <hr class="list">
     </div>
 
@@ -54,8 +52,6 @@
         <div class="review py-3 px-5" style="background-color: white; width: 1000px; height: 500px;">
             <form action="/submit-review" method="POST" id="review-form">
                 <input type="hidden" name="course_id" value="<%= course.id %>">
-
-                <!-- Rating: Easy to learn -->
                 <div class="rate">
                     <p class="a">Easy to learn</p>
                     <input type="radio" id="star5_1" name="rate_easy" value="5" required />
@@ -69,8 +65,6 @@
                     <input type="radio" id="star1_1" name="rate_easy" value="1" />
                     <label for="star1_1">1 star</label>
                 </div>
-
-                <!-- Rating: Collect points easily -->
                 <br><br>
                 <div class="rate">
                     <p class="a">Collect points easily</p>
@@ -85,8 +79,6 @@
                     <input type="radio" id="star1_2" name="rate_collect" value="1" />
                     <label for="star1_2">1 star</label>
                 </div>
-
-                <!-- Rating: Number of open registration -->
                 <br><br>
                 <div class="rate">
                     <p class="a">Number of open registration</p>
@@ -101,8 +93,6 @@
                     <input type="radio" id="star1_3" name="rate_registration" value="1" />
                     <label for="star1_3">1 star</label>
                 </div>
-
-                <!-- Rating: Appropriate content -->
                 <br><br>
                 <div class="rate">
                     <p class="a">Appropriate content</p>
@@ -117,8 +107,6 @@
                     <input type="radio" id="star1_4" name="rate_content" value="1" />
                     <label for="star1_4">1 star</label>
                 </div>
-
-                <!-- Rating: Course overview -->
                 <br><br>
                 <div class="rate">
                     <p class="a">Course overview</p>
@@ -133,12 +121,11 @@
                     <input type="radio" id="star1_5" name="rate_overview" value="1" />
                     <label for="star1_5">1 star</label>
                 </div>
-
-                <!-- Comment Section -->
                 <div class="row">
                     <div class="col-12 d-flex align-items-center">
                         <div class="comment my-5 flex-grow-1">
-                            <textarea class="form-control" id="review_detail" name="review_detail" rows="4" placeholder="Write your review..."></textarea>
+                            <textarea class="form-control" id="review_detail" name="review_detail" rows="4"
+                                placeholder="Write your review..."></textarea>
                         </div>
                         <div class="ps-3">
                             <button class="btn btn-link" type="submit">
@@ -151,37 +138,37 @@
                         </div>
                     </div>
                 </div>
-                
+
             </form>
         </div>
     </div>
     <script src="../assets/css/load-html.js"></script>
     <script>
-              $(document).ready(() => {
-        const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
-        console.log(userinfo)
-        if (userinfo && userinfo.image) {
-            $('#user-profile').html(`
+        $(document).ready(() => {
+            const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
+            console.log(userinfo)
+            if (userinfo && userinfo.image) {
+                $('#user-profile').html(`
                 <img class="img-profile" crossorigin="anonymous" src="${userinfo.image}" alt="User Profile" referrerpolicy="no-referrer" />
             `);
-        } else {
-            console.log("No user image available");
-            $('#user-profile').html(`<p>No profile image available.</p>`);
-        }
+            } else {
+                console.log("No user image available");
+                $('#user-profile').html(`<p>No profile image available.</p>`);
+            }
 
-        get_review_qty();
-        get_review_chart();
-        
-    });
+            get_review_qty();
+            get_review_chart();
 
-        const forbiddenWords = ["แย่", "บ้า","ห่วย","bad",];
+        });
 
-        $('#review-form').on('submit', function(e) {
+        const forbiddenWords = ["แย่", "บ้า", "ห่วย", "bad",];
+
+        $('#review-form').on('submit', function (e) {
             const reviewDetail = $('#review_detail').val();
             const containsForbiddenWords = forbiddenWords.some(word => reviewDetail.includes(word));
 
             if (containsForbiddenWords) {
-                e.preventDefault(); 
+                e.preventDefault();
                 Swal.fire({
                     icon: 'error',
                     title: 'You have inappropriate words.',
@@ -196,4 +183,5 @@
     </script>
 
 </body>
+
 </html>

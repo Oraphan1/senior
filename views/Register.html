@@ -1,58 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/register.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="/public/js/bootstrap.bundle.min.js"></script>
-</head>
-
-<body>
-    <div class="card p-5">
-        <div class="reg">
-            <form id="formRegister" method="POST" action="/register"> 
-                <h1>Register</h1>
-
-                <div class="input-box ">
-                    <input type="text" placeholder="Username" name="uname" class="form-control form-control-lg" required>
-                </div>
-                <div class="input-box ">
-                    <input type="email" placeholder="Email" name="email" class="form-control form-control-lg" required>
-                </div>
-
-                <div class="input-box ">
-                    <input type="password" placeholder="Password" name="psw" class="form-control form-control-lg" required>
-                </div>
-
-                <div class="input-box ">
-                    <input type="password" placeholder="Confirm password" name="confirm" class="form-control form-control-lg" required>
-                </div>
-
-                <!-- Role Selection -->
-                <div class="input-box">
-                    <label for="role" class="form-label">Select Role</label>
-                    <select name="role" class="form-select form-control-lg" required>
-                        <option value="1">Role 1</option>
-                        <option value="2">Role 2</option>
-                        <option value="3">Role 3</option>
-                    </select>
-                </div>
-
-                <div class="please">
-                    <p><i class='bx bxs-info-square'></i> Please be careful about using coarse words.</p>
-                </div>
-
-                <div>
-                    <button type="submit" class="btn">Sign up</button>
-                </div>
-            </form>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Register</title>
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/css/register.css">
+        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+        <script src="/public/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body>
+        <div class="card p-5">
+            <div class="reg">
+                <form id="formRegister" method="POST" action="/register">
+                    <h1>Register</h1>
+                    <div class="input-box ">
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            name="uname"
+                            class="form-control form-control-lg"
+                            required
+                        >
+                    </div>
+                    <div class="input-box ">
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            name="email"
+                            class="form-control form-control-lg"
+                            required
+                        >
+                    </div>
+                    <div class="input-box ">
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            name="psw"
+                            class="form-control form-control-lg"
+                            required
+                        >
+                    </div>
+                    <div class="input-box ">
+                        <input
+                            type="password"
+                            placeholder="Confirm password"
+                            name="confirm"
+                            class="form-control form-control-lg"
+                            required
+                        >
+                    </div>
+                    <div class="input-box">
+                        <label for="role" class="form-label">Select Role</label>
+                        <select name="role" class="form-select form-control-lg" required>
+                            <option value="1">Role 1</option>
+                            <option value="2">Role 2</option>
+                            <option value="3">Role 3</option>
+                        </select>
+                    </div>
+                    <div class="please">
+                        <p>
+                            <i class="bx bxs-info-square"></i> Please be careful about using coarse words.
+                        </p>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn">Sign up</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-</body>
-
+    </body>
 </html>

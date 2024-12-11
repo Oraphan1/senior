@@ -1,69 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Home page</title>
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/css/homepage.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container-fluid">
-            <img src="../assets/images/mfu.png" alt="mfu" style="width:40px;" class="rounded-pill me-auto">
-          
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #A60303;"> MFU COURSE REVIEW
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Home page</title>
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+        >
+        <link rel="stylesheet" href="../assets/css/homepage.css">
+        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid">
+                <img
+                    src="../assets/images/mfu.png"
+                    alt="mfu"
+                    style="width:40px;"
+                    class="rounded-pill me-auto"
+                >
+                <div
+                    class="offcanvas offcanvas-end"
+                    tabindex="-1"
+                    id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel"
+                >
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #A60303;">
+                            MFU COURSE REVIEW
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="offcanvas"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-center flex-grow-1 pe-3"></ul>
+                    </div>
                 </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                        
-                    </ul>
+                <a href="/login" class="login-button">Log in</a>
+                <button
+                    class="navbar-toggler pe-0"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+        <section class="hero-section">
+            <div class="container d-flex align-items-center justify-content-center fs-1 text-white flex-column">
+                <h1 style="font-size:3.5vw ">MFU COURSE REVIEW</h1>
+                <h1 style="font-size:3.5vw ">WEB APPLICATION</h1>
+                <p style="font-size:1vw ">Everyone can review courses freely. An additional function of this web application is that it has a community to discuss with each other.</p>
+            </div>
+        </section>
+        <div class="d-flex flex-row-reverse bg-light p-5">
+            <div style="color: #A60303;">
+                <h2>Contact Us</h2>
+                <i class="bx bxs-phone-call"> 0620127665</i>
+                <div style="color: #A60303;">
+                    <i class="bx bx-envelope"> 6431501124@lamduan.mfu.ac.th</i>
                 </div>
             </div>
-            <a href="/login" class="login-button">Log in</a>
-            <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
         </div>
-    </nav>
-
-    <!--Hero section-->
-    <section class="hero-section">
-        <div class="container d-flex align-items-center justify-content-center fs-1 text-white flex-column">
-            <h1  style="font-size:3.5vw ">MFU COURSE REVIEW </h1>
-            <h1  style="font-size:3.5vw ">WEB APPLICATION</h1>
-            <p style="font-size:1vw ">Everyone can review courses freely. An additional function of this web application is that it has a community to discuss with each other.</p>
-        </div>
-    </section>
-
-    <!--Contact-->
-    <div class="d-flex flex-row-reverse bg-light p-5">
- 
-        <div style="color: #A60303;" >
-          <h2 >Contact Us</h2>
-          <i class='bx bxs-phone-call' > 0620127665</i>
-        <div  style="color: #A60303;">
-            <i class='bx bx-envelope'> 6431501124@lamduan.mfu.ac.th</i>
-          </div>
-          </div>
-        </div>
-</body>
-
+    </body>
 </html>

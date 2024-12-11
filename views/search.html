@@ -1,220 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-  <script src="/public/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="../assets/css/search.css">
-  <script src="../assets/css/bootstrap.bundle.min.js"></script>
-
-
-
-  <title>search</title>
-</head>
-
-<body>
-  <!---------------------------------- navi --------------------------------------------->
-  <div class="nav">
-    <div class="sidebar">
-
-      <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
-      <p class="text-center" style="color: #A60303">MFU</p>
-      <hr>
-      <li class="mt-5"> <a href="/db"><i class="bi bi-bar-chart"></i></a> </li>
-      <li class="mt-5"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
-      <li class="mt-5"><a href="/search"><i class="bi bi-search"></i></a></li>
-      <li class="mt-5"><a href="/community"><i class="bi bi-chat"></i></a></li>
-      <li class="mt-5"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
-      <li class="mt-5"><a href="/notification"><i class="bi bi-bell"></i></a></li>
-      <a href="/profile">
-        <img class="profile" src="/assets/images/Screenshot 2024-04-09 034908.png" width="51" height="48" alt="">
-      </a>
-
-    </div>
-
-  </div>
-
-  <!--------------------------------- head ---------------------------------------->
-  <div class="col">
-    <h1 class="head text-left" style="color: #A60303;">Courses Information</h1>
-    <hr class="list">
-  </div>
-
-
-
-
-  <!-- ------------------------------------text --------------------------------------------------->
-
-  
-   
-  <div class="container">
-    <div class="row">
-      <div class="col1">
-        <p>Course search</p>
-        <div class="input-group mb-3">
-          <input id="searchInput" type="text" class="form-control" placeholder="Course name search"
-            style="color: gray;">
-          <button class="btn btn-outline-secondary" type="button" id="searchButton">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
-              viewBox="0 0 16 16">
-              <path
-                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-            </svg>
-          </button>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <script src="/public/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../assets/css/search.css">
+        <script src="../assets/css/bootstrap.bundle.min.js"></script>
+        <title>search</title>
+    </head>
+    <body>
+        <div class="nav">
+            <div class="sidebar">
+                <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
+                <p class="text-center" style="color: #A60303">MFU</p>
+                <hr>
+                <li class="mt-5">
+                    <a href="/db">
+                        <i class="bi bi-bar-chart"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/listcourse">
+                        <i class="bi bi-map"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/search">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/community">
+                        <i class="bi bi-chat"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/bookmark">
+                        <i class="bi bi-star"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/notification">
+                        <i class="bi bi-bell"></i>
+                    </a>
+                </li>
+                <a href="/profile">
+                    <img
+                        class="profile"
+                        src="/assets/images/Screenshot 2024-04-09 034908.png"
+                        width="51"
+                        height="48"
+                        alt=""
+                    >
+                </a>
+            </div>
         </div>
-      </div>
-      <div class="col1">
-        <p>Level</p>
-        <div class="dropdown">
-          <button id="levelDropdown" type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
-            style="width: 100%;">
-            Select Level
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" onclick="selectItem('levelDropdown', 'Bachelors Degree')">Bachelor's
-                Degree
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('levelDropdown', 'Masters Degree')">Master's
-                Degree
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('levelDropdown', 'Doctoral Degree')">Doctoral
-                Degree
-              </a></li>
-          </ul>
+        <div class="col">
+            <h1 class="head text-left" style="color: #A60303;">Courses Information</h1>
+            <hr class="list">
         </div>
-      </div>
-      <div class="col1">
-        <p>School</p>
-        <div class="dropdown dropdown-lg">
-          <button id="schoolDropdown" type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
-            style="width: 100%;">
-            Select School
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Liberal Arts')"> Liberal Arts
-              </a></li>
-            <li><a class="dropdown-item" href="#"
-                onclick="selectItem('schoolDropdown', 'Self-Access Language Learning Centre')">Self-Access Language
+        <div class="container">
+            <div class="row">
+                <div class="col1">
+                    <p>Course search</p>
+                    <div class="input-group mb-3">
+                        <input
+                            id="searchInput"
+                            type="text"
+                            class="form-control"
+                            placeholder="Course name search"
+                            style="color: gray;"
+                        >
+                        <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                class="bi bi-search"
+                                viewBox="0 0 16 16"
+                            >
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="col1">
+                    <p>Level</p>
+                    <div class="dropdown">
+                        <button
+                            id="levelDropdown"
+                            type="button"
+                            class="btn dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            style="width: 100%;"
+                        >
+                            Select Level
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('levelDropdown', 'Bachelors Degree')">
+                                    Bachelor's
+                Degree
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('levelDropdown', 'Masters Degree')">
+                                    Master's
+                Degree
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('levelDropdown', 'Doctoral Degree')">
+                                    Doctoral
+                Degree
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col1">
+                    <p>School</p>
+                    <div class="dropdown dropdown-lg">
+                        <button
+                            id="schoolDropdown"
+                            type="button"
+                            class="btn dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            style="width: 100%;"
+                        >
+                            Select School
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Liberal Arts')">
+                                    Liberal Arts
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Self-Access Language Learning Centre')">
+                                    Self-Access Language
                 Learning Centre
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Science')">Science
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Management')"> Management
-              </a></li>
-            <li><a class="dropdown-item" href="#"
-                onclick="selectItem('schoolDropdown', 'Information Technology')">Information Technology
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Agro-Industry')">Agro-Industry
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Law')">Law
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Cosmetic Science')">Cosmetic
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Science')">
+                                    Science
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Management')">
+                                    Management
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Information Technology')">
+                                    Information Technology
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Agro-Industry')">
+                                    Agro-Industry
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Law')">
+                                    Law
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Cosmetic Science')">
+                                    Cosmetic
                 Science
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Health Science')">Health
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Health Science')">
+                                    Health
                 Science
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Nursing')">Nursing
-              </a></li>
-            <li><a class="dropdown-item" href="#"
-                onclick="selectItem('schoolDropdown', 'Anti-Aging and Regenerative Medicine')">Anti-Aging and
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Nursing')">
+                                    Nursing
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Anti-Aging and Regenerative Medicine')">
+                                    Anti-Aging and
                 Regenerative Medicine
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Medicine')">Medicine
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Dentistry')">Dentistry
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Social Innovation')">Social
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Medicine')">
+                                    Medicine
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Dentistry')">
+                                    Dentistry
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Social Innovation')">
+                                    Social
                 Innovation
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'School of Sinology')">Sinology
-              </a></li>
-            <li><a class="dropdown-item" href="#"
-                onclick="selectItem('schoolDropdown', 'Integrative Medicine')">Integrative Medicine
-              </a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col1">
-        <p>Course Type</p>
-        <div class="dropdown dropdown-lg">
-          <button id="coursetype" type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown"
-            style="width: 100%;">
-            Course Type
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" onclick="selectItem('coursetype', 'Major elective courses')"> Major
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'School of Sinology')">
+                                    Sinology
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('schoolDropdown', 'Integrative Medicine')">
+                                    Integrative Medicine
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col1">
+                    <p>Course Type</p>
+                    <div class="dropdown dropdown-lg">
+                        <button
+                            id="coursetype"
+                            type="button"
+                            class="btn  dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            style="width: 100%;"
+                        >
+                            Course Type
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('coursetype', 'Major elective courses')">
+                                    Major
                 elective courses
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('coursetype', 'Free Elective courses')"> Free
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('coursetype', 'Free Elective courses')">
+                                    Free
                 elective courses
-              </a></li>
-
-          </ul>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col1">
+                    <p>Academic Year</p>
+                    <div class="dropdown">
+                        <button
+                            id="academicyear"
+                            type="button"
+                            class="btn dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            style="width: 100%;"
+                        >
+                            Select Academic Year
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('academicyear', '2024')">
+                                    2024
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('academicyear', '2023')">
+                                    2023
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('academicyear', '2022')">
+                                    2022
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('academicyear', '2021')">
+                                    2021
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('academicyear', '2020')">
+                                    2020
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col1">
+                    <p>Semester</p>
+                    <div class="dropdown dropdown-lg">
+                        <button
+                            id="semester"
+                            type="button"
+                            class="btn  dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            style="width: 100%;"
+                        >
+                            Select Status
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('semester', '1')">1</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('semester', '2')"> 2</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="selectItem('semester', ' 3')"> 3</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col1 d-flex align-items-end justify-content-end">
+                    <input
+                        class="btn btn-primary"
+                        type="button"
+                        value="CLEAR"
+                        onclick="clearSelection()"
+                    >
+                    <input
+                        class="btn btn-primary ms-2"
+                        type="submit"
+                        value="SEARCH"
+                        onclick="redirectToAnotherPage()"
+                        style="background-color: #A60303; color: white;"
+                    >
+                </div>
+            </div>
         </div>
-      </div>
+        <script>
 
-      <div class="col1">
-        <p>Academic Year</p>
-        <div class="dropdown">
-          <button id="academicyear" type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
-            style="width: 100%;">
-            Select Academic Year
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" onclick="selectItem('academicyear', '2024')">2024
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('academicyear', '2023')">2023
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('academicyear', '2022')">2022
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('academicyear', '2021')">2021
-              </a></li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('academicyear', '2020')">2020
-              </a></li>
-
-          </ul>
-        </div>
-      </div>
-      <div class="col1">
-        <p>Semester</p>
-        <div class="dropdown dropdown-lg">
-          <button id="semester" type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown"
-            style="width: 100%;">
-            Select Status
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" onclick="selectItem('semester', '1')">1</a>
-            </li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('semester', '2')"> 2</a>
-            </li>
-            <li><a class="dropdown-item" href="#" onclick="selectItem('semester', ' 3')"> 3</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!--search / clear button  -->
-    <div class="row">
-      <div class="col1 d-flex align-items-end justify-content-end">
-        <input class="btn btn-primary" type="button" value="CLEAR" onclick="clearSelection()">
-        <input class="btn btn-primary ms-2" type="submit" value="SEARCH" onclick="redirectToAnotherPage()"
-          style="background-color: #A60303; color: white;">
-      </div>
-    </div>
-  </div>
-
-
-
-  <script>
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function redirectToAnotherPage() {
-    // เก็บค่าการค้นหาจากแต่ละฟิลด์
+
     var searchQuery = document.getElementById('searchInput').value;
     var level = document.getElementById('levelDropdown').textContent.trim();
     var school = document.getElementById('schoolDropdown').textContent.trim();
@@ -222,26 +346,21 @@
     var academicYear = document.getElementById('academicyear').textContent.trim();
     var semester = document.getElementById('semester').textContent.trim();
 
-    // ตรวจสอบว่าค่าเริ่มต้นของ dropdowns ได้ถูกเปลี่ยนแปลงหรือไม่
     level = (level !== 'Select Level') ? level : '';
     school = (school !== 'Select School') ? school : '';
     courseType = (courseType !== 'Course Type') ? courseType : '';
     academicYear = (academicYear !== 'Select Academic Year') ? academicYear : '';
     semester = (semester !== 'Select Status') ? semester : '';
 
-    // สร้าง URL พร้อมกับพารามิเตอร์สำหรับตัวกรอง
     var url = `/dashboard.html?search=${encodeURIComponent(searchQuery)}&level=${encodeURIComponent(level)}&school=${encodeURIComponent(school)}&courseType=${encodeURIComponent(courseType)}&academicYear=${encodeURIComponent(academicYear)}&semester=${encodeURIComponent(semester)}`;
 
-    // เปลี่ยนหน้าไปยัง URL ดังกล่าว
     window.location.href = url;
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     function redirectToAnotherPage() {
-    // เก็บค่าการค้นหาจากแต่ละฟิลด์
     var searchQuery = document.getElementById('searchInput').value;
     var level = document.getElementById('levelDropdown').textContent.trim();
     var school = document.getElementById('schoolDropdown').textContent.trim();
@@ -249,17 +368,14 @@
     var academicYear = document.getElementById('academicyear').textContent.trim();
     var semester = document.getElementById('semester').textContent.trim();
 
-    // ตรวจสอบว่าค่าเริ่มต้นของ dropdowns ได้ถูกเปลี่ยนแปลงหรือไม่
     level = (level !== 'Select Level') ? level : '';
     school = (school !== 'Select School') ? school : '';
     courseType = (courseType !== 'Course Type') ? courseType : '';
     academicYear = (academicYear !== 'Select Academic Year') ? academicYear : '';
     semester = (semester !== 'Select Status') ? semester : '';
 
-    // สร้าง URL พร้อมกับพารามิเตอร์สำหรับตัวกรอง
     var url = `/dashboard.html?search=${encodeURIComponent(searchQuery)}&level=${encodeURIComponent(level)}&school=${encodeURIComponent(school)}&courseType=${encodeURIComponent(courseType)}&academicYear=${encodeURIComponent(academicYear)}&semester=${encodeURIComponent(semester)}`;
 
-    // เปลี่ยนหน้าไปยัง URL ดังกล่าว
     window.location.href = url;
 }
 
@@ -281,7 +397,6 @@
         var dropdownButton = document.getElementById(key);
         if (dropdownButton.tagName === 'BUTTON') {
           dropdownButton.textContent = defaultTexts[key];
-          // Clear the selected item in the dropdown
           var dropdownMenu = dropdownButton.nextElementSibling;
           dropdownMenu.querySelectorAll('.dropdown-item').forEach(function (item) {
             item.classList.remove('active');
@@ -297,14 +412,6 @@
     function redirectToAnotherPage() {
       window.location.href = '/dashboard.html';
     }
-
-
-
-
-
-  </script>
-
-
-</body>
-
+        </script>
+    </body>
 </html>

@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="../assets/css/listcorus.css">
     <link rel="stylesheet" href="/assets/css/navbar.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="../assets/lib/fusioncharts/js/fusioncharts.js"></script>
-<script src="../assets/lib/fusioncharts/js/themes/fusioncharts.theme.fusion.js"></script>
-<title>Bookmark</title>
+    <script src="../assets/lib/fusioncharts/js/fusioncharts.js"></script>
+    <script src="../assets/lib/fusioncharts/js/themes/fusioncharts.theme.fusion.js"></script>
+    <title>Bookmark</title>
 
 </head>
 <style>
-   .img-profile {
+    .img-profile {
         border-radius: 50%;
         width: 35px;
         margin-top: 2rem;
@@ -24,156 +24,108 @@
 </style>
 
 <body>
-<div class="flex-row">
-    <div class="nav">
-        <div class="sidebar">
-            <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
-            <p class="text-center" style="color: #A60303">MFU</p>
-            <hr>
-            <li style="color: #A60303;">Student</li>
-            <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
-            <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
-            <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
-            <li class="mt-4"><a href="/community"><i class="bi bi-chat"></i></a></li>
-            <li class="mt-4"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
-            <li class="mt-4"><a href="/notification"><i class="bi bi-bell"></i></a></li>
-            <li class="mt-4"><a href="/history"><i class="bi bi-pencil-square"></i></li>
+    <div class="flex-row">
+        <div class="nav">
+            <div class="sidebar">
+                <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
+                <p class="text-center" style="color: #A60303">MFU</p>
+                <hr>
+                <li style="color: #A60303;">Student</li>
+                <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
+                <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
+                <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
+                <li class="mt-4"><a href="/community"><i class="bi bi-chat"></i></a></li>
+                <li class="mt-4"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
+                <li class="mt-4"><a href="/notification"><i class="bi bi-bell"></i></a></li>
+                <li class="mt-4"><a href="/history"><i class="bi bi-pencil-square"></i></li>
                 <a class="btn" onclick="profile()">
                     <div id="user-profile"></div>
                 </a>
 
+            </div>
         </div>
-    </div>
 
-    
+        <div class="col">
+            <h1 class="head text-left" style="color: #A60303; ">Bookmark </h1>
+            <hr class="list">
+        </div>
 
-    <!--------------------------------- head ---------------------------------------->
-    <div class="col">
-        <h1 class="head text-left" style="color: #A60303; ">Bookmark </h1>
-        <hr class="list">
-    </div>
+        <div class="col1">
+            <table class="table  table-hover" id="mytable">
+                <thead>
+                    <tr class="table-secondary">
+                        <th>Courses</th>
+                        <th>Courses code</th>
+                        <th>Rating</th>
 
-
-
-
-
-
-    <!-- ------------------------------------text --------------------------------------------------->
-
-    <div class="col1">
-        <table class="table  table-hover" id="mytable">
-            <thead>
-                <tr class="table-secondary">
-                    <th>Courses</th>
-                    <th>Courses code</th>
-                    <th>Rating</th>
-
-                </tr>
-            </thead>
-            <<tbody>
-                <% if (bookmarks.length > 0) { %>
-                    <% bookmarks.forEach(bookmark => { %>
-                        <tr onclick="window.location.href='/course/<%= bookmark.id %>'" style="cursor: pointer;">
-                            <td>
-                                <%= bookmark.name %>
-                            </td>
-                            <td>
-                                <%= bookmark.code %>
-                            </td>
-                            <td>
-                                <%= bookmark.rating || 'No rating' %>
-                            </td>
-                        </tr>
-                    <% }) %>
-                <% } else { %>
-                    <tr>
-                        <td colspan="3">No bookmarks available.</td>
                     </tr>
-                <% } %>
-            </tbody>
-            
-            
+                </thead>
+                <<tbody>
+                    <% if (bookmarks.length> 0) { %>
+                        <% bookmarks.forEach(bookmark=> { %>
+                            <tr onclick="window.location.href='/course/<%= bookmark.id %>'" style="cursor: pointer;">
+                                <td>
+                                    <%= bookmark.name %>
+                                </td>
+                                <td>
+                                    <%= bookmark.code %>
+                                </td>
+                                <td>
+                                    <%= bookmark.rating || 'No rating' %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                                <% } else { %>
+                                    <tr>
+                                        <td colspan="3">No bookmarks available.</td>
+                                    </tr>
+                                    <% } %>
+                                        </tbody>
+            </table>
 
 
-        </table>
+        </div>
 
-
-    </div>
-
-
-    <!-- <div class="col2">
-        <p class="mt mt-5">Major Elective Courses</p>
-        <table class="table table-hover" id="mytable">
-            <thead>
-                <tr class="table-secondary">
-                    <th>Courses</th>
-                    <th>Courses code</th>
-                    <th>Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Dota 2</td>
-                    <td>11111</td>
-                    <td>5.0</td>
-                </tr>
-                <tr>
-                    <td>Home Remedies</td>
-                    <td>222222</td>
-                    <td>3.2</td>
-                </tr>
-                <tr>
-                    <td>Valorant</td>
-                    <td>33333</td>
-                    <td>4.9</td>
-                </tr>
-                <tr>
-                    <td>Popmart</td>
-                    <td>444444</td>
-                    <td>3.2</td>
-                </tr>
-            </tbody>
-        </table> -->
         <script src="../assets/css/load-html.js"></script>
-    <script> $(document).ready(() => {
-        const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
-        console.log(userinfo)
-        if (userinfo && userinfo.image) {
-            $('#user-profile').html(`
+        <script> $(document).ready(() => {
+                const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
+                console.log(userinfo)
+                if (userinfo && userinfo.image) {
+                    $('#user-profile').html(`
                 <img class="img-profile" crossorigin="anonymous" src="${userinfo.image}" alt="User Profile" referrerpolicy="no-referrer" />
             `);
-        } else {
-            console.log("No user image available");
-            $('#user-profile').html(`<p>No profile image available.</p>`);
-        }
+                } else {
+                    console.log("No user image available");
+                    $('#user-profile').html(`<p>No profile image available.</p>`);
+                }
 
-        get_review_qty();
-        get_review_chart();
-        
-    });
+                get_review_qty();
+                get_review_chart();
+
+            });
 
 
-    function logout() {
-        fetch('/logout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+            function logout() {
+                fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        } else {
+                            console.error('Logout failed');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
             }
-        })
-        .then(response => response.json()) // แปลง response เป็น JSON
-        .then(data => {
-            if (data.redirect) {
-                window.location.href = data.redirect; // ใช้ URL ที่ได้รับจาก server
-            } else {
-                console.error('Logout failed');
+            function profile() {
+                window.location.href = '/profile';
             }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-    function profile(){
-    window.location.href='/profile';
-}
-</script>
+        </script>
     </div>
 
 

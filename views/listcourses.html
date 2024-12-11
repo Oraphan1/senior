@@ -1,146 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script src="../assets/css/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/listcourses.css">
-
-
-
-    <title>Courses</title>
-</head>
-
-<body>
-    <!---------------------------------- navi --------------------------------------------->
-    <div class="nav">
-        <div class="sidebar">
-
-            <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
-            <p class="text-center" style="color: #A60303">MFU</p>
-            <hr>
-            <li class="mt-5"> <a href="/db"><i class="bi bi-bar-chart"></i></a> </li>
-            <li class="mt-5"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
-            <li class="mt-5"><a href="/search"><i class="bi bi-search"></i></a></li>
-            <li class="mt-5"><a href="/community"><i class="bi bi-chat"></i></a></li>
-            <li class="mt-5"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
-            <li class="mt-5"><a href="/notification"><i class="bi bi-bell"></i></a></li>
-            <a href="/profile">
-                <img class="profile" src="/assets/images/Screenshot 2024-04-09 034908.png" width="51" height="48"
-                    alt="">
-            </a>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <script src="../assets/css/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="../assets/css/listcourses.css">
+        <title>Courses</title>
+    </head>
+    <body>
+        <div class="nav">
+            <div class="sidebar">
+                <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
+                <p class="text-center" style="color: #A60303">MFU</p>
+                <hr>
+                <li class="mt-5">
+                    <a href="/db">
+                        <i class="bi bi-bar-chart"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/listcourse">
+                        <i class="bi bi-map"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/search">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/community">
+                        <i class="bi bi-chat"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/bookmark">
+                        <i class="bi bi-star"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/notification">
+                        <i class="bi bi-bell"></i>
+                    </a>
+                </li>
+                <a href="/profile">
+                    <img
+                        class="profile"
+                        src="/assets/images/Screenshot 2024-04-09 034908.png"
+                        width="51"
+                        height="48"
+                        alt=""
+                    >
+                </a>
+            </div>
         </div>
-
-    </div>
-
-    <!--------------------------------- head ---------------------------------------->
-    <div class="col">
-        <h1 class="head text-left" style="color: #A60303; ">List of courses</h1>
-        <hr class="list">
-    </div>
-
-
-
-
-
-
-    <!-- ------------------------------------text --------------------------------------------------->
-
-    <div class="col1">
-        <div class="dropdown-header" onclick="toggleTable('mytable1', 'dropdownIcon1')">
-            <p class="mt mt-5">Free Elective Courses</p>
-            <i class="bi bi-chevron-down" id="dropdownIcon1" style="color: black;"></i>
+        <div class="col">
+            <h1 class="head text-left" style="color: #A60303; ">List of courses</h1>
+            <hr class="list">
         </div>
-        <table class="table  table-hover" id="mytable1">
-            <thead>
-                <tr class="table-secondary">
-                    <th>Courses</th>
-                    <th>Courses code</th>
-                    <th>Rating</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <tr onclick="window.location.href='/course';" style="cursor: pointer;">
-                    <td>Dota 2</td>
-                    <td>11111</td>
-                    <td>5.0</td>
-                </tr>
-                <tr onclick="window.location.href='/courses';" style="cursor: pointer;">
-                    <td>Home Remidies</td>
-                    <td>222222</td>
-                    <td>3.2</td>
-                </tr>
-                <tr onclick="window.location.href='/courses.html';" style="cursor: pointer;">
-                    <td>Valorant</td>
-                    <td>33333</td>
-                    <td>4.9</td>
-                </tr>
-                <tr onclick="window.location.href='/courses.html';" style="cursor: pointer;">
-                    <td>Popmart</td>
-                    <td>444444</td>
-                    <td>3.2</td>
-                </tr>
-            </tbody>
-        </table>
-
-
-    </div>
-
-
-    <div class="col2">
-        <div class="dropdown-header" onclick="toggleTable('mytable2', 'dropdownIcon2')">
-            <p class="mt mt-5">Major Elective Courses</p>
-            <i class="bi bi-chevron-down" id="dropdownIcon2" style="color: black;"></i>
-        </div>
-        <table class="table table-hover" id="mytable2">
-            <thead>
-                <tr class="table-secondary">
-                    <th>Courses</th>
-                    <th>Courses code</th>
-                    <th>Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Dota 2</td>
-                    <td>11111</td>
-                    <td>5.0</td>
-                </tr>
-                <tr>
-                    <td>Home Remedies</td>
-                    <td>222222</td>
-                    <td>3.2</td>
-                </tr>
-                <tr>
-                    <td>Valorant</td>
-                    <td>33333</td>
-                    <td>4.9</td>
-                </tr>
-                <tr>
-                    <td>Popmart</td>
-                    <td>444444</td>
-                    <td>3.2</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <script>
-        // -------------------------hide and show table------------------------------
+        <div class="col1">
+            <div class="dropdown-header" onclick="toggleTable('mytable1', 'dropdownIcon1')">
+                <p class="mt mt-5">Free Elective Courses</p>
+                <i class="bi bi-chevron-down" id="dropdownIcon1" style="color: black;"></i>
+            </div>
+            <table class="table  table-hover" id="mytable1">
+                <thead>
+                    <tr class="table-secondary">
+                        <th>Courses</th>
+                        <th>Courses code</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <tr onclick="window.location.href='/course';" style="cursor: pointer;">
+                            <td>Dota 2</td>
+                            <td>11111</td>
+                            <td>5.0</td>
+                        </tr>
+                        <tr onclick="window.location.href='/courses';" style="cursor: pointer;">
+                            <td>Home Remidies</td>
+                            <td>222222</td>
+                            <td>3.2</td>
+                        </tr>
+                        <tr onclick="window.location.href='/courses.html';" style="cursor: pointer;">
+                            <td>Valorant</td>
+                            <td>33333</td>
+                            <td>4.9</td>
+                        </tr>
+                        <tr onclick="window.location.href='/courses.html';" style="cursor: pointer;">
+                            <td>Popmart</td>
+                            <td>444444</td>
+                            <td>3.2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col2">
+                <div class="dropdown-header" onclick="toggleTable('mytable2', 'dropdownIcon2')">
+                    <p class="mt mt-5">Major Elective Courses</p>
+                    <i class="bi bi-chevron-down" id="dropdownIcon2" style="color: black;"></i>
+                </div>
+                <table class="table table-hover" id="mytable2">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th>Courses</th>
+                            <th>Courses code</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dota 2</td>
+                            <td>11111</td>
+                            <td>5.0</td>
+                        </tr>
+                        <tr>
+                            <td>Home Remedies</td>
+                            <td>222222</td>
+                            <td>3.2</td>
+                        </tr>
+                        <tr>
+                            <td>Valorant</td>
+                            <td>33333</td>
+                            <td>4.9</td>
+                        </tr>
+                        <tr>
+                            <td>Popmart</td>
+                            <td>444444</td>
+                            <td>3.2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <script>
         function toggleTable(tableId, iconId) {
             var tableBody = document.querySelector('#' + tableId + ' tbody');
             var icon = document.getElementById(iconId);
             if (tableBody.style.display === "none" || tableBody.style.display === "") {
-                tableBody.style.display = "table-row-group"; // show tbody
-                icon.className = "bi bi-chevron-up"; // change arrow up 
+                tableBody.style.display = "table-row-group"; 
+                icon.className = "bi bi-chevron-up";
             } else {
-                tableBody.style.display = "none"; // hide tbody
-                icon.className = "bi bi-chevron-down"; // change arrow down
+                tableBody.style.display = "none";
+                icon.className = "bi bi-chevron-down";
             }
         }
-        // -------------------------------click courses ----------------------------------
+
         function redirectToCourseDetail(url) {
             window.location.href = url;
         }
@@ -148,12 +153,6 @@
         function course() {
             window.location.href = "/course"
         }
-    </script>
-
-
-
-
-
-</body>
-
-</html>
+            </script>
+        </body>
+    </html>

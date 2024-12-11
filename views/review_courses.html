@@ -1,161 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script src="../assets/css/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/review_courses.css">
-    <title>Courses</title>
-</head>
-
-<body>
-    <!---------------------------------- navi --------------------------------------------->
-    <div class="nav">
-        <div class="sidebar">
-            <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
-            <p class="text-center" style="color: #A60303">MFU</p>
-            <hr>
-            <li class="mt-5"> <a href="/db"><i class="bi bi-bar-chart"></i></a> </li>
-            <li class="mt-5"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
-            <li class="mt-5"><a href="/search"><i class="bi bi-search"></i></a></li>
-            <li class="mt-5"><a href="/community"><i class="bi bi-chat"></i></a></li>
-            <li class="mt-5"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
-            <li class="mt-5"><a href="/notification"><i class="bi bi-bell"></i></a></li>
-            <img class="profile" src="/assets/images/Screenshot 2024-04-09 034908.png" width="51,48" alt="">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <script src="../assets/css/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="../assets/css/review_courses.css">
+        <title>Courses</title>
+    </head>
+    <body>
+        <div class="nav">
+            <div class="sidebar">
+                <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
+                <p class="text-center" style="color: #A60303">MFU</p>
+                <hr>
+                <li class="mt-5">
+                    <a href="/db">
+                        <i class="bi bi-bar-chart"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/listcourse">
+                        <i class="bi bi-map"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/search">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/community">
+                        <i class="bi bi-chat"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/bookmark">
+                        <i class="bi bi-star"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/notification">
+                        <i class="bi bi-bell"></i>
+                    </a>
+                </li>
+                <img
+                    class="profile"
+                    src="/assets/images/Screenshot 2024-04-09 034908.png"
+                    width="51,48"
+                    alt=""
+                >
+            </div>
         </div>
-    </div>
-
-    <!--------------------------------- head ---------------------------------------->
-    <div class="col">
-        <h1 class="head text-left" style="color: #A60303;">List of Courses</h1>
-        
-        <hr class="list">
-    </div>
-
-    <br>
-    <div class="review">
-        <h3>Review</h3>
-    </div>
-
-    <div class="container">
-        <div class="review py-3 px-5" style="background-color: white; width: 1000px; height: 1000px;">
-            <form action="/submit-review" method="POST">
-                <!-- ส่งค่า course_id -->
-                <input type="hidden" name="course_id" value="<%= course.id %>">
-
-                <!-- Rating: Easy to learn -->
-                <div class="rate">
-                    <p class="a">Easy to learn</p>
-                    <input type="radio" id="star5_1" name="rate1" value="5" required />
-                    <label for="star5_1">5 stars</label>
-                    <input type="radio" id="star4_1" name="rate1" value="4" />
-                    <label for="star4_1">4 stars</label>
-                    <input type="radio" id="star3_1" name="rate1" value="3" />
-                    <label for="star3_1">3 stars</label>
-                    <input type="radio" id="star2_1" name="rate1" value="2" />
-                    <label for="star2_1">2 stars</label>
-                    <input type="radio" id="star1_1" name="rate1" value="1" />
-                    <label for="star1_1">1 star</label>
-                </div>
-
-                <!-- Rating: Collect points easily -->
-                <br><br>
-                <div class="rate">
-                    <p class="a">Collect points easily</p>
-                    <input type="radio" id="star5_2" name="rate2" value="5" required />
-                    <label for="star5_2">5 stars</label>
-                    <input type="radio" id="star4_2" name="rate2" value="4" />
-                    <label for="star4_2">4 stars</label>
-                    <input type="radio" id="star3_2" name="rate2" value="3" />
-                    <label for="star3_2">3 stars</label>
-                    <input type="radio" id="star2_2" name="rate2" value="2" />
-                    <label for="star2_2">2 stars</label>
-                    <input type="radio" id="star1_2" name="rate2" value="1" />
-                    <label for="star1_2">1 star</label>
-                </div>
-
-                <!-- Rating: Number of open registration -->
-                <br><br>
-                <div class="rate">
-                    <p class="a">Number of open registration</p>
-                    <input type="radio" id="star5_3" name="rate3" value="5" required />
-                    <label for="star5_3">5 stars</label>
-                    <input type="radio" id="star4_3" name="rate3" value="4" />
-                    <label for="star4_3">4 stars</label>
-                    <input type="radio" id="star3_3" name="rate3" value="3" />
-                    <label for="star3_3">3 stars</label>
-                    <input type="radio" id="star2_3" name="rate3" value="2" />
-                    <label for="star2_3">2 stars</label>
-                    <input type="radio" id="star1_3" name="rate3" value="1" />
-                    <label for="star1_3">1 star</label>
-                </div>
-
-                <!-- Rating: Appropriate content -->
-                <br><br>
-                <div class="rate">
-                    <p class="a">Appropriate content</p>
-                    <input type="radio" id="star5_4" name="rate4" value="5" required />
-                    <label for="star5_4">5 stars</label>
-                    <input type="radio" id="star4_4" name="rate4" value="4" />
-                    <label for="star4_4">4 stars</label>
-                    <input type="radio" id="star3_4" name="rate4" value="3" />
-                    <label for="star3_4">3 stars</label>
-                    <input type="radio" id="star2_4" name="rate4" value="2" />
-                    <label for="star2_4">2 stars</label>
-                    <input type="radio" id="star1_4" name="rate4" value="1" />
-                    <label for="star1_4">1 star</label>
-                </div>
-
-                <!-- Rating: Course overview -->
-                <br><br>
-                <div class="rate">
-                    <p class="a">Course overview</p>
-                    <input type="radio" id="star5_5" name="rate5" value="5" required />
-                    <label for="star5_5">5 stars</label>
-                    <input type="radio" id="star4_5" name="rate5" value="4" />
-                    <label for="star4_5">4 stars</label>
-                    <input type="radio" id="star3_5" name="rate5" value="3" />
-                    <label for="star3_5">3 stars</label>
-                    <input type="radio" id="star2_5" name="rate5" value="2" />
-                    <label for="star2_5">2 stars</label>
-                    <input type="radio" id="star1_5" name="rate5" value="1" />
-                    <label for="star1_5">1 star</label>
-                </div>
-
-                <!-- Warning box -->
-                <div class="warning mx-5 d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
-                        class="bi bi-exclamation-triangle-fill mr-3" viewBox="0 0 16 16" style="color: #A60303;">
-                        <path
-                            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    <h6 class="text m-3">Please be careful about using coarse words.</h6>
-                </div>
-
-                <!-- Comment -->
-                <div class="row">
-                    <div class="col-10">
-                        <div class="comment my-5">
-                            <textarea class="form-control" name="comment" rows="4" placeholder="comment..."></textarea>
+        <div class="col">
+            <h1 class="head text-left" style="color: #A60303;">List of Courses</h1>
+            <hr class="list">
+        </div>
+        <br>
+        <div class="review">
+            <h3>Review</h3>
+        </div>
+        <div class="container">
+            <div class="review py-3 px-5" style="background-color: white; width: 1000px; height: 1000px;">
+                <form action="/submit-review" method="POST">
+                    <input type="hidden" name="course_id" value="<%= course.id %>">
+                    <div class="rate">
+                        <p class="a">Easy to learn</p>
+                        <input
+                            type="radio"
+                            id="star5_1"
+                            name="rate1"
+                            value="5"
+                            required
+                        >
+                        <label for="star5_1">5 stars</label>
+                        <input
+                            type="radio"
+                            id="star4_1"
+                            name="rate1"
+                            value="4"
+                        >
+                        <label for="star4_1">4 stars</label>
+                        <input
+                            type="radio"
+                            id="star3_1"
+                            name="rate1"
+                            value="3"
+                        >
+                        <label for="star3_1">3 stars</label>
+                        <input
+                            type="radio"
+                            id="star2_1"
+                            name="rate1"
+                            value="2"
+                        >
+                        <label for="star2_1">2 stars</label>
+                        <input
+                            type="radio"
+                            id="star1_1"
+                            name="rate1"
+                            value="1"
+                        >
+                        <label for="star1_1">1 star</label>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="rate">
+                        <p class="a">Collect points easily</p>
+                        <input
+                            type="radio"
+                            id="star5_2"
+                            name="rate2"
+                            value="5"
+                            required
+                        >
+                        <label for="star5_2">5 stars</label>
+                        <input
+                            type="radio"
+                            id="star4_2"
+                            name="rate2"
+                            value="4"
+                        >
+                        <label for="star4_2">4 stars</label>
+                        <input
+                            type="radio"
+                            id="star3_2"
+                            name="rate2"
+                            value="3"
+                        >
+                        <label for="star3_2">3 stars</label>
+                        <input
+                            type="radio"
+                            id="star2_2"
+                            name="rate2"
+                            value="2"
+                        >
+                        <label for="star2_2">2 stars</label>
+                        <input
+                            type="radio"
+                            id="star1_2"
+                            name="rate2"
+                            value="1"
+                        >
+                        <label for="star1_2">1 star</label>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="rate">
+                        <p class="a">Number of open registration</p>
+                        <input
+                            type="radio"
+                            id="star5_3"
+                            name="rate3"
+                            value="5"
+                            required
+                        >
+                        <label for="star5_3">5 stars</label>
+                        <input
+                            type="radio"
+                            id="star4_3"
+                            name="rate3"
+                            value="4"
+                        >
+                        <label for="star4_3">4 stars</label>
+                        <input
+                            type="radio"
+                            id="star3_3"
+                            name="rate3"
+                            value="3"
+                        >
+                        <label for="star3_3">3 stars</label>
+                        <input
+                            type="radio"
+                            id="star2_3"
+                            name="rate3"
+                            value="2"
+                        >
+                        <label for="star2_3">2 stars</label>
+                        <input
+                            type="radio"
+                            id="star1_3"
+                            name="rate3"
+                            value="1"
+                        >
+                        <label for="star1_3">1 star</label>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="rate">
+                        <p class="a">Appropriate content</p>
+                        <input
+                            type="radio"
+                            id="star5_4"
+                            name="rate4"
+                            value="5"
+                            required
+                        >
+                        <label for="star5_4">5 stars</label>
+                        <input
+                            type="radio"
+                            id="star4_4"
+                            name="rate4"
+                            value="4"
+                        >
+                        <label for="star4_4">4 stars</label>
+                        <input
+                            type="radio"
+                            id="star3_4"
+                            name="rate4"
+                            value="3"
+                        >
+                        <label for="star3_4">3 stars</label>
+                        <input
+                            type="radio"
+                            id="star2_4"
+                            name="rate4"
+                            value="2"
+                        >
+                        <label for="star2_4">2 stars</label>
+                        <input
+                            type="radio"
+                            id="star1_4"
+                            name="rate4"
+                            value="1"
+                        >
+                        <label for="star1_4">1 star</label>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="rate">
+                        <p class="a">Course overview</p>
+                        <input
+                            type="radio"
+                            id="star5_5"
+                            name="rate5"
+                            value="5"
+                            required
+                        >
+                        <label for="star5_5">5 stars</label>
+                        <input
+                            type="radio"
+                            id="star4_5"
+                            name="rate5"
+                            value="4"
+                        >
+                        <label for="star4_5">4 stars</label>
+                        <input
+                            type="radio"
+                            id="star3_5"
+                            name="rate5"
+                            value="3"
+                        >
+                        <label for="star3_5">3 stars</label>
+                        <input
+                            type="radio"
+                            id="star2_5"
+                            name="rate5"
+                            value="2"
+                        >
+                        <label for="star2_5">2 stars</label>
+                        <input
+                            type="radio"
+                            id="star1_5"
+                            name="rate5"
+                            value="1"
+                        >
+                        <label for="star1_5">1 star</label>
+                    </div>
+                    <div class="warning mx-5 d-flex align-items-center">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="50"
+                            height="50"
+                            fill="currentColor"
+                            class="bi bi-exclamation-triangle-fill mr-3"
+                            viewBox="0 0 16 16"
+                            style="color: #A60303;"
+                        >
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                        </svg>
+                        <h6 class="text m-3">Please be careful about using coarse words.</h6>
+                    </div>
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="comment my-5">
+                                <textarea
+                                    class="form-control"
+                                    name="comment"
+                                    rows="4"
+                                    placeholder="comment..."
+                                ></textarea>
+                            </div>
+                        </div>
+                        <div class="col-2 ps-5 d-flex align-items-center">
+                            <button class="btn btn-link" type="submit">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="30"
+                                    height="30"
+                                    fill="currentColor"
+                                    class="bi bi-send-fill mx-4"
+                                    viewBox="0 0 16 16"
+                                    style="color: #A60303;"
+                                >
+                                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
-                    <div class="col-2 ps-5 d-flex align-items-center">
-                        <button class="btn btn-link" type="submit">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                class="bi bi-send-fill mx-4" viewBox="0 0 16 16" style="color: #A60303;">
-                                <path
-                                    d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
-
-    <!-- JavaScript to handle radio button change events -->
-    <script>
+        <script>
         const ratingInputs = document.querySelectorAll('input[name^="rate"]');
         ratingInputs.forEach(input => {
             input.addEventListener('change', () => {
@@ -163,7 +318,6 @@
                 console.log("Rating:", ratingValue);
             });
         });
-    </script>
-
-</body>
+        </script>
+    </body>
 </html>

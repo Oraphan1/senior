@@ -1,163 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script src="../assets/css/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/css/history.css">
-    <link rel="stylesheet" href="../assets/css/navbar.css">
-
-   
-
-    <title>List of courses</title>
-</head>
-<body>
-
-    <!-- The Modal -->
-<div id="myModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <p>คุณต้องการดำเนินการต่อหรือไม่?</p>
-      <div class="modal-footer">
-          <button class="yes" onclick="handleYes()">ใช่</button>
-          <button class="no" onclick="closeModal()">ไม่</button>
-      </div>
-    </div>
-  </div>
-
-
-    <!---------------------------------- navi --------------------------------------------->
-    <div class="flex-row">
-        <div class="nav">
-            <div class="sidebar">
-                <img
-                    src="/assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png"
-                    width="50,70">
-                <p class="text-center" style="color: #A60303;">MFU</p>
-                <hr>
-                <li class="mt-5"> <a href="/admin"><i class="bi bi-bar-chart"></i></a> </li>
-                <li class="mt-5"><a href="/listadmin"><i class="bi bi-map"></i></a></li>
-                <li class="mt-5"><a href="/commuadmin"><i class="bi bi-chat"></i></a></li>
-                <li class="mt-5"><a href="/history"><i class="bi bi-arrow-clockwise"></i></a></li>
-                <li class="logout"><a href="/home"><i class="bi bi-box-arrow-right"></a></i></li>
-            </div> 
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <script src="../assets/css/bootstrap.bundle.min.js"></script>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        >
+        <link rel="stylesheet" href="../assets/css/history.css">
+        <link rel="stylesheet" href="../assets/css/navbar.css">
+        <title>List of courses</title>
+    </head>
+    <body>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <p>คุณต้องการดำเนินการต่อหรือไม่?</p>
+                <div class="modal-footer">
+                    <button class="yes" onclick="handleYes()">ใช่</button>
+                    <button class="no" onclick="closeModal()">ไม่</button>
+                </div>
+            </div>
         </div>
-
-    <!--------------------------------- head ---------------------------------------->
-    <div class="col" >
-        <h1 class="head text-left" style="color: #A60303; ">History</h1>
-        <hr class="list"> 
-    </div>
-
-    <script type="text/javascript">
+        <div class="flex-row">
+            <div class="nav">
+                <div class="sidebar">
+                    <img src="/assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
+                    <p class="text-center" style="color: #A60303;">MFU</p>
+                    <hr>
+                    <li class="mt-5">
+                        <a href="/admin">
+                            <i class="bi bi-bar-chart"></i>
+                        </a>
+                    </li>
+                    <li class="mt-5">
+                        <a href="/listadmin">
+                            <i class="bi bi-map"></i>
+                        </a>
+                    </li>
+                    <li class="mt-5">
+                        <a href="/commuadmin">
+                            <i class="bi bi-chat"></i>
+                        </a>
+                    </li>
+                    <li class="mt-5">
+                        <a href="/history">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </a>
+                    </li>
+                    <li class="logout">
+                        <a href="/home">
+                            <i class="bi bi-box-arrow-right">
+                            </a>
+                        </i>
+                    </li>
+                </div>
+            </div>
+            <div class="col">
+                <h1 class="head text-left" style="color: #A60303; ">History</h1>
+                <hr class="list">
+            </div>
+            <script type="text/javascript">
         function showPopup() {
             alert("นี่คือหน้าต่างเด้งออกมา!");
         }
-    </script>
-    
-    
-    
-
-    
-    
-
-    <!-- ------------------------------------text --------------------------------------------------->
-
-    <div class="col1" >
-        <p class="mt mt-5">Free Elective Courses</p>
-            <table class="table  table-hover" id="mytable">
-            <thead>
-                <tr class="table-secondary">
-                    <th>Courses</th>
-                    <th>Courses code</th>
-                    <th>Rating</th>
-                    <th></th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Dota 2</td>
-                    <td>11111</td>
-                    <td>5.0</td>
-
-                    <td><img src="../assets/images/arrow-clockwise.svg" onclick="openModal()"></td>
-                </tr>
-                <tr>
-                    <td>Home Remidies</td>
-                    <td>222222</td>
-                    <td>3.2</td>
-
-                    <td><img src="../assets/images/arrow-clockwise.svg" onclick="openModal()"></td>
-                </tr>
-                <tr>
-                    <td>Valorant</td>
-                    <td>33333</td>
-                    <td>4.9</td>
-
-                    <td><img src="../assets/images/arrow-clockwise.svg" onclick="openModal()"></td>
-                </tr>
-                <tr>
-                    <td>Popmart</td>
-                    <td>444444</td>
-                    <td>3.2</td>
-
-                    <td><img src="../assets/images/arrow-clockwise.svg" onclick="openModal()"></td>
-
-                   
-                </tr>
-            </tbody>
-        </table>
-        
-
-    </div>
-
-   
-    <div class="col2">
-        <p class="mt mt-5">Major Elective Courses</p>
-        <table class="table table-hover" id="mytable">
-            <thead>
-                <tr class="table-secondary">
-                    <th>Courses</th>
-                    <th>Courses code</th>
-                    <th>Rating</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Dota 2</td>
-                    <td>11111</td>
-                    <td>5.0</td>
-                    <td><img src="../assets/images/arrow-clockwise.svg" onclick="openModal()"></td>
-                </tr>
-                <tr>
-                    <td>Home Remedies</td>
-                    <td>222222</td>
-                    <td>3.2</td>
-                    <td><img src="../assets/images/arrow-clockwise.svg" onclick="openModal()"></td>
-                </tr>
-                <tr>
-                    <td>Valorant</td>
-                    <td>33333</td>
-                    <td>4.9</td>
-                    <td><img src="../assets/images/arrow-clockwise.svg" onclick="openModal()"></td>
-                </tr>
-                <tr>
-                    <td>Popmart</td>
-                    <td>444444</td>
-                    <td>3.2</td>
-                    <td><img src="../assets/images/arrow-clockwise.svg" onclick="openModal()"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-   
-    <script src="./javascript/history.js"></script>
-    
-   
-</body>
-</html>
+            </script>
+            <div class="col1">
+                <p class="mt mt-5">Free Elective Courses</p>
+                <table class="table  table-hover" id="mytable">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th>Courses</th>
+                            <th>Courses code</th>
+                            <th>Rating</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dota 2</td>
+                            <td>11111</td>
+                            <td>5.0</td>
+                            <td>
+                                <img src="../assets/images/arrow-clockwise.svg" onclick="openModal()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Home Remidies</td>
+                            <td>222222</td>
+                            <td>3.2</td>
+                            <td>
+                                <img src="../assets/images/arrow-clockwise.svg" onclick="openModal()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Valorant</td>
+                            <td>33333</td>
+                            <td>4.9</td>
+                            <td>
+                                <img src="../assets/images/arrow-clockwise.svg" onclick="openModal()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Popmart</td>
+                            <td>444444</td>
+                            <td>3.2</td>
+                            <td>
+                                <img src="../assets/images/arrow-clockwise.svg" onclick="openModal()">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col2">
+                <p class="mt mt-5">Major Elective Courses</p>
+                <table class="table table-hover" id="mytable">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th>Courses</th>
+                            <th>Courses code</th>
+                            <th>Rating</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dota 2</td>
+                            <td>11111</td>
+                            <td>5.0</td>
+                            <td>
+                                <img src="../assets/images/arrow-clockwise.svg" onclick="openModal()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Home Remedies</td>
+                            <td>222222</td>
+                            <td>3.2</td>
+                            <td>
+                                <img src="../assets/images/arrow-clockwise.svg" onclick="openModal()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Valorant</td>
+                            <td>33333</td>
+                            <td>4.9</td>
+                            <td>
+                                <img src="../assets/images/arrow-clockwise.svg" onclick="openModal()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Popmart</td>
+                            <td>444444</td>
+                            <td>3.2</td>
+                            <td>
+                                <img src="../assets/images/arrow-clockwise.svg" onclick="openModal()">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <script src="./javascript/history.js"></script>
+        </body>
+    </html>

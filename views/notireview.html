@@ -4,18 +4,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Notification</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-            rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
         <link rel="stylesheet" href="../assets/css/navbar.css">
         <link rel="stylesheet" href="../assets/css/page-layout.css">
         <!-- <link rel="stylesheet" href="../assets/css/post.css"> -->
         <link rel="stylesheet" href="../assets/css/noticommu.css">
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link
-            href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital@1&display=swap"
-            rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital@1&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
         <script src="../assets/css/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -39,45 +34,66 @@
                     <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
                     <p class="text-center" style="color: #A60303">MFU</p>
                     <hr>
-                    <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
-                    <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
-                    <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
-                    <li class="mt-4"><a href="/community"><i class="bi bi-chat"></i></a></li>
-                    <li class="mt-4"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
-                    <li class="mt-4"><a href="/notification"><i class="bi bi-bell"></i></a></li>
-                    <li class="mt-4"><a href="/history"><i class="bi bi-pencil-square"></i></li>
-                    <a class="btn" onclick="profile()">
-                        <div id="user-profile"></div>
-                    </a>
-    
-                </div>
-            </div>
-
-            <div class="container">
-                <h1 class="mt-5" style="color: #A60303;">Notification</h1>
-                <div class="container-fluid">
-                    <div class="justi">
-                        <div class="mt-5" id="shape1">
-                            <a class="bubu" href="/noticommu">Community</a>
-                        </div>
-                        <a href="">
-                            <div class="mt-5" id="shape2">
-                                <a href="/notireview" class="bube">Review</a>
-                            </div>
+                    <li class="mt-5">
+                        <a href="/dashboard">
+                            <i class="bi bi-bar-chart"></i>
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="/listcourse">
+                            <i class="bi bi-map"></i>
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="/search">
+                            <i class="bi bi-search"></i>
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="/community">
+                            <i class="bi bi-chat"></i>
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="/bookmark">
+                            <i class="bi bi-star"></i>
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="/notification">
+                            <i class="bi bi-bell"></i>
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="/history">
+                            <i class="bi bi-pencil-square"></i>
+                        </li>
+                        <a class="btn" onclick="profile()">
+                            <div id="user-profile"></div>
                         </a>
                     </div>
-
-                    <!-- Notifications will be dynamically inserted here -->
-                    <div id="notifications-container"></div>
+                </div>
+                <div class="container">
+                    <h1 class="mt-5" style="color: #A60303;">Notification</h1>
+                    <div class="container-fluid">
+                        <div class="justi">
+                            <div class="mt-5" id="shape1">
+                                <a class="bubu" href="/noticommu">Community</a>
+                            </div>
+                            <a href="">
+                                <div class="mt-5" id="shape2">
+                                    <a href="/notireview" class="bube">Review</a>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="notifications-container"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <script src="../assets/css/load-html.js"></script>
-
-        <script>
+            <script src="../assets/css/load-html.js"></script>
+            <script>
             $(document).ready(() => {
-                // Fetch user info from sessionStorage
+
                 const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
                 console.log(userinfo);
                 if (userinfo && userinfo.image) {
@@ -89,11 +105,9 @@
                     $('#user-profile').html(`<p>No profile image available.</p>`);
                 }
 
-                // Fetch notifications
                 fetchNotifications();
             });
 
-            // Fetch notifications from the server
             function fetchNotifications() {
                 const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
                 const studentId = userinfo.id;
@@ -106,7 +120,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);  // Logs the fetched notification data
+                    console.log(data);
                     displayNotifications(data.notifications);
                 })
                 .catch(error => {
@@ -114,10 +128,9 @@
                 });
             }
 
-            // Display notifications on the page
             function displayNotifications(notifications) {
                 const container = $('#notifications-container');
-                container.empty();  // Clear any existing content
+                container.empty();
                 
                 if (notifications.length === 0) {
                     container.append('<p>No notifications yet.</p>');
@@ -139,7 +152,6 @@
                 window.location.href='/profile';
             }
 
-            // Handle logout
             function logout() {
                 fetch('/logout', {
                     method: 'POST',
@@ -157,6 +169,6 @@
                 })
                 .catch(error => console.error('Error:', error));
             }
-        </script>
-    </body>
-</html>
+            </script>
+        </body>
+    </html>

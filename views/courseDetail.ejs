@@ -10,7 +10,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../assets/lib/fusioncharts/js/fusioncharts.js"></script>
     <script src="../assets/lib/fusioncharts/js/themes/fusioncharts.theme.fusion.js"></script>
-    
 
     <title>Courses</title>
 
@@ -27,11 +26,6 @@
             margin-bottom: 10px;
         }
 
-
-        /* .active {
-            color: gold;
-        } */
-
         .review-actions button {
             margin-left: 10px;
         }
@@ -42,7 +36,6 @@
     <div class="flex-row">
         <div class="nav">
             <div class="sidebar" id="sidebar">
-                <!-- Sidebar content will be inserted here by JavaScript -->
             </div>
         </div>
 
@@ -62,8 +55,6 @@
                         </p>
                     </div>
                 </div>
-
-                <!-- Bookmark Button -->
                 <span class="star" id="star" data-course-id="<%= course.id %>">&#9733;</span>
             </div>
         </div>
@@ -73,12 +64,18 @@
             <div class="detail" style="background-color:white;">
                 <div class="text mx-5">
                     <h3>Detail</h3>
-                    <p>School: <%= course.school %></p>
-                    <p>Field Of Study: <%= course.field_of_study %></p>
-                    <p>Credit: <%= course.credit %></p>
-                    <p>Course Status: <%= course.course_status %></p>
-                    <p>Course Condition: <%= course.courseflg %></p>
-                    <p>Course Description: <%= course.description %></p>
+                    <p>School: <%= course.school %>
+                    </p>
+                    <p>Field Of Study: <%= course.field_of_study %>
+                    </p>
+                    <p>Credit: <%= course.credit %>
+                    </p>
+                    <p>Course Status: <%= course.course_status %>
+                    </p>
+                    <p>Course Condition: <%= course.courseflg %>
+                    </p>
+                    <p>Course Description: <%= course.description %>
+                    </p>
                 </div>
             </div>
         </div>
@@ -96,8 +93,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><%= course.academic_year %></td>
-                            <td><%= course.semester %></td>
+                            <td>
+                                <%= course.academic_year %>
+                            </td>
+                            <td>
+                                <%= course.semester %>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -109,71 +110,79 @@
                 <div class="text mx-5">
                     <h3>Reviews</h3>
                     <div class="col" style="display: flex; flex-direction: column;">
-                        <% if (reviews && reviews.length > 0) { %>
-                            <% reviews.forEach(review => { %>
+                        <% if (reviews && reviews.length> 0) { %>
+                            <% reviews.forEach(review=> { %>
                                 <div class="review-box">
-                                    <p class="text-end"><%= review.total_normalized_score %> / 5.00</p>
-                                    <h5>User: <%= review.studentId %></h5> <!-- Show full name if available, fallback to email -->                                    <p>Easy to learn:
-                                        <% for (let i = 0; i < review.rate_easy; i++) { %>
+                                    <p class="text-end">
+                                        <%= review.total_normalized_score %> / 5.00
+                                    </p>
+                                    <h5>User: <%= review.studentId %>
+                                    </h5>
+                                    <p>Easy
+                                        to learn:
+                                        <% for (let i=0; i < review.rate_easy; i++) { %>
                                             <i class="bi bi-star-fill" style="color: gold;"></i>
-                                        <% } %>
-                                        <% for (let i = review.rate_easy; i < 5; i++) { %>
-                                            <i class="bi bi-star" style="color: gold;"></i>
-                                        <% } %>
-                                        <span>(<%= review.rate_easy %>/5)</span>
+                                            <% } %>
+                                                <% for (let i=review.rate_easy; i < 5; i++) { %>
+                                                    <i class="bi bi-star" style="color: gold;"></i>
+                                                    <% } %>
+                                                        <span>(<%= review.rate_easy %>/5)</span>
                                     </p>
 
                                     <p>Collect points easily:
-                                        <% for (let i = 0; i < review.rate_collect; i++) { %>
+                                        <% for (let i=0; i < review.rate_collect; i++) { %>
                                             <i class="bi bi-star-fill" style="color: gold;"></i>
-                                        <% } %>
-                                        <% for (let i = review.rate_collect; i < 5; i++) { %>
-                                            <i class="bi bi-star" style="color: gold;"></i>
-                                        <% } %>
-                                        <span>(<%= review.rate_collect %>/5)</span>
+                                            <% } %>
+                                                <% for (let i=review.rate_collect; i < 5; i++) { %>
+                                                    <i class="bi bi-star" style="color: gold;"></i>
+                                                    <% } %>
+                                                        <span>(<%= review.rate_collect %>/5)</span>
                                     </p>
 
                                     <p>Number of open registrations:
-                                        <% for (let i = 0; i < review.rate_registration; i++) { %>
+                                        <% for (let i=0; i < review.rate_registration; i++) { %>
                                             <i class="bi bi-star-fill" style="color: gold;"></i>
-                                        <% } %>
-                                        <% for (let i = review.rate_registration; i < 5; i++) { %>
-                                            <i class="bi bi-star" style="color: gold;"></i>
-                                        <% } %>
-                                        <span>(<%= review.rate_registration %>/5)</span>
+                                            <% } %>
+                                                <% for (let i=review.rate_registration; i < 5; i++) { %>
+                                                    <i class="bi bi-star" style="color: gold;"></i>
+                                                    <% } %>
+                                                        <span>(<%= review.rate_registration %>/5)</span>
                                     </p>
 
                                     <p>Appropriate content:
-                                        <% for (let i = 0; i < review.rate_content; i++) { %>
+                                        <% for (let i=0; i < review.rate_content; i++) { %>
                                             <i class="bi bi-star-fill" style="color: gold;"></i>
-                                        <% } %>
-                                        <% for (let i = review.rate_content; i < 5; i++) { %>
-                                            <i class="bi bi-star" style="color: gold;"></i>
-                                        <% } %>
-                                        <span>(<%= review.rate_content %>/5)</span>
+                                            <% } %>
+                                                <% for (let i=review.rate_content; i < 5; i++) { %>
+                                                    <i class="bi bi-star" style="color: gold;"></i>
+                                                    <% } %>
+                                                        <span>(<%= review.rate_content %>/5)</span>
                                     </p>
 
                                     <p>Course overview:
-                                        <% for (let i = 0; i < review.rate_overview; i++) { %>
+                                        <% for (let i=0; i < review.rate_overview; i++) { %>
                                             <i class="bi bi-star-fill" style="color: gold;"></i>
-                                        <% } %>
-                                        <% for (let i = review.rate_overview; i < 5; i++) { %>
-                                            <i class="bi bi-star" style="color: gold;"></i>
-                                        <% } %>
-                                        <span>(<%= review.rate_overview %>/5)</span>
+                                            <% } %>
+                                                <% for (let i=review.rate_overview; i < 5; i++) { %>
+                                                    <i class="bi bi-star" style="color: gold;"></i>
+                                                    <% } %>
+                                                        <span>(<%= review.rate_overview %>/5)</span>
                                     </p>
 
-                                    <p><span style="color: red;">Comment:</span> <%= review.review_detail %></p>
-                                    <p>Posted on: <%= review.created_at %></p>
-                                    <% if (user && user.email === '6431501124@lamduan.mfu.ac.th') { %>
+                                    <p><span style="color: red;">Comment:</span>
+                                        <%= review.review_detail %>
+                                    </p>
+                                    <p>Posted on: <%= review.created_at %>
+                                    </p>
+                                    <% if (user && user.email==='6431501124@lamduan.mfu.ac.th' ) { %>
                                         <div class="btn btn-danger" onclick="deleteReview(<%= review.id %>)">
-                                       Delete </div>
-                                    <% } %>
+                                            Delete </div>
+                                        <% } %>
                                 </div>
-                            <% }); %>
-                        <% } else { %>
-                            <p>No reviews for this course yet.</p>
-                        <% } %>
+                                <% }); %>
+                                    <% } else { %>
+                                        <p>No reviews for this course yet.</p>
+                                        <% } %>
                     </div>
                 </div>
             </div>
@@ -182,13 +191,12 @@
 
     <script src="../assets/css/load-html.js"></script>
     <script>
-$(document).ready(() => {
-    const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
-    console.log(userinfo);
+        $(document).ready(() => {
+            const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
+            console.log(userinfo);
 
-    // Change sidebar based on user role
-    if (userinfo && (userinfo.role === 'admin' || userinfo.email === '6431501124@lamduan.mfu.ac.th')) {
-        document.getElementById('sidebar').innerHTML = `
+            if (userinfo && (userinfo.role === 'admin' || userinfo.email === '6431501124@lamduan.mfu.ac.th')) {
+                document.getElementById('sidebar').innerHTML = `
             <img src="/assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
             <p class="text-center" style="color: #A60303;">MFU</p>
             <hr>
@@ -199,8 +207,8 @@ $(document).ready(() => {
             <li class="mt-5"><a href="/commuadmin"><i class="bi bi-chat"></i></a></li>
             <li class="logout"><a href="/home"><i class="bi bi-box-arrow-right"></i></a></li>
         `;
-    } else {
-        document.getElementById('sidebar').innerHTML = `
+            } else {
+                document.getElementById('sidebar').innerHTML = `
             <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
             <p class="text-center" style="color: #A60303">MFU</p>
             <hr>
@@ -216,22 +224,21 @@ $(document).ready(() => {
                     <div id="user-profile"></div>
                 </a>
         `;
-    }
-    
-    if (userinfo && userinfo.image) {
-        $('#user-profile').html(`
+            }
+
+            if (userinfo && userinfo.image) {
+                $('#user-profile').html(`
             <img class="img-profile" crossorigin="anonymous" src="${userinfo.image}" alt="User Profile" referrerpolicy="no-referrer" />
         `);
-    } else {
-        console.log("No user image available");
-        $('#user-profile').html(`<p>No profile image available.</p>`);
-    }
+            } else {
+                console.log("No user image available");
+                $('#user-profile').html(`<p>No profile image available.</p>`);
+            }
 
-    // Display reviews and allow deletion based on user role or specific email
-    if (reviews && reviews.length > 0) {
-        reviews.forEach(review => {
-            const canDelete = userinfo && (userinfo.role === 'admin' || userinfo.email === '6431501124@lamduan.mfu.ac.th');
-            const reviewBox = `
+            if (reviews && reviews.length > 0) {
+                reviews.forEach(review => {
+                    const canDelete = userinfo && (userinfo.role === 'admin' || userinfo.email === '6431501124@lamduan.mfu.ac.th');
+                    const reviewBox = `
                 <div class="review-box">
                     <p class="text-end">${review.total_normalized_score} / 5.00</p>
                     <h5>User: ${review.studentid}</h5>
@@ -262,130 +269,122 @@ $(document).ready(() => {
                     </div>` : ''}
                 </div>
             `;
-            $('#reviews-container').append(reviewBox);
-        });
-    } else {
-        $('#reviews-container').append('<p>No reviews for this course yet.</p>');
-    }
-
-    // Function to generate star icons based on rating
-    function getStars(rating) {
-        let stars = '';
-        for (let i = 0; i < rating; i++) {
-            stars += `<i class="bi bi-star-fill" style="color: gold;"></i>`;
-        }
-        for (let i = rating; i < 5; i++) {
-            stars += `<i class="bi bi-star" style="color: gold;"></i>`;
-        }
-        return stars;
-    }
-
-    get_review_qty();
-    get_review_chart();
-});
-
-function deleteReview(reviewId) {
-    if (confirm('Are you sure you want to delete this review?')) {
-        fetch(`/review/delete/${reviewId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Review deleted successfully.');
-                location.reload(); // Refresh the page to reflect changes
+                    $('#reviews-container').append(reviewBox);
+                });
             } else {
-                alert('Failed to delete the review: ' + (data.message || 'Unknown error.'));
+                $('#reviews-container').append('<p>No reviews for this course yet.</p>');
             }
-        })
-        .catch(error => {
-            console.error('Error deleting review:', error);
-            alert('Error deleting review.');
+
+            function getStars(rating) {
+                let stars = '';
+                for (let i = 0; i < rating; i++) {
+                    stars += `<i class="bi bi-star-fill" style="color: gold;"></i>`;
+                }
+                for (let i = rating; i < 5; i++) {
+                    stars += `<i class="bi bi-star" style="color: gold;"></i>`;
+                }
+                return stars;
+            }
+
+            get_review_qty();
+            get_review_chart();
         });
-    }
-}
 
-function logout() {
-    fetch('/logout', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
+        function deleteReview(reviewId) {
+            if (confirm('Are you sure you want to delete this review?')) {
+                fetch(`/review/delete/${reviewId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Review deleted successfully.');
+                            location.reload();
+                        } else {
+                            alert('Failed to delete the review: ' + (data.message || 'Unknown error.'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting review:', error);
+                        alert('Error deleting review.');
+                    });
+            }
         }
-    }).then((response) => {
-        window.location.href = "/";
-    }).catch((err) => {
-        console.error(err);
-        alert("Unable to logout. Please try again later.");
-    });
-}
 
+        function logout() {
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((response) => {
+                window.location.href = "/";
+            }).catch((err) => {
+                console.error(err);
+                alert("Unable to logout. Please try again later.");
+            });
+        }
 
-        // Bookmark functionality
         function getBookmarkedCourses() {
-        return JSON.parse(localStorage.getItem('bookmarkedCourses')) || [];
-    }
-
-    // ฟังก์ชันเพื่อบันทึกหรือยกเลิกบุ๊คมาร์คคอร์สใน local storage
-    function toggleBookmarkedCourse(courseId) {
-        const bookmarkedCourses = getBookmarkedCourses();
-        const index = bookmarkedCourses.indexOf(courseId);
-        
-        // หากคอร์สนี้ถูกบุ๊คมาร์คอยู่ให้ลบออก
-        if (index > -1) {
-            bookmarkedCourses.splice(index, 1); // ลบ ID คอร์สออกจากอาเรย์
-            localStorage.setItem('bookmarkedCourses', JSON.stringify(bookmarkedCourses));
-            return false; // หมายถึงคอร์สนี้ถูกยกเลิกการบุ๊คมาร์ค
-        } else {
-            bookmarkedCourses.push(courseId); // เพิ่ม ID คอร์สลงในอาเรย์
-            localStorage.setItem('bookmarkedCourses', JSON.stringify(bookmarkedCourses));
-            return true; // หมายถึงคอร์สนี้ถูกบุ๊คมาร์ค
+            return JSON.parse(localStorage.getItem('bookmarkedCourses')) || [];
         }
-    }
 
-    // ตรวจสอบว่าคอร์สนี้ถูกบุ๊คมาร์คอยู่หรือไม่เมื่อโหลดหน้า
-    window.onload = function() {
-        const courseId = document.getElementById('star').getAttribute('data-course-id');
-        const bookmarkedCourses = getBookmarkedCourses();
-        if (bookmarkedCourses.includes(courseId)) {
-            document.getElementById('star').classList.add('active');
+        function toggleBookmarkedCourse(courseId) {
+            const bookmarkedCourses = getBookmarkedCourses();
+            const index = bookmarkedCourses.indexOf(courseId);
+
+
+            if (index > -1) {
+                bookmarkedCourses.splice(index, 1);
+                localStorage.setItem('bookmarkedCourses', JSON.stringify(bookmarkedCourses));
+                return false;
+            } else {
+                bookmarkedCourses.push(courseId);
+                localStorage.setItem('bookmarkedCourses', JSON.stringify(bookmarkedCourses));
+                return true;
+            }
         }
-    };
 
-    // ฟังก์ชันสำหรับการจัดการคลิกที่ปุ่มบุ๊คมาร์ค
-    document.getElementById('star').addEventListener('click', function() {
-    const courseId = this.getAttribute('data-course-id');
-    
-    // สลับการแสดงผลสำหรับฟีดแบ็ก
-    const isBookmarked = toggleBookmarkedCourse(courseId);
-    this.classList.toggle('active', isBookmarked);
+        window.onload = function () {
+            const courseId = document.getElementById('star').getAttribute('data-course-id');
+            const bookmarkedCourses = getBookmarkedCourses();
+            if (bookmarkedCourses.includes(courseId)) {
+                document.getElementById('star').classList.add('active');
+            }
+        };
 
-    // ส่งคำขอไปยัง backend เพื่อเพิ่มหรือลบบุ๊คมาร์คคอร์ส
-    fetch(isBookmarked ? '/bookmark/add' : '/bookmark/remove', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ course_id: courseId })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert(data.message); // แสดงข้อความที่ส่งมาจากเซิร์ฟเวอร์
-        } else {
-            alert(data.message); // แสดงข้อความถ้ามีปัญหา
+        document.getElementById('star').addEventListener('click', function () {
+            const courseId = this.getAttribute('data-course-id');
+
+            const isBookmarked = toggleBookmarkedCourse(courseId);
+            this.classList.toggle('active', isBookmarked);
+
+            fetch(isBookmarked ? '/bookmark/add' : '/bookmark/remove', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ course_id: courseId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error with bookmark operation:', error);
+                    alert('Error with bookmark operation.');
+                });
+        });
+        function profile() {
+            window.location.href = '/profile';
         }
-    })
-    .catch(error => {
-        console.error('Error with bookmark operation:', error);
-        alert('Error with bookmark operation.'); // แจ้งเตือนหากเกิดข้อผิดพลาด
-    });
-});
-function profile(){
-    window.location.href='/profile';
-}
     </script>
 </body>
 

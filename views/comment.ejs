@@ -34,17 +34,15 @@
                 <p class="text-center" style="color: #A60303">MFU</p>
                 <hr>
 
-                <!-- Admin Sidebar for specific user email -->
                 <div id="admin-sidebar" style="display: none;">
                     <li style="color: #A60303;">Admin</li>
                     <li class="mt-5"><a href="/dashboardadmin"><i class="bi bi-bar-chart"></i></a></li>
-                <li class="mt-5"><a href="/listadmin"><i class="bi bi-map"></i></a></li>
-                <li class="mt-5"><a href="/importstudent"><i class="bi bi-person-plus-fill"></i></a></li>
-                <li class="mt-5"><a href="/commuadmin"><i class="bi bi-chat"></i></a></li>
-                <li class="logout"><a href="/home"><i class="bi bi-box-arrow-right"></i></a></li>
+                    <li class="mt-5"><a href="/listadmin"><i class="bi bi-map"></i></a></li>
+                    <li class="mt-5"><a href="/importstudent"><i class="bi bi-person-plus-fill"></i></a></li>
+                    <li class="mt-5"><a href="/commuadmin"><i class="bi bi-chat"></i></a></li>
+                    <li class="logout"><a href="/home"><i class="bi bi-box-arrow-right"></i></a></li>
                 </div>
 
-                <!-- Regular Sidebar for other users -->
                 <div id="regular-sidebar">
                     <li style="color: #A60303;">Student</li>
                     <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
@@ -54,9 +52,9 @@
                     <li class="mt-4"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
                     <li class="mt-4"><a href="/notification"><i class="bi bi-bell"></i></a></li>
                     <li class="mt-4"><a href="/history"><i class="bi bi-pencil-square"></i></li>
-                        <a class="btn" onclick="profile()">
-                            <div id="user-profile"></div>
-                        </a>
+                    <a class="btn" onclick="profile()">
+                        <div id="user-profile"></div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -65,13 +63,12 @@
             <h1 class="mt-5" style="color: #A60303;">Community</h1>
 
             <div class="card mt-5">
-                <!-- Post content -->
                 <p class="mt-4 text-muted" style="font-size: 15px;">
                     <%= postCreator %>
                 </p>
                 <p style="color: #A60303; font-size: 25px; margin-left: 20px; margin-top: 10px;">
                     <%= post ? post.postdetail : "No post details available." %>
-                   
+
                 </p>
 
                 <hr>
@@ -85,29 +82,36 @@
                 <hr>
                 <h5 class="comment" style="color: #A60303;">Comments</h5>
                 <div class="comment-container">
-                    <% if (comments && comments.length > 0) { %>
+                    <% if (comments && comments.length> 0) { %>
                         <% comments.forEach(function(comment) { %>
                             <div class="mb-3">
                                 <p class="comt">
-                                    <strong><%= comment.name %>:</strong> <%= comment.detail %>
-                
-                                    <% if (user && user.email === '6431501124@lamduan.mfu.ac.th') { %>
-                                        <!-- Show trash icon only if userEmail matches -->
-                                        <i class="bi bi-trash-fill" onclick="deleteComment('<%= comment.commentid %>')"></i>
-                                        <% } %>
+                                    <strong>
+                                        <%= comment.name %>:
+                                    </strong>
+                                    <%= comment.detail %>
+
+                                        <% if (user && user.email==='6431501124@lamduan.mfu.ac.th' ) { %>
+                                            <i class="bi bi-trash-fill"
+                                                onclick="deleteComment('<%= comment.commentid %>')"></i>
+                                            <% } %>
                                 </p>
                             </div>
-                        <% }); %>
-                    <% } else { %>
-                        <p>No comments available.</p>
-                    <% } %>
+                            <% }); %>
+                                <% } else { %>
+                                    <p>No comments available.</p>
+                                    <% } %>
                 </div>
 
                 <hr>
-                <div class="Write" style="background-color: #f1f1f1; padding: 20px; display: flex; align-items: center; display: none;">
-                    <form id="commentForm" action="/submit-comment/<%= post ? post.postid : '' %>" method="POST" style="width: 1100px; display: flex; gap: 10px;">
-                        <textarea class="form-control" name="commentText" placeholder="Write a comment..." required style="flex-grow: 1; border-radius: 8px;"></textarea>
-                        <button type="submit" class="btn btn-primary" style="border-radius: 8px; margin-left: 1150px; margin-top: 15px;">Sent</button>
+                <div class="Write"
+                    style="background-color: #f1f1f1; padding: 20px; display: flex; align-items: center; display: none;">
+                    <form id="commentForm" action="/submit-comment/<%= post ? post.postid : '' %>" method="POST"
+                        style="width: 1100px; display: flex; gap: 10px;">
+                        <textarea class="form-control" name="commentText" placeholder="Write a comment..." required
+                            style="flex-grow: 1; border-radius: 8px;"></textarea>
+                        <button type="submit" class="btn btn-primary"
+                            style="border-radius: 8px; margin-left: 1150px; margin-top: 15px;">Sent</button>
                     </form>
                 </div>
 
@@ -118,7 +122,7 @@
 
     <script src="../assets/css/load-html.js"></script>
     <script>
-         $(document).ready(() => {
+        $(document).ready(() => {
             const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
             console.log(userinfo)
             if (userinfo && userinfo.image) {
@@ -132,58 +136,48 @@
 
             get_review_qty();
             get_review_chart();
-            
+
         });
 
         $(document).ready(() => {
-            // Handle user email check and display the sidebar accordingly
+
             const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
             if (userinfo && userinfo.email === '6431501124@lamduan.mfu.ac.th') {
-                // Show admin sidebar, hide regular sidebar
+
                 $('#admin-sidebar').show();
                 $('#regular-sidebar').hide();
-
-                // Show comment form for this user only
                 $('.Write').hide();
             } else {
-                // Show regular sidebar, hide admin sidebar
                 $('#admin-sidebar').hide();
                 $('#regular-sidebar').show();
-
-                // Hide comment form for others
                 $('.Write').show();
             }
 
-            // Handle comment submission
-            $('#commentForm').on('submit', function(event) {
-    event.preventDefault(); // Prevent the form from refreshing the page
+            $('#commentForm').on('submit', function (event) {
+                event.preventDefault();
 
-    const commentText = $('textarea[name="commentText"]').val();
-    const postId = "<%= post ? post.postid : '' %>"; // Use EJS to insert post id
+                const commentText = $('textarea[name="commentText"]').val();
+                const postId = "<%= post ? post.postid : '' %>";
 
-    // List of forbidden words (You can add more words as needed)
-    const forbiddenWords = ["แย่", "ห่วย", "bad"]; // Replace with actual forbidden words
+                const forbiddenWords = ["แย่", "ห่วย", "bad"];
 
-    // Check if comment contains any forbidden words
-    const containsForbiddenWord = forbiddenWords.some(word => commentText.toLowerCase().includes(word.toLowerCase()));
+                const containsForbiddenWord = forbiddenWords.some(word => commentText.toLowerCase().includes(word.toLowerCase()));
 
-    if (containsForbiddenWord) {
-        // Show an alert if a forbidden word is found
-        alert('Your comment contains inappropriate language. Please edit comment.');
-        return; // Prevent form submission
-    }
+                if (containsForbiddenWord) {
+                    alert('Your comment contains inappropriate language. Please edit comment.');
+                    return;
+                }
 
-    // Send the comment to the server if no forbidden words are found
-    $.ajax({
-        type: 'POST',
-        url: `/submit-comment/${postId}`,
-        contentType: 'application/json',
-        data: JSON.stringify({ commentText: commentText }),
-        success: function(response) {
-            if (response.comment) {
-                const newComment = response.comment;
+                $.ajax({
+                    type: 'POST',
+                    url: `/submit-comment/${postId}`,
+                    contentType: 'application/json',
+                    data: JSON.stringify({ commentText: commentText }),
+                    success: function (response) {
+                        if (response.comment) {
+                            const newComment = response.comment;
 
-                const newCommentHtml = `
+                            const newCommentHtml = `
                     <div>
                         <p class="comt">
                             <strong>${newComment.name}:</strong> ${newComment.detail}
@@ -191,41 +185,39 @@
                     </div>
                 `;
 
-                // Append the new comment to the comment container
-                $('.comment-container').append(newCommentHtml);
-                $('textarea[name="commentText"]').val(''); // Clear the comment box
-                alert('Comment successfully submitted!');
-            }
-        },
-        error: function(error) {
-            console.error('Error:', error);
+                            $('.comment-container').append(newCommentHtml);
+                            $('textarea[name="commentText"]').val('');
+                            alert('Comment successfully submitted!');
+                        }
+                    },
+                    error: function (error) {
+                        console.error('Error:', error);
                     }
                 });
             });
         });
 
-        // Function to handle comment deletion
         function deleteComment(commentId) {
             const confirmDelete = confirm('Are you sure you want to delete this comment?');
 
             if (confirmDelete) {
                 $.ajax({
                     type: 'POST',
-                    url: `/delete-comment/${commentId}`,  // Send the correct comment ID to the backend
-                    success: function(response) {
+                    url: `/delete-comment/${commentId}`,
+                    success: function (response) {
                         alert(response.message);
-                        location.reload();  // Reload the page to reflect the changes
+                        location.reload();
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.error('Error:', error);
                         alert('Could not delete comment. Please try again.');
                     }
                 });
             }
         }
-        function profile(){
-    window.location.href='/profile';
-}
+        function profile() {
+            window.location.href = '/profile';
+        }
     </script>
 </body>
 

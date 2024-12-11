@@ -10,29 +10,30 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="/public/js/bootstrap.bundle.min.js"></script>
-    
+
 </head>
 
 <body>
     <div class="card p-5">
         <div class="reg">
-            <form id="formRegister" method="POST" action="/register"> 
+            <form id="formRegister" method="POST" action="/register">
                 <h1>Register</h1>
 
                 <div class="input-box ">
-                    <input type="text" placeholder="Username" name="uname" class="form-control form-control-lg" required>
+                    <input type="text" placeholder="Username" name="uname" class="form-control form-control-lg"
+                        required>
                 </div>
-              
+
 
                 <div class="input-box ">
-                    <input type="password" placeholder="Password" name="psw" class="form-control form-control-lg" required>
+                    <input type="password" placeholder="Password" name="psw" class="form-control form-control-lg"
+                        required>
                 </div>
 
                 <div class="input-box ">
-                    <input type="password" placeholder="Confirm password" name="confirm" class="form-control form-control-lg" required>
+                    <input type="password" placeholder="Confirm password" name="confirm"
+                        class="form-control form-control-lg" required>
                 </div>
-
-                <!-- Role Selection -->
                 <div class="input-box">
                     <label for="role" class="form-label">Select Role</label>
                     <select name="role" class="form-select form-control-lg" required>
@@ -69,21 +70,19 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Login failed");
-                }
-                return response.text();
-            })
-            .then(data => {
-                window.location.href = data;
-            })
-            .catch(error => {
-                Swal.fire("Login failed", error.message, "error");
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Login failed");
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    window.location.href = data;
+                })
+                .catch(error => {
+                    Swal.fire("Login failed", error.message, "error");
+                });
         }
-
-        // เช็คว่ามี query parameter success=true หรือไม่
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('success') === 'true') {
             Swal.fire('Registration Successful', 'You can now log in with your account.', 'success');

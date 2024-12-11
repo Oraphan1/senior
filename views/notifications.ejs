@@ -65,10 +65,11 @@
                     <a class="btn" onclick="logout()">
                         <div id="user-profile">
                             <% if (user && user.image) { %>
-                                <img class="img-profile" crossorigin="anonymous" src="<%= user.image %>" alt="User Profile" referrerpolicy="no-referrer" />
-                            <% } else { %>
-                                <p>No profile image available.</p>
-                            <% } %>
+                                <img class="img-profile" crossorigin="anonymous" src="<%= user.image %>"
+                                    alt="User Profile" referrerpolicy="no-referrer" />
+                                <% } else { %>
+                                    <p>No profile image available.</p>
+                                    <% } %>
                         </div>
                     </a>
                 </ul>
@@ -79,16 +80,20 @@
             <h1 class="mt-5" style="color: #A60303;">Notificationsss</h1>
             <div class="container-fluid">
                 <div id="notification-list">
-                    <% if (notifications.length > 0) { %>
-                        <% notifications.forEach(notification => { %>
+                    <% if (notifications.length> 0) { %>
+                        <% notifications.forEach(notification=> { %>
                             <div class="notification-card">
-                                <h3 class="notification-title"><%= notification.title %></h3>
-                                <p class="notification-course"><%= notification.course_name %></p>
+                                <h3 class="notification-title">
+                                    <%= notification.title %>
+                                </h3>
+                                <p class="notification-course">
+                                    <%= notification.course_name %>
+                                </p>
                             </div>
-                        <% }); %>
-                    <% } else { %>
-                        <p>No notifications.</p>
-                    <% } %>
+                            <% }); %>
+                                <% } else { %>
+                                    <p>No notifications.</p>
+                                    <% } %>
                 </div>
             </div>
         </div>
@@ -102,15 +107,15 @@
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.redirect) {
-                    window.location.href = data.redirect;
-                } else {
-                    console.error('Logout failed');
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.redirect) {
+                        window.location.href = data.redirect;
+                    } else {
+                        console.error('Logout failed');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
     </script>
 </body>

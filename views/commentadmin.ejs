@@ -94,10 +94,10 @@
     <script>
         $(document).ready(() => {
         $('#commentForm').on('submit', function(event) {
-            event.preventDefault(); // ป้องกันไม่ให้ฟอร์มรีเฟรชหน้าเว็บ
+            event.preventDefault(); 
 
             const commentText = $('textarea[name="commentText"]').val();
-            const postId = <%= JSON.stringify(post.postid) %>; // ใช้ EJS เพื่อแทรก post id
+            const postId = <%= JSON.stringify(post.postid) %>; 
 
             $.ajax({
                 type: 'POST',
@@ -149,10 +149,10 @@
                     'Content-Type': 'application/json'
                 }
             })
-                .then(response => response.json()) // แปลง response เป็น JSON
+                .then(response => response.json()) 
                 .then(data => {
                     if (data.redirect) {
-                        window.location.href = data.redirect; // ใช้ URL ที่ได้รับจาก server
+                        window.location.href = data.redirect; 
                     } else {
                         console.error('Logout failed');
                     }

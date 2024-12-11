@@ -70,34 +70,28 @@
     <script src="../assets/css/load-html.js"></script>
     <script>
         $(document).ready(() => {
-            const userinfo = JSON.parse(sessionStorage.getItem('userinfo')); // Retrieve user info from sessionStorage
+            const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
 
             if (userinfo) {
                 $('#postForm').on('submit', function (event) {
-                    event.preventDefault(); // Prevent the default form submission
+                    event.preventDefault();
 
-                    const postContent = $('#postContentInput').val(); // Get the content from the form
+                    const postContent = $('#postContentInput').val();
 
                     if (!postContent) {
                         alert('Please fill in the post content.');
                         return;
                     }
-
-                    // Forbidden words array
-                    const forbiddenWords = ["แย่", "บ้า","ห่วย"];
-
-                    // Check if the post contains any forbidden words
+                    const forbiddenWords = ["แย่", "บ้า", "ห่วย"];
                     const containsForbiddenWords = forbiddenWords.some(word => postContent.includes(word));
 
                     if (containsForbiddenWords) {
                         alert('Your post contains inappropriate words. Please edit your post.');
-                        return; // Stop form submission
+                        return;
                     }
 
                     console.log('Post content:', postContent);
                     console.log('User email:', userinfo.email);
-
-                    // Send data to the server
                     $.ajax({
                         type: 'POST',
                         url: '/post',
@@ -132,8 +126,8 @@
             }
         });
 
-        function profile(){
-            window.location.href='/profile';
+        function profile() {
+            window.location.href = '/profile';
         }
     </script>
 </body>

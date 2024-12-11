@@ -2,157 +2,176 @@
 <html lang="en">
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script src="../assets/css/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/listcourses.css">
-    <link rel="stylesheet" href="../assets/css/navbar.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <script src="../assets/css/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/listcourses.css">
+  <link rel="stylesheet" href="../assets/css/navbar.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../assets/lib/fusioncharts/js/fusioncharts.js"></script>
-    <script src="../assets/lib/fusioncharts/js/themes/fusioncharts.theme.fusion.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="../assets/lib/fusioncharts/js/fusioncharts.js"></script>
+  <script src="../assets/lib/fusioncharts/js/themes/fusioncharts.theme.fusion.js"></script>
 
-    <style>
-        /* Add custom styles for better table appearance */
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        table th, table td {
-            padding: 12px;
-            text-align: center;
-            vertical-align: middle;
-        }
-        table th {
-            background-color: #A60303;
-            color: white;
-            font-weight: bold;
-        }
-        table td {
-            background-color: #f8f9fa;
-        }
-        table tr:hover {
-            background-color: #f1f1f1;
-        }
-        .container {
-            max-width: 1000px;
-        }
-    </style>
+  <style>
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    table th,
+    table td {
+      padding: 12px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    table th {
+      background-color: #A60303;
+      color: white;
+      font-weight: bold;
+    }
+
+    table td {
+      background-color: #f8f9fa;
+    }
+
+    table tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .container {
+      max-width: 1000px;
+    }
+  </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container-fluid">
-            <!-- Wrap the image with an anchor tag to redirect to the homepage -->
-            <a href="/" class="navbar-brand">
-                <img src="../assets/images/mfu.png" alt="mfu" style="width:40px;" class="rounded-pill me-auto">
-            </a>
-        </div>
-    </nav>
-    
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+      <a href="/" class="navbar-brand">
+        <img src="../assets/images/mfu.png" alt="mfu" style="width:40px;" class="rounded-pill me-auto">
+      </a>
+    </div>
+  </nav>
 
-    <div class="container search-container">
-        <h1 class="text-center">Search Courses</h1>
 
-        <!-- Search Form -->
-        <form action="/seesearch" method="GET">
-            <div class="row">
-                <div class="col-md-6 mb-2">
-                  <p>Name Course</p>
-                  <div class="input-group">
-                    <input type="text" name="name" class="form-control" value="<%= searchParams.name %>" placeholder="Search for a course">
-                  </div>
-                </div>
-    
-                <div class="col-md-6 mb-2">
-                  <p>School</p>
-                  <select name="field_of_study" class="form-select">
-                    <option value="">Select School</option>
-                    <% dropdownData.field_of_studys.forEach(field_of_study => { %>
-                      <option value="<%= field_of_study.field_of_study %>" <%= field_of_study.field_of_study === searchParams.field_of_study ? 'selected' : '' %>><%= field_of_study.field_of_study %></option>
-                    <% }) %>
-                  </select>
-                </div>
-              </div>
-    
-              <!-- Course Type and Academic Year Dropdowns in the Same Row -->
-              <div class="row">
-                <div class="col-md-6 mb-2">
-                  <p>Course Type</p>
-                  <select name="type" class="form-select">
-                    <option value="">Select Course Type</option>
-                    <% dropdownData.types.forEach(type => { %>
-                      <option value="<%= type.type %>" <%= type.type === searchParams.type ? 'selected' : '' %>><%= type.type %></option>
-                    <% }) %>
-                  </select>
-                </div>
-    
-                <div class="col-md-6 mb-2">
-                  <p>Academic Year</p>
-                  <select name="academic_year" class="form-select">
-                    <option value="">Select Academic Year</option>
-                    <% dropdownData.academicYears.forEach(year => { %>
-                      <option value="<%= year.academic_year %>" <%= year.academic_year === searchParams.academic_year ? 'selected' : '' %>><%= year.academic_year %></option>
-                    <% }) %>
-                  </select>
-                </div>
-              </div>
-    
-              <!-- Semester Dropdown -->
-              <div class="row">
-                <div class="col-md-6 mb-2">
-                  <p>Semester</p>
-                  <select name="semester" class="form-select">
-                    <option value="">Select Semester</option>
-                    <% dropdownData.semesters.forEach(semester => { %>
-                      <option value="<%= semester.semester %>" <%= semester.semester === searchParams.semester ? 'selected' : '' %>><%= semester.semester %></option>
-                    <% }) %>
-                  </select>
-                </div>
-              </div>
-    
-              <!-- Search Button -->
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="text-end">
-                    <input type="submit" class="btn btn-primary" value="Search" style="background-color: #A60303; border-color: #A60303;">
-                </div>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-          
-        <% if (courses && courses.length > 0 && (searchParams.name || searchParams.field_of_study || searchParams.type || searchParams.academic_year || searchParams.semester)) { %>
-          <div class="container">      <div class="container">
-              <table class="table table-striped mt-4">
-                  <thead>
-                      <tr>
-                          <th>Name</th>
-                          <th>School</th>
-                          <th>Type</th>
-                          <th>Academic Year</th>
-                          <th>Semester</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <% courses.forEach(course => { %>
-                          <tr>
-                              <td><%= course.name %></td>
-                              <td><%= course.school %></td>
-                              <td><%= course.type %></td>
-                              <td><%= course.academic_year %></td>
-                              <td><%= course.semester %></td>
-                          </tr>
-                      <% }) %>
-                  </tbody>
-              </table>
+  <div class="container search-container">
+    <h1 class="text-center">Search Courses</h1>
+    <form action="/seesearch" method="GET">
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <p>Name Course</p>
+          <div class="input-group">
+            <input type="text" name="name" class="form-control" value="<%= searchParams.name %>"
+              placeholder="Search for a course">
           </div>
-          <% } else if (searchParams.name || searchParams.field_of_study || searchParams.type || searchParams.academic_year || searchParams.semester) { %>
-            <p>No courses found.</p>
-      <% } %>
-      
+        </div>
+
+        <div class="col-md-6 mb-2">
+          <p>School</p>
+          <select name="field_of_study" class="form-select">
+            <option value="">Select School</option>
+            <% dropdownData.field_of_studys.forEach(field_of_study=> { %>
+              <option value="<%= field_of_study.field_of_study %>"
+                <%=field_of_study.field_of_study===searchParams.field_of_study ? 'selected' : '' %>><%=
+                  field_of_study.field_of_study %>
+              </option>
+              <% }) %>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <p>Course Type</p>
+          <select name="type" class="form-select">
+            <option value="">Select Course Type</option>
+            <% dropdownData.types.forEach(type=> { %>
+              <option value="<%= type.type %>" <%=type.type===searchParams.type ? 'selected' : '' %>><%= type.type %>
+              </option>
+              <% }) %>
+          </select>
+        </div>
+
+        <div class="col-md-6 mb-2">
+          <p>Academic Year</p>
+          <select name="academic_year" class="form-select">
+            <option value="">Select Academic Year</option>
+            <% dropdownData.academicYears.forEach(year=> { %>
+              <option value="<%= year.academic_year %>" <%=year.academic_year===searchParams.academic_year ? 'selected'
+                : '' %>><%= year.academic_year %>
+              </option>
+              <% }) %>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <p>Semester</p>
+          <select name="semester" class="form-select">
+            <option value="">Select Semester</option>
+            <% dropdownData.semesters.forEach(semester=> { %>
+              <option value="<%= semester.semester %>" <%=semester.semester===searchParams.semester ? 'selected' : '' %>
+                ><%= semester.semester %>
+              </option>
+              <% }) %>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text-end">
+            <input type="submit" class="btn btn-primary" value="Search"
+              style="background-color: #A60303; border-color: #A60303;">
+          </div>
+        </div>
+      </div>
+  </div>
+  </form>
+  </div>
+
+  <% if (courses && courses.length> 0 && (searchParams.name || searchParams.field_of_study || searchParams.type ||
+    searchParams.academic_year || searchParams.semester)) { %>
+    <div class="container">
+      <div class="container">
+        <table class="table table-striped mt-4">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>School</th>
+              <th>Type</th>
+              <th>Academic Year</th>
+              <th>Semester</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% courses.forEach(course=> { %>
+              <tr>
+                <td>
+                  <%= course.name %>
+                </td>
+                <td>
+                  <%= course.school %>
+                </td>
+                <td>
+                  <%= course.type %>
+                </td>
+                <td>
+                  <%= course.academic_year %>
+                </td>
+                <td>
+                  <%= course.semester %>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% } else if (searchParams.name || searchParams.field_of_study || searchParams.type || searchParams.academic_year
+        || searchParams.semester) { %>
+        <p>No courses found.</p>
+        <% } %>
+
     </div>
 
 </body>

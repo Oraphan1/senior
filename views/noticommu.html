@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notification</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/navbar.css">
-    <link rel="stylesheet" href="../assets/css/page-layout.css">
-    <!-- <link rel="stylesheet" href="../assets/css/post.css"> -->
-    <link rel="stylesheet" href="../assets/css/noticommu.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital@1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script src="../assets/css/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../assets/lib/fusioncharts/js/fusioncharts.js"></script>
-    <script src="../assets/lib/fusioncharts/js/themes/fusioncharts.theme.fusion.js"></script>
-</head>
-<style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Notification</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/navbar.css">
+        <link rel="stylesheet" href="../assets/css/page-layout.css">
+        <!-- <link rel="stylesheet" href="../assets/css/post.css"> -->
+        <link rel="stylesheet" href="../assets/css/noticommu.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital@1&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <script src="../assets/css/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="../assets/lib/fusioncharts/js/fusioncharts.js"></script>
+        <script src="../assets/lib/fusioncharts/js/themes/fusioncharts.theme.fusion.js"></script>
+    </head>
+    <style>
     .img-profile {
         border-radius: 50%;
         width: 35px;
@@ -27,75 +26,86 @@
 
     .card {
         height: auto;
-        /* ทำให้ความสูงของการ์ดปรับตามเนื้อหา */
         padding: 15px;
-        /* เพิ่ม padding ให้เนื้อหาภายในการ์ด */
+
         margin-bottom: 15px;
-        /* เพิ่มช่องว่างระหว่างการ์ด */
+
         box-sizing: border-box;
-        /* ทำให้ padding ไม่ทำให้การ์ดขยายเกินขนาด */
+
     }
 
     .card h4 {
         margin-bottom: 10px;
-        /* ให้หัวข้อโพสต์มีช่องว่างจากข้อความด้านล่าง */
+
     }
 
     .card p {
         margin-bottom: 10px;
-        /* ให้ข้อความแต่ละบรรทัดมีช่องว่าง */
+
     }
 
     .card p:last-child {
         margin-bottom: 0;
-        /* กำหนดว่าเวลาไม่ต้องมีช่องว่างด้านล่าง */
+
     }
-</style>
-
-<body>
-    <div class="flex-row">
-        <div class="nav">
-            <div class="sidebar">
-                <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
-                <p class="text-center" style="color: #A60303">MFU</p>
-                <hr>
-                <li style="color: #A60303;">Student</li>
-                <li class="mt-5"> <a href="/dashboard"><i class="bi bi-bar-chart"></i></a> </li>
-                <li class="mt-4"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
-                <li class="mt-4"><a href="/search"><i class="bi bi-search"></i></a></li>
-                <li class="mt-4"><a href="/community"><i class="bi bi-chat"></i></a></li>
-                <li class="mt-4"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
-                <li class="mt-4"><a href="/notification"><i class="bi bi-bell"></i></a></li>
-                <li class="mt-4"><a href="/history"><i class="bi bi-pencil-square"></i></li>
-                <a class="btn" onclick="profile()">
-                    <div id="user-profile"></div>
-                </a>
-
-            </div>
-        </div>
-
-        <div class="container">
-            <h1 class="mt-5" style="color: #A60303;">Notification</h1>
-            <div class="container-fluid">
-                <!-- <div class="justi"> -->
-                    <!-- <div class="mt-5" id="shape1"> -->
-                        <!-- <a class="bubu" href="/noticommu">Community</a> -->
-                    <!-- </div> -->
-
+    </style>
+    <body>
+        <div class="flex-row">
+            <div class="nav">
+                <div class="sidebar">
+                    <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
+                    <p class="text-center" style="color: #A60303">MFU</p>
+                    <hr>
+                    <li style="color: #A60303;">Student</li>
+                    <li class="mt-5">
+                        <a href="/dashboard">
+                            <i class="bi bi-bar-chart"></i>
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="/listcourse">
+                            <i class="bi bi-map"></i>
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="/search">
+                            <i class="bi bi-search"></i>
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="/community">
+                            <i class="bi bi-chat"></i>
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="/bookmark">
+                            <i class="bi bi-star"></i>
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="/notification">
+                            <i class="bi bi-bell"></i>
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="/history">
+                            <i class="bi bi-pencil-square"></i>
+                        </li>
+                        <a class="btn" onclick="profile()">
+                            <div id="user-profile"></div>
+                        </a>
+                    </div>
                 </div>
-
-                <!-- Notifications will be dynamically inserted here -->
-                <div id="notifications-container"></div>
-
+                <div class="container">
+                    <h1 class="mt-5" style="color: #A60303;">Notification</h1>
+                    <div class="container-fluid"></div>
+                    <div id="notifications-container"></div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <script src="../assets/css/load-html.js"></script>
-
-    <script>
+        <script src="../assets/css/load-html.js"></script>
+        <script>
         $(document).ready(() => {
-            // Fetch user info from sessionStorage
             const userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
             console.log(userinfo);
             if (userinfo && userinfo.image) {
@@ -106,8 +116,6 @@
                 console.log("No user image available");
                 $('#user-profile').html(`<p>No profile image available.</p>`);
             }
-
-            // Fetch notifications
             fetchNotifications();
         });
 
@@ -127,7 +135,7 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data.notifications);  // ตรวจสอบว่า postid ถูกส่งมาใน data หรือไม่
+                    console.log(data.notifications);
                     displayNotifications(data.notifications);
                 })
                 .catch(error => {
@@ -136,29 +144,18 @@
                 });
         }
 
-
-        
-
-
-
-        // Display notifications on the page
        function displayNotifications(notifications) {
             const container = $('#notifications-container');
-            container.empty(); // Clear any existing content
+            container.empty();
 
             if (notifications.length === 0) {
                 container.append('<p>No notifications yet.</p>');
             } else {
                 notifications.forEach(notification => {
-                    // แปลงเวลาที่ดึงมาจากฐานข้อมูลให้เป็นรูปแบบที่เข้าใจง่าย
                     const formattedTime = new Date(notification.createdAt).toLocaleString();
-
-                    // ตรวจสอบว่าค่าเป็น undefined หรือไม่
                     const postTitle = notification.posttitle ? notification.posttitle : 'Comment ถูกลบ';
                     const commenter = notification.commenter ? `<p><strong>Commenter: </strong>${notification.commenter}</p>` : '';
                     const commentMessage = notification.message ? `<p><strong>Comment: </strong>${notification.message}</p>` : '<p>Comment ถูกลบ</p>';
-
-                    // หาก postid ไม่มีค่า หรือ postTitle เท่ากับ "Comment ถูกลบ" ให้ไม่สร้างลิงก์
                     const isDeletable = postTitle === 'Comment ถูกลบ' || !notification.postid;
 
                     const notificationCard = `
@@ -192,8 +189,6 @@
         function profile() {
             window.location.href = '/profile';
         }
-
-        // Handle logout
         function logout() {
             fetch('/logout', {
                 method: 'POST',
@@ -211,7 +206,6 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
-    </script>
-</body>
-
+        </script>
+    </body>
 </html>

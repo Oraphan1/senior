@@ -1,127 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script src="../assets/css/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/css/listcorus.css">
-    <link rel="stylesheet" href="/assets/css/navbar.css">
-
-
-
-    <title>List of courses</title>
-</head>
-
-<body>
-
-
-    <!---------------------------------- navi --------------------------------------------->
-    <div class="nav">
-        <div class="sidebar">
-
-            <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
-            <p class="text-center" style="color: #A60303">MFU</p>
-            <hr>
-            <li class="mt-5"> <a href="/db"><i class="bi bi-bar-chart"></i></a> </li>
-            <li class="mt-5"><a href="/listcourse"><i class="bi bi-map"></i></a></li>
-            <li class="mt-5"><a href="/search"><i class="bi bi-search"></i></a></li>
-            <li class="mt-5"><a href="/community"><i class="bi bi-chat"></i></a></li>
-            <li class="mt-5"><a href="/bookmark"><i class="bi bi-star"></i></a></li>
-            <li class="mt-5"><a href="/notification"><i class="bi bi-bell"></i></a></li>
-            <a href="/profile">
-                <img class="profile" src="/assets/images/Screenshot 2024-04-09 034908.png" width="51" height="48"
-                    alt="">
-            </a>
-
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <script src="../assets/css/bootstrap.bundle.min.js"></script>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        >
+        <link rel="stylesheet" href="../assets/css/listcorus.css">
+        <link rel="stylesheet" href="/assets/css/navbar.css">
+        <title>List of courses</title>
+    </head>
+    <body>
+        <div class="nav">
+            <div class="sidebar">
+                <img src="../assets/images/สัญลักษณ์ประจำมหาวิทยาลัยแม่ฟ้าหลวง.png" width="50,70">
+                <p class="text-center" style="color: #A60303">MFU</p>
+                <hr>
+                <li class="mt-5">
+                    <a href="/db">
+                        <i class="bi bi-bar-chart"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/listcourse">
+                        <i class="bi bi-map"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/search">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/community">
+                        <i class="bi bi-chat"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/bookmark">
+                        <i class="bi bi-star"></i>
+                    </a>
+                </li>
+                <li class="mt-5">
+                    <a href="/notification">
+                        <i class="bi bi-bell"></i>
+                    </a>
+                </li>
+                <a href="/profile">
+                    <img
+                        class="profile"
+                        src="/assets/images/Screenshot 2024-04-09 034908.png"
+                        width="51"
+                        height="48"
+                        alt=""
+                    >
+                </a>
+            </div>
         </div>
-
+        <div class="col">
+            <h1 class="head text-left" style="color: #A60303; ">Bookmark</h1>
+            <hr class="list">
+        </div>
+        <div class="col1">
+            <p class="mt mt-5">Free Elective Courses</p>
+            <table class="table  table-hover" id="mytable">
+                <thead>
+                    <tr class="table-secondary">
+                        <th>Courses</th>
+                        <th>Courses code</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dota 2</td>
+                        <td>11111</td>
+                        <td>5.0</td>
+                    </tr>
+                    <tr>
+                        <td>Home Remidies</td>
+                        <td>222222</td>
+                        <td>3.2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-
-    <!--------------------------------- head ---------------------------------------->
-    <div class="col">
-        <h1 class="head text-left" style="color: #A60303; ">Bookmark </h1>
-        <hr class="list">
-    </div>
-
-
-
-
-
-
-    <!-- ------------------------------------text --------------------------------------------------->
-
-    <div class="col1">
-        <p class="mt mt-5">Free Elective Courses</p>
-        <table class="table  table-hover" id="mytable">
-            <thead>
-                <tr class="table-secondary">
-                    <th>Courses</th>
-                    <th>Courses code</th>
-                    <th>Rating</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Dota 2</td>
-                    <td>11111</td>
-                    <td>5.0</td>
-                </tr>
-                <tr>
-                    <td>Home Remidies</td>
-                    <td>222222</td>
-                    <td>3.2</td>
-                </tr>
-            </tbody>
-        </table>
-
-
-    </div>
-
-
-    <!-- <div class="col2">
-        <p class="mt mt-5">Major Elective Courses</p>
-        <table class="table table-hover" id="mytable">
-            <thead>
-                <tr class="table-secondary">
-                    <th>Courses</th>
-                    <th>Courses code</th>
-                    <th>Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Dota 2</td>
-                    <td>11111</td>
-                    <td>5.0</td>
-                </tr>
-                <tr>
-                    <td>Home Remedies</td>
-                    <td>222222</td>
-                    <td>3.2</td>
-                </tr>
-                <tr>
-                    <td>Valorant</td>
-                    <td>33333</td>
-                    <td>4.9</td>
-                </tr>
-                <tr>
-                    <td>Popmart</td>
-                    <td>444444</td>
-                    <td>3.2</td>
-                </tr>
-            </tbody>
-        </table> -->
-    </div>
-
-
-
-
-
-
 </body>
-
 </html>
